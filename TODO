@@ -23,4 +23,4 @@ Enable adding and removing control element blocks:
 - Reflect combined keys in header controls
 - Implement single days with different repetition of headers
 - Implement single days with multi-days mixed in
-- Add date to document header's "Last Updated"
+✓ Add date to document header's "Last Updated"
