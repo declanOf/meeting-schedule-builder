@@ -1,0 +1,17 @@
+const repeatColumnNamesTemplate = `
+{{#if day}}
+<table class="meetings font-size-10-75pt" data-index="{{sectionIndex}}">
+    <tr class="section-title">{{day}}</tr>
+</table>
+{{/if}}
+<table class="meetings" data-index="{{sectionIndex}}">
+    <thead>
+        <tr>{{{columns}}}</tr>
+    </thead>
+    <tbody>
+        {{#each rows}}
+            {{{row}}}
+        {{/each}}
+    </tbody>
+</table>
+`;

@@ -1,0 +1,19 @@
+const repeatDayAndColumnNameTemplate = `
+<table class="meetings font-size-10-75pt" data-index="{{sectionIndex}}" data-dayIndex="{{dayIndex}}">
+    <thead>
+        {{#if day}}
+        <tr><th colspan="5" class="section-title">{{day}}</th></tr>
+        {{/if}}
+        <tr>
+            {{#each headers}}
+            <th class="{{key}} column-header" style="width: {{width}}">{{name}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each rows}}
+            {{{this}}}
+        {{/each}}
+    </tbody>
+</table>
+`;

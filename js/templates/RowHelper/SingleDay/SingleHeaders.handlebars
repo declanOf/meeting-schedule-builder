@@ -1,0 +1,15 @@
+const singleHeaders = `
+<table class="meetings font-size-10-75pt" data-index="{{sectionIndex}}">
+    {{#if day}}
+    <tr><th colspan="5" class="section-title">{{day}}</th></tr>
+    {{/if}}
+    <tr>{{{columns}}}</tr>
+</table>
+<table class="meetings font-size-10-75pt">
+    <tbody>
+        {{#each rows}}
+            {{{row}}}
+        {{/each}}
+    </tbody>
+</table>
+`;

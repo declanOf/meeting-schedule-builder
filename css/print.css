@@ -1,0 +1,28 @@
+@page {
+    size: portrait;
+}
+
+button {
+    display: none;
+}
+
+.dialog {
+    display: none;
+}
+
+footer {
+    position: static;
+    float: bottom;
+    bottom: 10px;
+    margin-top: 270px;
+}
+
+footer p {
+    text-align: center;
+    margin-bottom: 0;
+    margin-top:.5em
+}
+
+div#controls {
+    display: none;
+}

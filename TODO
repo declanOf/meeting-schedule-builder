@@ -1,0 +1,26 @@
+These changes are not ordered by priority or expected time consumption.
+
+- Get second Central Office meeting to show
+- Fix vertical spacing in document header elements
+✓ Fix title case of Central Office label in document header
+CONTROLS:
+- Enable font-size changes. (Attach to column widths?)
+- Fix tab block width. It resizes for the content of different tabs.
+Enable adding and removing control element blocks:
+-    Keys
+-    Filters
+-    String replacements
+-    Columns
+-    Sections
+- Add dialog for new or edited filters
+- Implement dialog in global and sections
+- Send data from different parts into a handler to transform it into a configuration.
+- Enable save of configuration
+- Add line-addition and line-removal of global string replacements
+✓ Fix array keys in days of columns
+- Allow font variation modification for header and for office title
+- Convert the displayed section numbering from zero-indexed to one-indexed in the controls section tab.
+- Reflect combined keys in header controls
+- Implement single days with different repetition of headers
+- Implement single days with multi-days mixed in
+- Add date to document header's "Last Updated"

@@ -1,0 +1,11 @@
+const headerTemplate = `
+<thead>
+    {{#each rows}}
+    <tr>
+        {{#each this}}
+        <th class="{{#ifEquals colspan 1}}column-header {{/ifEquals}}{{key}}" colspan="{{colspan}}" style="width: {{width}}">{{{value}}}</th>
+        {{/each}}
+    </tr>
+    {{/each}}
+</thead>
+`;

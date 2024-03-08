@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <!-- JQUERY & JQUERY UI -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+        <!-- HANDLEBARS -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+        <!-- SELECT2 -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+        <!-- CUSTOM CODE -->
+		<script type="text/javascript" src="./js/index.js"></script>
+        <script type="text/javascript" src="./js/Sections.js"></script>
+        <script type="text/javascript" src="./js/MeetingFilter.js"></script>
+        <script type="text/javascript" src="./js/lib/array-concat-unique.js"></script>
+        <script type="text/javascript" src="./js/lib/array-equals.js"></script>
+        <script type="text/javascript" src="./js/lib/array-intersect.js"></script>
+        <script type="text/javascript" src="./js/lib/apply-filters.js"></script>
+        <script type="text/javascript" src="./js/lib/handlebars-helpers.js"></script>
+        <script type="text/javascript" src="./js/lib/font-sizes.js"></script>
+        <script type="text/javascript" src="./js/sections/GenericBlockSection.js"></script>
+        <script type="text/javascript" src="./js/sections/GenericBlockSection/Filter.js"></script>
+        <script type="text/javascript" src="./js/sections/multi-day-candidates.js"></script>
+        <script type="text/javascript" src="./js/sections/MultiDaysSection.js"></script>
+        <script type="text/javascript" src="./js/sections/SingleDaysSection.js"></script>
+        <script type="text/javascript" src="./js/Configuration.js"></script>
+        <script type="text/javascript" src="./js/Meetings.js"></script>
+        <script type="text/javascript" src="./js/Controls.js"></script>
+        <script type="text/javascript" src="./js/DocumentHeader.js"></script>
+
+        <script type="text/javascript" src="./js/helpers/RowHelper.js"></script>
+
+        <script type="text/javascript" src="./js/templates/Filters.js"></script>
+        <script type="text/javascript" src="./js/templates/Filters.handlebars"></script>
+
+        <script type="text/javascript" src="./js/templates/RowHelper/Header.handlebars"></script>
+        <script type="text/javascript" src="./js/templates/RowHelper/Row.handlebars"></script>
+
+        <script type="text/javascript" src="./js/templates/RowHelper/SingleDay/RepeatColumnNames.handlebars"></script>
+        <script type="text/javascript" src="./js/templates/RowHelper/SingleDay/RepeatDayAndColumnName.handlebars"></script>
+        <script type="text/javascript" src="./js/templates/RowHelper/SingleDay/SingleHeaders.handlebars"></script>
+
+        <script type="text/javascript" src="./js/templates/SectionsControls.js"></script>
+        <script type="text/javascript" src="./js/templates/SectionsControls.handlebars"></script>
+
+        <script type="text/javascript" src="./js/templates/SectionControls.js"></script>
+        <script type="text/javascript" src="./js/templates/SectionControls.handlebars"></script>
+
+        <script type="text/javascript" src="./js/templates/Controls.handlebars"></script>
+        <script type="text/javascript" src="./js/templates/DocumentHeader.handlebars"></script>
+
+        <!-- PRINT STYLES -->
+        <link rel="stylesheet" href="./css/controls.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="./css/schedule.css" type="text/css">
+		<link rel="stylesheet" href="./css/screen.tiny.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="./css/print.css" type="text/css" media="print">
+
+        <link rel="stylesheet" href="./css/font-sizes.css" type="text/css">
+	</head>
+    <body>
+        <div id="controls">
+        </div>
+        <div class="page">
+        </div>
+    </body>
+</html>

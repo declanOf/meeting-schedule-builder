@@ -1,0 +1,114 @@
+const controlsTemplate = `
+<form id="controlsForm">
+    <div class="flex-container align-items-start hide">
+        <div class="col-12" style="display: flex; justify-content: space-between">
+            <div>&nbsp;</div>
+            <h2 class="text-center configuration-display">CONFIGURATION <span class="arrow down">&#9660;</span><span class="arrow up">&#9650;</span></h2>
+            <button class="align-end" style="float: right;">Save Changes</button>
+        </div>
+                    <ul>
+                <li><a href="#tab-1">Header & Footer</a></li>
+                <li><a href="#tab-2">Controls</a></li>
+                <li><a href="#tab-3">Sections</a></li>
+            </ul>
+
+        <div id="tab-1" class="col-11">
+            <div class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;"></div>
+            <div class="row col-12">
+                <p class="col-12 small-caps strong">Document Header <small>(small-caps)</small></p>
+                <input class="hover-light col-12" type="text" style="font-variant-caps: small-caps; font-size: 1.25em;" name="title" title="Document Title" placeholder="Document Title" value="{{ documentHeader.title }}">
+                <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
+                <div class="col-3">
+                    <div class="col-12 strong">Office Information</div>
+                    <input type="text" class="hover-light col-12" title="Office Title" placeholder="Office Title" name="documentHeader[officeTitle]" value="{{ documentHeader.officeTitle }}">
+                    <div class="col-12 hover-light">
+                        <input class="col-12" type="text" name="documentHeader[officeStreet]" title="Street Address" placeholder="Street Address" value="{{ documentHeader.officeStreet }}">
+                        <input class="col-6" type="text" name="documentHeader[officeCity]"    title="City"           placeholder="City"           value="{{ documentHeader.officeCity }}">
+                        <input class="col-2" type="text" name="documentHeader[officeState]"   title="State"          placeholder="State"          value="{{ documentHeader.officeState }}">
+                        <input class="col-3" type="text" name="documentHeader[officeZipCode]" title="ZIP Code"       placeholder="ZIP Code"       value="{{ documentHeader.officeZipcode }}">
+                    </div>
+                    <div><input type="text" class="hover-light" placeholder="Office Phone" title="Office Phone" name="documentHeader[officePhone]" value="{{ documentHeader.officePhone }}"></div>
+                    <div>Hours<textarea class="hover-light col-12" title="Office Hours" style="height:74px; overflow-y: scroll; resize: none;" name="documentHeader[officeHours]">{{#replace "<br>" "\n"}}{{{documentHeader.officeHours}}}{{/replace}}</textarea></div>
+                </div>
+                <div class="col-3">
+                    <div class="row strong">Header Text</div>
+                    <div class="row"><input type="text" class="hover-light" title="Last Updated" placeholder="Last Updated" name="documentHeader[lastUpdated]" value="{{ documentHeader.lastUpdated }}"></div>
+                    <div class="row"><input type="text" class="hover-light" title="In Person Text" placeholder="In-Person Meetings Only" name="documentHeader[inPerson]" value="{{ documentHeader.inPerson }}"></div>
+                    <div class="row"><input type="text" class="hover-light" name="documentHeader[website]" title="Website" placeholder="Website" value="{{ documentHeader.website }}"></div>
+                    <div class="row"><input type="text" class="hover-light" name="documentHeader[officeUrl]" title="DIsplay URL" placeholder="Display URL" value="{{ documentHeader.displayUrl }}"></div>
+                </div>
+                <div class="col-6">
+                    <div class="row strong">
+                        <div class="col-1">&nbsp;</div>
+                        <div class="col-1-5 text-end">Key</div>
+                        <div class="col-1-5 text-center">Display</div>
+                        <div class="col-4">Description</div>
+                        <div class="col-4">Combine With</div>
+                    </div>
+                    {{#each controlTypes}}
+                    <div class="row" draggable="true">
+                        <button class="col-1 borderless strong">&#8998;</button>
+                        <div class="col-1-5 text-end">{{key}}</div>
+                        <input class="col-1-5 text-center" type="text" name="keys[{{key}}][symbol]" value="{{displaySymbol}}">
+                        <input class="col-4" type="text" name="keys[{{key}}][description]" value="{{description}}">
+                        <select class="col-4" name="keys[{{key}}][withableKey]">
+                            <option>None</option>
+                            {{#each withableTypes}}
+                            <option value="{{@key}}">{{displaySymbol}}: {{description}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
+            <p class="col-12 small-caps strong">Document Footer</p>
+            <textarea class="hover-light col-12" title="Document Footer" placeholder="Document Footer Text" style="height:74px; overflow-y: scroll; resize: none;" name="documentFooter">{{#replace "<br>" "\n"}}{{{ documentFooter }}}{{/replace}}</textarea>
+        </div>
+        <div id="tab-2" class="col-11">
+            <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
+            <div class="col-7">
+                <span class="col-1-5 strong">Data Source</span>
+                <input type="text" class="col-9 hover-light" title="Data Source: please ask your central office IT or web chair for this URL" placeholder="Data Source" name="sourceUrl" value="{{ sourceUrl }}">
+            </div>
+            <div class="col-2-5">
+                <span style="padding-right: 10px" class="strong">Expiration Hours</span><input type="number" class="hover-light col-3" title="Data Expiration (hours). Lower htis number to keep data fresher, and raise it back up to give your server a rest." name="expiryHours" value="{{ expiryHours }}">
+            </div>
+            <div class="col-2-5 align-end">
+                    <span style="padding-right: 5px;" class="strong">Standard row text size</span>
+                    <select class="col-6" title="Print Size" name="printSize">
+                        {{#each fontSizes}}
+                        <option {{#ifEquals ../printSize cssKey}}SELECTED="SELECTED"{{/ifEquals}} value="{{cssKey}}">{{label}}</option>
+                        {{/each}}
+                    </select>
+            </div>
+            <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
+            <div class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">
+                {{{filtersContent}}}
+                <div class="col-6 header-text-replacements">
+                    <span class="small-caps strong col-8">Global Replacements: <button class="borderless strong">+</button></span>
+                    {{#each addressStringReplacements}}
+                    <p class="hover-light"><button class="borderless">&#8998;</button> In address, replace <input type="text" name="addressReplaceValues[]" value="{{replaceValue}}"> with <input type="text" name="addressWithValues[]" value="{{withValue}}"></p>
+                    {{/each}}
+                    {{#each nameStringReplacements}}
+                    <p class="hover-light"><button class="borderless">&#8998;</button> In name, replace <input type="text" name="nameReplaceValues[]" value="{{replaceValue}}"> with <input type="text" name="nameWithValues[]" value="{{withValue}}"></p>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div id="tab-3" class="col-11">
+            <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
+            <div class="sections-controls-container">
+                {{{sectionsControlsContent}}}
+            </div>
+        </div>
+    </div>
+</form>
+<div id="template-section" class="section-controls" style="display: none">
+    <table>
+        <tbody>
+            {{>sectionControls}}
+        </tbody>
+    </table>
+</div>
+`;

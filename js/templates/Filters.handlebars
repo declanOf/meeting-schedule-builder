@@ -1,0 +1,10 @@
+const filtersTemplate = `
+    <div class="filter-row-{{uuid}} col-6">
+        <div class="col-12"><span class="strong">Filters </span><button class="add-filter hover-light borderless strong">+</button></div>
+        <div class="col-12">
+            {{#each filterList}}
+            <div class="col-12 hover-light" data-id="{{type}}-{{key}}-{{idx}}"><button class="edit-filter borderless">&#128462;</button> <button class="remove-filter borderless">&#8998;</button> {{type}} groups with {{key}} including "{{item}}" </div>
+            {{/each}}
+        </div>
+    </div>
+`;

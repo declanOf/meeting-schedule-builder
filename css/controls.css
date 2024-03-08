@@ -1,0 +1,135 @@
+div#controls *
+{
+    font-size: 11pt;
+    vertical-align: top;
+    background-color: inherit;
+
+    font-family: Tahoma !important;
+}
+
+div#controls > *
+{
+    background-color: #EEE;
+}
+
+.small-caps {
+    font-variant-caps: small-caps;
+}
+
+div#controls p
+{
+    margin-block-start: .5em;
+    margin-block-end: .5em;
+}
+
+.flex-container {
+    position: fixed;
+    top: 0;
+    bottom: 0px;
+    margin-bottom: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+
+    overflow-y: scroll;
+    z-index: 100;
+
+    min-width: 1180px;
+    border-right: 1px solid #888;
+    border-left: 1px solid #888;
+}
+
+.flex-container.show {
+    border-bottom: 1px solid #888;
+}
+
+.flex-container.hide {
+    height: 2em;
+    overflow: hidden;
+}
+
+.flex-container.hide .arrow.up {
+    display: none;
+}
+
+.flex-container.show .arrow.down {
+    display:none;
+}
+
+.strong,
+.strong > * {
+    font-weight: 700;
+}
+
+div#controls input[type="text"]
+{
+    border: none;
+    border-bottom: 1px solid #888;
+}
+
+div#controls .hover-light:hover
+{
+    background-color: white;
+}
+
+div#controls div.header-address-text-replacements
+{
+
+}
+
+div#controls > form > table > tbody > tr > th
+{
+    width: 200px;
+}
+
+div#controls table tr th
+{
+    vertical-align: top;
+    text-align: right;
+}
+
+.col-0-5 { width: 4.16667; }
+.col-1-5 { width: 12.5%; }
+.col-2-5 { width: 20.83333%; }
+.col-3-5 { width: 29.16667%; }
+.col-4-5 { width: 37.5%; }
+.col-5-5 { width: 45.83333%; }
+.col-6-5 { width: 54.16667%; }
+.col-7-5 { width: 62.5%; }
+.col-8-5 { width: 70.83333%; }
+.col-9-5 { width: 79.16667%; }
+.col-10-5 { width: 87.5%; }
+.col-11-5 { width: 95.8333%; }
+
+.borderless
+{
+    border: none;
+}
+
+div.section.expanded div.section-details{
+    display: block;
+}
+
+div.section.collapsed div.section-details {
+    display: none;
+}
+
+div.section.collapsed span.collapse-section {
+    display: none;
+}
+
+div.section.expanded span.expand-section {
+    display: none;
+}
+
+div.header-text-replacements input[type="text"] {
+    width: 150px;
+}
+
+ul.ui-tabs-nav li.ui-tabs-tab.ui-state-default a.ui-tabs-anchor {
+    color: #454545;
+}
+
+ul.ui-tabs-nav li.ui-tabs-tab.ui-state-active a.ui-tabs-anchor {
+    color: #454545;
+    font-weight: 700;
+}

@@ -1,0 +1,68 @@
+const documentHeaderTemplate = `<table class="header">
+<thead>
+    <tr>
+        <th class="main_title font-size-30pt" colspan="3">{{documentHeader.title}}</th>
+    </tr>
+    <tr>
+        <th class="main_title_3 font-size-10-50pt">
+            {{#ifNotEmptyOrWhitespace documentHeader.officeTitle}}
+            <p class="office-title">{{documentHeader.officeTitle}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+
+            {{#ifNotEmptyOrWhitespace documentHeader.officeStreet}}
+            <p>{{documentHeader.officeStreet}}<br>{{documentHeader.officeCity}}, {{documentHeader.officeState}} {{documentHheader.officeZipcode}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+
+            {{#ifNotEmptyOrWhitespace documentHeader.officePhone}}
+            <p>{{documentHeader.officePhone}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+
+            {{#ifNotEmptyOrWhitespace documentHeader.officeHours}}
+            <p>{{{documentHeader.officeHours}}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+
+            {{#ifNotEmptyOrWhitespace documentHeader.holidayHours}}
+            <p>{{documentHeader.holidayHours}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+        </th>
+        <th class="main_title_2 font-size-10-50pt">
+            {{#ifNotEmptyOrWhitespace documentHeader.lastUpdated}}
+                <p>{{documentHeader.lastUpdated}}: {{dateString}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+
+            {{#ifNotEmptyOrWhitespace documentHeader.inPerson}}
+                <p>{{documentHeader.inPerson}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+
+            {{#ifNotEmptyOrWhitespace documentHeader.website}}
+                <p>{{documentHeader.website}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+
+            {{#ifNotEmptyOrWhitespace documentHeader.displayUrl}}
+                <p>{{documentHeader.displayUrl}}</p>
+            {{/ifNotEmptyOrWhitespace}}
+        </th>
+        <th class="main_title_3 font-size-10-50pt">
+            <table class="keys">
+                <tbody>
+                {{#each types}}
+                    {{#if withSymbol}}
+                        <tr>
+                            <th>{{symbol}}:</th>
+                            <td>{{description}} |
+                                <strong>{{withSymbol}}</strong>: {{withDescription}}
+                            </td>
+                        </tr>
+                    {{else}}
+                        <tr>
+                            <th>{{symbol}}:</th>
+                            <td>{{description}}</td>
+                        </tr>
+                    {{/if}}
+                {{/each}}
+                </tbody>
+            </table>
+        </th>
+    </tr>
+</thead>
+</table>`;
