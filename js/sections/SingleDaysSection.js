@@ -9,7 +9,7 @@ class SingleDaysSection extends GenericBlockSection
 
     constructor(meetings, section, configuration, sectionIndex)
     {
-        super(meetings, section, sectionIndex);
+        super(meetings, section, sectionIndex, configuration);
 
         this.#configuration = configuration;
     }
@@ -72,6 +72,8 @@ class SingleDaysSection extends GenericBlockSection
             return {"key": column.source, "name": column.title, "width": column.width};
         });
 
+        data[1] = data[1].sort((a, b) => parseInt(a[1].time.replace(":", "")) - parseInt(b[1].time.replace(":", "")));
+
         Object.entries(data[1]).forEach((entry) => {
             const rowKey = entry[1][0];
             const meeting = entry[1][1];
@@ -98,7 +100,14 @@ class SingleDaysSection extends GenericBlockSection
             rows.push(rowTemplateEngine(row));
         });
 
-        let handlebarsData = {"day": dayName, "headers": headers, "rows": rows, "sectionIndex": this.sectionIndex, "dayIndex": index};
+        const handlebarsData = {
+            "meetingFontSize": this.#configuration.settings.meetingFontSize,
+            "day": dayName,
+            "headers": headers,
+            "rows": rows,
+            "sectionIndex": this.sectionIndex,
+            "dayIndex": index
+        };
 
         content = controlsTemplateEngine(handlebarsData);
 

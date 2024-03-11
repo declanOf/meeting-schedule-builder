@@ -100,7 +100,7 @@ class Controls
             "expiryHours"              : this.#configuration.settings.expiryHours,
             "sourceUrl"                : this.#configuration.settings.sourceUrl,
             "addressStringReplacements": this.#configuration.settings.addressStringReplacements,
-            "printSize"                : this.#configuration.settings.printSize,
+            "meetingFontSize"          : this.#configuration.settings.meetingFontSize,
             "controlTypes"             : this.#controlTypes,
             "sectionsControlsContent"  : sectionsControls.render(),
             "filtersContent"           : filters.render(),

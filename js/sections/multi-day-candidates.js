@@ -12,22 +12,22 @@ class MultiDayCandidates
 
     /**
      * Get string representing the days of the meeting
-     * 
+     *
      * @param  array
      * @return string
      */
     #getDaysFromMultipleMeetings(meetings)
     {
         /**
-          * 
-          * @param {*} dayIndex 
-          * @returns 
+          *
+          * @param {*} dayIndex
+          * @returns
           */
         const getDayLabel = function(dayIndex)
         {
             const dayLabels = ['Su', 'M', 'T', 'W', 'Th', 'F', 'S']
 
-            return dayLabels[dayIndex];				
+            return dayLabels[dayIndex];
         }
 
         if (meetings.length === 1) {
@@ -61,7 +61,7 @@ class MultiDayCandidates
     {
         this.meetings.forEach((meeting) => {
             let groupIdTime = `${meeting.time} ${meeting.group_id}`;
-    
+
             if (meeting.types) {
                 if (meeting.types.find((elem) => elem === 'M')) {
                     groupIdTime += "M";
@@ -98,7 +98,7 @@ class MultiDayCandidates
                 candidate.forEach((item, index) => {
                     item.dayType = "single-multi";
                     item.day = daysOfTheWeek[item.day]
-			
+
                     this.mixedDays[key + "_" + index] = item;
                 });
             }
@@ -165,8 +165,8 @@ class MultiDayCandidates
     }
 
     /**
-     * Get meetings for each day of the week, 
-     * including multi-day meetings for their 
+     * Get meetings for each day of the week,
+     * including multi-day meetings for their
      * individual day listings
      */
     get mixedFullDays()
@@ -176,10 +176,9 @@ class MultiDayCandidates
         Object
             .entries(this.mixedDays)
             .map((entry) => {
-                if (entry[1].dayType === "single" || entry[1].dayType === "multi") {
+                if (entry[1].dayType === "single" || entry[1].dayType === "single-multi") {
                     filtered[entry[0]] = entry[1];
                 }
-
         });
 
         return filtered;

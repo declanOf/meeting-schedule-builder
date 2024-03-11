@@ -45,12 +45,10 @@ class MeetingFilter
     {
         if (typeof(this.inclusions) === "object") {
             if ("districts" in this.inclusions && Array.isArray(this.inclusions.districts)) {
-                console.log('including districts', this.inclusions.districts);
                 this.meetings = this.meetings.filter((meeting) => this.inclusions.districts.indexOf(meeting.district_id) !== -1);
             }
 
             if ("groups" in this.inclusions && Array.isArray(this.inclusions.groups)) {
-                console.log('including groups', this.inclusions.groups);
                 this.meetings = this.meetings.filter((meeting) => this.inclusions.groups.indexOf(meeting.group_id) !== -1);
             }
 

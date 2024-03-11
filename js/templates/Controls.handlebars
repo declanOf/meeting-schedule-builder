@@ -20,7 +20,7 @@ const controlsTemplate = `
                 <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
                 <div class="col-3">
                     <div class="col-12 strong">Office Information</div>
-                    <input type="text" class="hover-light col-12" title="Office Title" placeholder="Office Title" name="documentHeader[officeTitle]" value="{{ documentHeader.officeTitle }}">
+                    <textarea class="hover-light col-12" title="Office Title" placeholder="Office Title" name="documentHeader[officeTitle]">{{ documentHeader.officeTitle }}</textarea>
                     <div class="col-12 hover-light">
                         <input class="col-12" type="text" name="documentHeader[officeStreet]" title="Street Address" placeholder="Street Address" value="{{ documentHeader.officeStreet }}">
                         <input class="col-6" type="text" name="documentHeader[officeCity]"    title="City"           placeholder="City"           value="{{ documentHeader.officeCity }}">
@@ -76,7 +76,7 @@ const controlsTemplate = `
             </div>
             <div class="col-2-5 align-end">
                     <span style="padding-right: 5px;" class="strong">Standard row text size</span>
-                    <select class="col-6" title="Print Size" name="printSize">
+                    <select class="col-6" title="Print Size" name="meetingFontSize">
                         {{#each fontSizes}}
                         <option {{#ifEquals ../printSize cssKey}}SELECTED="SELECTED"{{/ifEquals}} value="{{cssKey}}">{{label}}</option>
                         {{/each}}

@@ -1,6 +1,6 @@
 class Meetings {
     #configuration;
-    
+
     #lastUpdate;
 
     #meetings;
@@ -10,12 +10,12 @@ class Meetings {
     #groups;
 
     #regions;
-    
+
     #districts;
-    
+
     #types;
 
-    constructor(Configuration, ready) 
+    constructor(Configuration, ready)
     {
         this.#configuration = Configuration;
 
@@ -40,7 +40,7 @@ class Meetings {
             return;
         }
 
-        console.log("Loading from local storage");
+        console.info("Loading from local storage");
 
         try {
             this.#rawMeetings = this.meetings = JSON.parse(localStorage.getItem('rawMeetings'));
@@ -54,7 +54,7 @@ class Meetings {
             this.#types = JSON.parse(localStorage.getItem("types"));
         } catch (e) {
             this.#rawMeetings = false;
-            
+
             this.#refresh(ready);
         }
     };
@@ -88,7 +88,7 @@ class Meetings {
     #refresh(ready)
     {
         jQuery.get({url: this.#configuration.settings.sourceUrl})
-            .done((response) => { 
+            .done((response) => {
                 this.#saveTimestamp();
 
                 localStorage.setItem("rawMeetings", JSON.stringify(response));
@@ -99,7 +99,7 @@ class Meetings {
                 this.#populateRegions();
                 this.#populateDistricts();
                 this.#populateTypes();
-        
+
                 ready();
             });
     }
@@ -108,7 +108,7 @@ class Meetings {
     {
         let groups = [];
 
-        this.#rawMeetings.map((meeting) => { 
+        this.#rawMeetings.map((meeting) => {
             groups.push({
                 "group_id": meeting.group_id,
                 "group": meeting.group
@@ -125,7 +125,7 @@ class Meetings {
     {
         let regions = [];
 
-        this.#rawMeetings.map((meeting) => { 
+        this.#rawMeetings.map((meeting) => {
             regions.push({
                 "region_id": meeting.region_id,
                 "region": meeting.region
@@ -142,12 +142,12 @@ class Meetings {
     {
         let districts = [];
 
-        this.#rawMeetings.map((meeting) => { 
+        this.#rawMeetings.map((meeting) => {
             districts.push({
                 "district_id": meeting.district_id,
                 "district": meeting.district
             });
-        
+
         });
 
         districts = this.#filterUnique(districts, "district", "district_id")
@@ -161,10 +161,10 @@ class Meetings {
         let types = [];
 
         this.#rawMeetings.map(
-            (meeting) => { 
+            (meeting) => {
                 if (Array.isArray(meeting.types)) {
                     meeting.types.map(
-                        (type) => { 
+                        (type) => {
                             if (-1 === types.indexOf(type)) {
                                 types.push(type)
                             }
@@ -182,18 +182,18 @@ class Meetings {
     #filterUnique(data, label, id)
     {
         var results = [];
-        
+
         data.filter(function(item){
             if (item[id] === undefined || item[label] === undefined) {
                 return null;
             }
-            
+
             var i = results.findIndex(x => (x[id] == item[id] && x[label] == item[label]));
-            
+
             if (i <= -1) {
                 results.push(item);
             }
-        
+
             return null;
         });
 
@@ -239,7 +239,7 @@ class Meetings {
 
         return this.#types;
     }
-    
+
     get rawMeetings()
     {
         return this.#rawMeetings;

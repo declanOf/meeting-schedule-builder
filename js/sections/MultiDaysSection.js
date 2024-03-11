@@ -2,9 +2,9 @@ class MultiDaysSection extends GenericBlockSection
 {
     #multiDays;
 
-    constructor (meetings, section, sectionIndex)
+    constructor (meetings, section, sectionIndex, configuration)
     {
-        super(meetings, section, sectionIndex);
+        super(meetings, section, sectionIndex, configuration);
 
         this.#multiDays = this.meetings;
 

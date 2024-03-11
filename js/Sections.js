@@ -18,19 +18,23 @@ class Sections
         this.#sections = [];
 
         this.#configuration.settings.sections.forEach((section, index) => {
+            if (!section.display) {
+                return;
+            }
+
             switch (section.type) {
                 case 'generic':
                 case 'service':
                 case 'spanish':
-                    this.#sections.push(new GenericBlockSection(this.#getMultiDayCandidates().singleInclusiveDays, section, index));
+                    this.#sections.push(new GenericBlockSection(this.#getMultiDayCandidates().singleInclusiveDays, section, index, this.#configuration));
                 break;
 
                 case 'multi-days':
-                    this.#sections.push(new MultiDaysSection(this.#getMultiDayCandidates().multiDays, section, index));
+                    this.#sections.push(new MultiDaysSection(this.#getMultiDayCandidates().multiDays, section, index, this.#configuration));
                 break;
 
                 case 'single-days':
-                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleExclusiveDays, section, this.#configuration, index));
+                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().mixedFullDays, section, this.#configuration, index));
                 break;
             }
         });

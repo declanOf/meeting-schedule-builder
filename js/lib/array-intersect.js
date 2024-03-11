@@ -1,6 +1,6 @@
 
 if (Array.prototype.intersect) {
-    console.log("Overriding existing Array.prototype.intersect.");
+    console.info("Overriding existing Array.prototype.intersect.");
 }
 
 Array.prototype.intersect = function(array) {

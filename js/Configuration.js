@@ -58,7 +58,7 @@ class Configuration {
     #defaultSettings = {
         "sourceUrl": "https://www.saltlakeaa.org/wp-admin/admin-ajax.php?action=meetings",
         "expiryHours": 24,
-        "printSize": "font-size-10-75pt",
+        "meetingFontSize": "font-size-10-75pt",
         "documentHeader": {
             "title": "AA Meeting Schedule",
             "officeTitle": "Central Office of Salt Lake City",
@@ -131,6 +131,7 @@ class Configuration {
                 "title": "Multi-Day Meetings",
                 "type": "multi-days",
                 "source": "multiDays",
+                "display": true,
                 "filter": {
                     "exclude": {
                         "districts": null,
@@ -173,6 +174,7 @@ class Configuration {
                 "title": null,
                 "source": "singleDays",
                 "type": "single-days",
+                "display": true,
                 "filter": {
                     "exclude": {
                         "districts": null,
@@ -226,6 +228,7 @@ class Configuration {
             {
                 "type": "generic",
                 "source": "mixedDays",
+                "display": true,
                 "title": "General Service and Central Office",
                 "columns": ["time", "name", "locationAddress", "types", ],
                 "filter": {
@@ -264,6 +267,7 @@ class Configuration {
             {
                 "type": "generic",
                 "source": "mixedDays",
+                "display": true,
                 "title": "Espa&ntilde;ol",
                 "filter": {
                     "include": {

@@ -8,7 +8,9 @@ class GenericBlockSection
 
     #sectionIndex;
 
-    constructor(meetings, section, sectionIndex)
+    #configuration;
+
+    constructor(meetings, section, sectionIndex, configuration)
     {
         this.#meetings = meetings;
 
@@ -17,6 +19,8 @@ class GenericBlockSection
         this.#sectionIndex = sectionIndex;
 
         this.#meetings = GenericBlockSection_Filter.filter(this.#meetings, this.#section);
+
+        this.#configuration = configuration;
     }
 
     get section()
@@ -41,7 +45,7 @@ class GenericBlockSection
 
     render()
     {
-        return `<table class="meetings font-size-10-75pt" data-index="${this.sectionIndex}">${this.displayFriendlyRows}</table>`;
+        return `<table class="meetings ${this.#configuration.settings.meetingFontSize}" data-index="${this.sectionIndex}">${this.displayFriendlyRows}</table>`;
     }
 
     get displayFriendlyRows()
