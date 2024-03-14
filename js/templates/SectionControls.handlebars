@@ -2,14 +2,14 @@ var sectionControlsTemplate = `
 <div class="section collapsed">
     <div class="col-12">
         <span class="col-2 strong">Section {{sectionKey}}: </span>
-        <input class="col-8" type="text" name="sections[{{sectionKey}}][title]" placeholder="No title" value="{{section.title}}">
+        <input class="col-8" type="text" name="sections.{{sectionKey}}.title." placeholder="No title" value="{{section.title}}">
         <span class="col-2 expand-section">&or;</span>
         <span class="col-2 collapse-section">&and;</span>
     </div>
     <div class="section-details col-12">
         <div class="row section-type">
             <div class="col-1">Type</div>
-            <select class="col-8" name="sections[{{sectionKey}}][type]">
+            <select class="col-8" name="sections.{{sectionKey}}.type">
                 <option>Generic (service, language, etc)</option>
                 <option>Multi-days</option>
                 <option>Single-days</option>
@@ -25,22 +25,22 @@ var sectionControlsTemplate = `
                     {{#each this}}
                         <div class="column-holder col-2">
                             <p>COLUMN</p>
-                            <select name="sections[{{../../sectionKey}}][days][{{dayKey}}][columns][{{@key}}][{{source}}][source]">
+                            <select name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.{{source}}.source">
                                 <option value="{{source}}">{{source}}</option>
                             </select>
-                            <input name="sections[{{../../sectionKey}}][days][{{dayKey}}][columns][{{@key}}][{{source}}][title]" type="text" style="width: 65px" value="{{title}}">
-                            <input name="sections[{{../../sectionKey}}][days][{{dayKey}}][columns][{{@key}}][{{source}}][width]" type="text" style="width:50px" value="{{width}}">
+                            <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.{{source}}.title" type="text" style="width: 65px" value="{{title}}">
+                            <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.{{source}}.width" type="text" style="width:50px" value="{{width}}">
                         </div>
                     {{/each}}
                     </div>
                     {{else}}
                         <div class="column-holder col-2">
                             <p>COLUMN</p>
-                            <select name="sections[{{../sectionKey}}][columns][{{@key}}][{{source}}][source]">
+                            <select name="sections.{{../sectionKey}}.columns.{{@key}}.{{source}}.source.">
                                 <option value="{{source}}">{{source}}</option>
                             </select>
-                            <input name="sections[{{../sectionKey}}][columns][{{@key}}][{{source}}][title]" type="text" style="width: 65px" value="{{../title}}">
-                            <input name="sections[{{../sectionKey}}][columns][{{@key}}][{{source}}][width]" type="text" style="width:50px" value="{{width}}">
+                            <input name="sections.{{../sectionKey}}.columns.{{@key}}.{{source}}.title" type="text" style="width: 65px" value="{{../title}}">
+                            <input name="sections.{{../sectionKey}}.columns.{{@key}}.{{source}}.width" type="text" style="width:50px" value="{{width}}">
                         </div>
                     {{/if}}
                 {{/each}}

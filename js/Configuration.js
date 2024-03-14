@@ -55,6 +55,59 @@ class Configuration {
         }
     }
 
+    saveChanges() {
+        function reserialize(flatArray) {
+            var data = {};
+            flatArray.forEach((element) => {
+                let val = element.value;
+
+                if (!val) {
+                    val = "";
+                }
+
+                let fullName = element.name;
+
+                if (!fullName) {
+                    return;
+                }
+
+                let fullNameParts = fullName.split('.');
+
+                let prefix = '';
+
+                let stack = data;
+
+                for (let k = 0; k < fullNameParts.length - 1; k++) {
+                    prefix = fullNameParts[k];
+
+                    if (!stack[prefix]) {
+                        stack[prefix] = {};
+                    }
+
+                    stack = stack[prefix];
+                }
+
+                prefix = fullNameParts[fullNameParts.length - 1];
+
+                if (stack[prefix]) {
+                    stack[prefix] += newVal = stack[prefix] + ',' + val;
+                } else {
+                    stack[prefix] = val;
+                }
+            });
+
+            return data;
+        }
+
+        const formData = Object.entries($("form#controlsForm").serializeArray()).pluck(1);
+
+        const nestedData = reserialize(formData);
+
+        debugger;
+        // TODO: Apply data to configuration
+        console.log(nestedData);
+    }
+
     #defaultSettings = {
         "sourceUrl": "https://www.saltlakeaa.org/wp-admin/admin-ajax.php?action=meetings",
         "expiryHours": 24,
