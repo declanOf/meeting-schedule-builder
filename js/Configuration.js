@@ -357,7 +357,7 @@ class Configuration {
                 ],
             }
         ],
-        "addressStringReplacements": [
+        "addressReplacements": [
             { "replaceValue": "Salt Lake City", "withValue": "SLC" },
             { "replaceValue": "West Valley City", "withValue": "WVC" },
             { "replaceValue": ", UT [0-9][0-9][0-9][0-9][0-9], USA", "withValue": ""},

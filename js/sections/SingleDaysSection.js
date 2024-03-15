@@ -122,7 +122,7 @@ class SingleDaysSection extends GenericBlockSection
 
         let location = meeting['location'];
 
-        this.#configuration.settings.addressStringReplacements.forEach((replacement) => {
+        this.#configuration.settings.addressReplacements.forEach((replacement) => {
             address = address.replace(new RegExp(replacement.replaceValue), replacement.withValue);
 
             location = location.replace(new RegExp(replacement.replaceValue), replacement.withValue);
@@ -139,7 +139,7 @@ class SingleDaysSection extends GenericBlockSection
 
     #getFormattedName(name)
     {
-        this.#configuration.settings.nameStringReplacements.forEach((replacement) => {
+        this.#configuration.settings.nameReplacements.forEach((replacement) => {
             name = name.replace(new RegExp(replacement.replaceValue), replacement.withValue);
         });
 

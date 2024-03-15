@@ -99,7 +99,7 @@ class Controls
             "documentFooter"           : this.#configuration.settings.documentFooter,
             "expiryHours"              : this.#configuration.settings.expiryHours,
             "sourceUrl"                : this.#configuration.settings.sourceUrl,
-            "addressStringReplacements": this.#configuration.settings.addressStringReplacements,
+            "addressReplacements":      this.#configuration.settings.addressReplacements,
             "meetingFontSize"          : this.#configuration.settings.meetingFontSize,
             "controlTypes"             : this.#controlTypes,
             "sectionsControlsContent"  : sectionsControls.render(),
