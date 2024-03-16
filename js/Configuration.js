@@ -2,7 +2,7 @@ class Configuration {
     #settings;
 
     constructor() {
-        this.#loadSettings();
+        // this.#loadSettings();
 
         if (!this.#settings) {
             this.#initialize();
@@ -39,7 +39,7 @@ class Configuration {
         const dayIndex = tableData.dayIndex;
         const columnSizes = tableData.columnSizes;
 
-        let columns = this.#settings.sections[sectionIndex].newColumns;
+        let columns = this.#settings.sections[sectionIndex].columns;
 
         if (!isNaN(dayIndex)) {
             columns = columns[dayIndex];
@@ -49,9 +49,9 @@ class Configuration {
 
         if (!isNaN(dayIndex))
         {
-            this.#settings.sections[sectionIndex].newColumns[dayIndex] = columns;
+            this.#settings.sections[sectionIndex].columns[dayIndex] = columns;
         } else {
-            this.#settings.sections[sectionIndex].newColumns = columns;
+            this.#settings.sections[sectionIndex].columns = columns;
         }
     }
 
@@ -103,9 +103,32 @@ class Configuration {
 
         const nestedData = reserialize(formData);
 
-        debugger;
-        // TODO: Apply data to configuration
-        console.log(nestedData);
+        const convertObjectToArray = (targetObject) => {
+            if (typeof targetObject !== "object" || Array.isArray(targetObject)) {
+                return targetObject;
+            }
+
+            let keys = Object.keys(targetObject);
+
+            let numericalKeys = keys.filter((elem) => parseInt(elem) == elem);
+
+            // deal with strange formatting anomaly
+            if (keys.length === 1 && keys[0] === "") {
+                return Object.values(targetObject)[0];
+            }
+
+            keys.forEach((key) => {
+                targetObject[key] = convertObjectToArray(targetObject[key]);
+            });
+
+            if (numericalKeys.length === keys.length) {
+                targetObject = Object.values(targetObject);
+            }
+
+            return targetObject;
+        }
+
+        return convertObjectToArray(nestedData);
     }
 
     #defaultSettings = {
@@ -194,8 +217,7 @@ class Configuration {
                     }
                 },
                 "showTypes": ["+", "M", "W", "C", "@", "S", "Y", ],
-                "columns": ["time", "name", "locationAddress", "days", "types", ],
-                "newColumns": [
+                "columns": [
                     {
                         "source": "time_formatted",
                         "title": "Time",
@@ -238,8 +260,7 @@ class Configuration {
                 },
                 "excludeMultiDays": true,
                 "footer": "",
-                "columns": ["time", "name", "locationAddress", "types"],
-                "newColumns": [
+                "columns": [
                     [
                         {"dayKey": 0, "source": "time_formatted",  "title": "Time",     "width": "69px",},
                         {"dayKey": 0, "source": "name",            "title": "Name",     "width": "230px",},
@@ -283,7 +304,6 @@ class Configuration {
                 "source": "mixedDays",
                 "display": true,
                 "title": "General Service and Central Office",
-                "columns": ["time", "name", "locationAddress", "types", ],
                 "filter": {
                     "include": {
                         "districts": null,
@@ -293,8 +313,7 @@ class Configuration {
                     },
                 },
                 "showTypes": ["O", "C", "A"],
-                "columns": ["time", "name", "locationAddress", "types", ],
-                "newColumns": [
+                "columns": [
                     {
                         "source": "time_formatted",
                         "title": "Time",
@@ -327,8 +346,7 @@ class Configuration {
                         "types": ["S"],
                     },
                 },
-                "columns": ["time", "name", "locationAddress", "day", "types", ],
-                "newColumns": [
+                "columns": [
                     {
                         "source": "time_formatted",
                         "title": "Time",
@@ -367,7 +385,7 @@ class Configuration {
             { "replaceValue": "/ Backstreet Club", "withValue": ""},
             { "replaceValue": " \\(Formerly Utah Neurological Institute\\)", "withValue": ""},
         ],
-        "nameStringReplacements": [
+        "nameReplacements": [
             { "replaceValue": " of AA", "withValue": ""},
             { "replaceValue": "12 & 12", "withValue": "12&12"},
         ],

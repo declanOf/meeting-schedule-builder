@@ -34,13 +34,13 @@ class RowHelper
         let headerRows = [];
         let headerRow = [];
 
-        const columnCount = this.section.newColumns.length;
+        const columnCount = this.section.columns.length;
 
         if (this.#section.title) {
             headerRows.push([{"key": "title", "value": this.#section.title, "colspan": columnCount}]);
         };
 
-        this.section.newColumns.forEach((column) => {
+        this.section.columns.forEach((column) => {
             headerRow.push({"key": column.source, "value": column.title, "colspan": 1, "width": column.width});
         });
 
@@ -98,7 +98,7 @@ class RowHelper
 
             let row = {"key": key.replace(/[: ]/g, "_"), "columns": {}};
 
-            this.section.newColumns.forEach((column) => {
+            this.section.columns.forEach((column) => {
                 if (column.source === "types") {
                     row.columns[column.source] = {"key": column.source, "name": column.name, "width": column.width, "value": this.#getTypesFromMeeting(meeting)};
                 } else if (column.source in meeting) {

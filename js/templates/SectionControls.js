@@ -34,8 +34,8 @@ class SectionControls
 
         return sectionControlsTemplateEngine({
             "section": this.#section,
-            "columns": this.#section.newColumns,
-            "arrayOfColumns": Array.isArray(this.#section.newColumns[0]),
+            "columns": this.#section.columns,
+            "arrayOfColumns": Array.isArray(this.#section.columns[0]),
             "filtersContent": filtersContent,
             sectionKey: this.#key
         });

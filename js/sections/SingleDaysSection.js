@@ -68,7 +68,7 @@ class SingleDaysSection extends GenericBlockSection
 
         const columnCount = this.section.columns.length;
 
-        const headers = this.section.newColumns[index].map((column) => {
+        const headers = this.section.columns[index].map((column) => {
             return {"key": column.source, "name": column.title, "width": column.width};
         });
 
@@ -80,7 +80,7 @@ class SingleDaysSection extends GenericBlockSection
 
             let row = {"key": rowKey.replace(/[: ]/g, "_"), "columns": {}};
 
-            this.section.newColumns[index].forEach((column) => {
+            this.section.columns[index].forEach((column) => {
                 if (column.source === "types") {
                     row.columns[column.source] = { "key": column.source, "value": this.#getTypesFromMeeting(meeting) };
                 } else if (column.source in meeting) {
