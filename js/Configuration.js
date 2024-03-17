@@ -2,7 +2,7 @@ class Configuration {
     #settings;
 
     constructor() {
-        // this.#loadSettings();
+        this.#loadSettings();
 
         if (!this.#settings) {
             this.#initialize();
