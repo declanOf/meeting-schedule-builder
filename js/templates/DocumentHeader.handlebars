@@ -6,7 +6,7 @@ const documentHeaderTemplate = `<table class="header">
     <tr>
         <th class="main_title_3 font-size-10-50pt">
             {{#ifNotEmptyOrWhitespace documentHeader.officeTitle}}
-            <p class="office-title">{{documentHeader.officeTitle}}</p>
+            <p class="office-title">{{{documentHeader.officeTitle}}}</p>
             {{/ifNotEmptyOrWhitespace}}
 
             {{#ifNotEmptyOrWhitespace documentHeader.officeStreet}}

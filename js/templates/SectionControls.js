@@ -23,6 +23,7 @@ class SectionControls
     {
         const filters = new Filters(this.#meetings, this.#section.filter);
 
+        filters.prefix = `sections.${this.#key}.`;
         return filters.render();
     }
 

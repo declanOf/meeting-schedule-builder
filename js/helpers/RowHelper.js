@@ -62,8 +62,8 @@ class RowHelper
 
         const configuredTypes = this.configuration.settings.types;
 
-        meeting["types"].forEach((type) => {
-            if (type in configuredTypes) {
+        meeting.types.forEach((type) => {
+            if (type in configuredTypes && configuredTypes[type].showInColumn) {
                 displayTypes.push(configuredTypes[type].displaySymbol);
             }
         });
@@ -128,9 +128,9 @@ class RowHelper
         let location = meeting['location'];
 
         this.configuration.settings.addressReplacements.forEach((replacement) => {
-            address = address.replace(new RegExp(replacement.replaceValue), replacement.withValue);
+            address = address.replace(new RegExp(replacement.old), replacement.new);
 
-            location = location.replace(new RegExp(replacement.replaceValue), replacement.withValue);
+            location = location.replace(new RegExp(replacement.old), replacement.new);
         });
 
         if (address !== location) {

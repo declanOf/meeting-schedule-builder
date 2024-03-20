@@ -2,7 +2,7 @@ class Configuration {
     #settings;
 
     constructor() {
-        this.#loadSettings();
+        // this.#loadSettings();
 
         if (!this.#settings) {
             this.#initialize();
@@ -25,6 +25,7 @@ class Configuration {
 
     #write()
     {
+        console.info("Writing to local storage");
         localStorage.setItem("settings", JSON.stringify(this.#settings));
     }
 
@@ -131,13 +132,35 @@ class Configuration {
         return convertObjectToArray(nestedData);
     }
 
+    addMeetingKeys(meetings)
+    {
+        let keyAdded = false;
+
+        meetings.types.forEach((key) => {
+            if (!(key in this.settings.types)) {
+                keyAdded = true;
+
+                this.settings.types[`${key}`] = {
+                    "displaySymbol": "",
+                    "description"  : "",
+                    "showInHeader" : false,
+                    "showInColumn" : false
+                };
+            }
+        });
+
+        if (keyAdded) {
+            this.#write();
+        }
+    }
+
     #defaultSettings = {
         "sourceUrl": "https://www.saltlakeaa.org/wp-admin/admin-ajax.php?action=meetings",
         "expiryHours": 24,
         "meetingFontSize": "font-size-10-75pt",
         "documentHeader": {
             "title": "AA Meeting Schedule",
-            "officeTitle": "Central Office of Salt Lake City",
+            "officeTitle": "Central Office<br>of Salt Lake City",
             "officeStreet": "80 West Louise Ave (2860 South)",
             "officeCity": "Salt Lake City",
             "officeState": "UT",
@@ -149,49 +172,64 @@ class Configuration {
             "lastUpdated": "Last Updated",
             "inPerson": "In-Person Meetings Only",
             "website": "Check website for online meetings and schedule updates",
-            "keyTypes": [
-                {"key": "O"},
-                {"key": "C"},
-                {"key": "W", "withKey": "M"},
-                {"key": "A"},
-                {"key": "Y"},
-                {"key": "LGBTQ"},
-                {"key": "ASL"},
-            ]
         },
         "documentFooter": "All meetings are self-reported. Central Office doesn't independently verify or endorse meetings.<br><br>To add, change, or deactivate meetings, please visit https://www.saltlakeaa.org/meeting-changes/.",
         "types": {
             "O": {
                 "displaySymbol": "O",
-                "description": "Open to anyone interested in AA"
+                "showInHeader": true,
+                "showInColumn": true,
+                "description": "Open to anyone interested in AA",
+                "withKey": false
             },
             "Y": {
                 "displaySymbol": "Y",
+                "showInHeader": true,
+                "showInColumn": true,
                 "description": "Young people",
+                "withKey": false
             },
             "A": {
                 "displaySymbol": "@",
+                "showInHeader": true,
+                "showInColumn": true,
                 "description": "Wheelchair-accessible",
+                "withKey": false
             },
             "LGBTQ": {
                 "displaySymbol": "+",
+                "showInHeader": true,
+                "showInColumn": true,
                 "description": "LGBTQ+",
+                "withKey": false
             },
             "C": {
+                "showInHeader": true,
                 "displaySymbol": "C",
+                "showInColumn": true,
                 "description": "Closed to non-alcoholics",
+                "withKey": false
             },
             "W": {
+                "showInHeader": true,
                 "displaySymbol": "W",
+                "showInColumn": true,
                 "description": "Women",
+                "withKey": "M"
             },
             "M": {
                 "displaySymbol": "M",
+                "showInHeader": false,
+                "showInColumn": true,
                 "description": "Men",
+                "withKey": false
             },
             "ASL": {
                 "displaySymbol": "S",
+                "showInHeader": true,
+                "showInColumn": true,
                 "description": "ASL interpreter present",
+                "withKey": false
             },
         },
         "filter": {
@@ -248,7 +286,7 @@ class Configuration {
             {
                 "title": null,
                 "source": "singleDays",
-                "type": "single-days",
+                "type": "single-exclusive-days",
                 "display": true,
                 "filter": {
                     "exclude": {
@@ -258,8 +296,6 @@ class Configuration {
                         "name": ["Central Office", "District"],
                     },
                 },
-                "excludeMultiDays": true,
-                "footer": "",
                 "columns": [
                     [
                         {"dayKey": 0, "source": "time_formatted",  "title": "Time",     "width": "69px",},
@@ -376,18 +412,18 @@ class Configuration {
             }
         ],
         "addressReplacements": [
-            { "replaceValue": "Salt Lake City", "withValue": "SLC" },
-            { "replaceValue": "West Valley City", "withValue": "WVC" },
-            { "replaceValue": ", UT [0-9][0-9][0-9][0-9][0-9], USA", "withValue": ""},
-            { "replaceValue": ", UT, [0-9][0-9][0-9][0-9][0-9]", "withValue": ""},
-            { "replaceValue": ", UT, USA", "withValue": ""},
-            { "replaceValue": ", NV [0-9][0-9][0-9][0-9][0-9], USA", "withValue": ""},
-            { "replaceValue": "/ Backstreet Club", "withValue": ""},
-            { "replaceValue": " \\(Formerly Utah Neurological Institute\\)", "withValue": ""},
+            { "old": "Salt Lake City", "new": "SLC" },
+            { "old": "West Valley City", "new": "WVC" },
+            { "old": ", UT [0-9][0-9][0-9][0-9][0-9], USA", "new": ""},
+            { "old": ", UT, [0-9][0-9][0-9][0-9][0-9]", "new": ""},
+            { "old": ", UT, USA", "new": ""},
+            { "old": ", NV [0-9][0-9][0-9][0-9][0-9], USA", "new": ""},
+            { "old": "/ Backstreet Club", "new": ""},
+            { "old": " \\(Formerly Utah Neurological Institute\\)", "new": ""},
         ],
         "nameReplacements": [
-            { "replaceValue": " of AA", "withValue": ""},
-            { "replaceValue": "12 & 12", "withValue": "12&12"},
+            { "old": " of AA", "new": ""},
+            { "old": "12 & 12", "new": "12&12"},
         ],
     };
 };

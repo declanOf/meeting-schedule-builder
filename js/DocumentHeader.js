@@ -4,37 +4,36 @@ class DocumentHeader
     #template;
     #keySets;
 
-    constructor(Configuration, template)
+    constructor(Configuration)
     {
-        this.#template      = template;
+        this.#template      = documentHeaderTemplate;
         this.#configuration = Configuration;
         this.#buildTypes();
     }
 
     #buildTypes()
     {
-        const keyTypes = this.#configuration.settings.documentHeader.keyTypes;
-
         const types = this.#configuration.settings.types;
 
         this.#keySets = [];
 
-        this.#configuration.settings.documentHeader.keyTypes.forEach((keyType) => {
-            const key     = keyType.key;
-            const withKey = keyType.withKey;
-
-            const sourceType = types[key];
+        Object.entries(types).forEach((entry) => {
+            const type    = entry[1];
 
             let keySet = {
-                "symbol"         : sourceType.displaySymbol,
-                "description"    : sourceType.description,
-                "withSymbol"     : false,
-                "withDescription": false
+                "symbol"         : type.displaySymbol,
+                "description"    : type.description,
+                "withSymbol"     : null,
+                "withDescription": null,
+                "header"         : type.showInHeader,
+                "rows"           : type.showInColumn
             };
 
-            if (withKey) {
-                const withType            = types[withKey];
+            if (type.withKey) {
+                const withType            = types[type.withKey];
+
                 keySet["withSymbol"]      = withType.displaySymbol;
+
                 keySet["withDescription"] = withType.description;
             }
 
@@ -44,7 +43,7 @@ class DocumentHeader
 
     get types()
     {
-        return this.#keySets;
+        return this.#keySets.filter((elem) => elem.header === true);
     }
 
     render()

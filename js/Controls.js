@@ -10,11 +10,11 @@ class Controls
     #regions;
     #districts;
 
-    constructor(Configuration, template, meetings)
+    constructor(Configuration, meetings)
     {
         this.#configuration = Configuration;
 
-        this.#template = template;
+        this.#template = controlsTemplate;
 
         this.#groups = meetings.groups;
 
@@ -29,24 +29,21 @@ class Controls
 
     #buildTypes()
     {
-        const headerTypes = this.#configuration.settings.documentHeader.keyTypes;
-
         const types = this.#configuration.settings.types;
 
         this.#controlTypes = [];
-        const headerTypesKeys = headerTypes.pluck("key");
 
         Object.entries(types).forEach((elem) => {
             const key = elem[0];
 
             const withableTypes = Object.fromEntries(Object.entries(types).filter((entry) => entry[0] !== key));
 
-            const selected   = headerTypes.pluck("key").indexOf(key);
+            const selected   = withableTypes;
 
             let withKey = null;
 
             if (selected > -1) {
-                const headerType = headerTypes[selected];
+                const headerType = headerTypeKeys[selected];
 
                 withKey = "withKey" in headerType ? headerType.withKey : null;
             }
@@ -56,7 +53,9 @@ class Controls
                 "withKey"      : withKey,
                 "withableTypes": withableTypes,
                 "description"  : elem[1].description,
-                "displaySymbol": elem[1].displaySymbol
+                "displaySymbol": elem[1].displaySymbol,
+                "showInHeader": elem[1].showInHeader,
+                "showInColumn": elem[1].showInColumn
             });
         });
     }

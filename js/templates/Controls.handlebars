@@ -16,7 +16,7 @@ const controlsTemplate = `
             <div class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;"></div>
             <div class="row col-12">
                 <p class="col-12 small-caps strong">Document Header <small>(small-caps)</small></p>
-                <input class="hover-light col-12" type="text" style="font-variant-caps: small-caps; font-size: 1.25em;" name="title" title="Document Title" placeholder="Document Title" value="{{ documentHeader.title }}">
+                <input class="hover-light col-12" type="text" style="font-variant-caps: small-caps; font-size: 1.25em;" name="documentHeader.title" title="Document Title" placeholder="Document Title" value="{{ documentHeader.title }}">
                 <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
                 <div class="col-3">
                     <div class="col-12 strong">Office Information</div>
@@ -29,13 +29,14 @@ const controlsTemplate = `
                     </div>
                     <div><input type="text" class="hover-light" placeholder="Office Phone" title="Office Phone" name="documentHeader.officePhone." value="{{ documentHeader.officePhone }}"></div>
                     <div>Hours<textarea class="hover-light col-12" title="Office Hours" style="height:74px; overflow-y: scroll; resize: none;" name="documentHeader.officeHours.">{{#replace "<br>" "\n"}}{{{documentHeader.officeHours}}}{{/replace}}</textarea></div>
+                    <div>Holiday<textarea class="hover-light col-12" title="Holiay Hours" style="height:74px; overflow-y: scroll; resize: none;" name="documentHeader.holidayHours.">{{#replace "<br>" "\n"}}{{{documentHeader.holidayHours}}}{{/replace}}</textarea></div>
                 </div>
                 <div class="col-3">
                     <div class="row strong">Header Text</div>
                     <div class="row"><input type="text" class="hover-light" title="Last Updated" placeholder="Last Updated" name="documentHeader.lastUpdated" value="{{ documentHeader.lastUpdated }}"></div>
                     <div class="row"><input type="text" class="hover-light" title="In Person Text" placeholder="In-Person Meetings Only" name="documentHeader.inPerson" value="{{ documentHeader.inPerson }}"></div>
                     <div class="row"><input type="text" class="hover-light" name="documentHeader.website" title="Website" placeholder="Website" value="{{ documentHeader.website }}"></div>
-                    <div class="row"><input type="text" class="hover-light" name="documentHeader.officeUrl" title="DIsplay URL" placeholder="Display URL" value="{{ documentHeader.displayUrl }}"></div>
+                    <div class="row"><input type="text" class="hover-light" name="documentHeader.displayUrl" title="Display URL" placeholder="Display URL" value="{{ documentHeader.displayUrl }}"></div>
                 </div>
                 <div class="col-6">
                     <div class="row strong">
@@ -49,9 +50,11 @@ const controlsTemplate = `
                     <div class="row" draggable="true">
                         <button class="col-1 borderless strong">&#8998;</button>
                         <div class="col-1-5 text-end">{{key}}</div>
-                        <input class="col-1-5 text-center" type="text" name="keys.{{key}}.symbol" value="{{displaySymbol}}">
-                        <input class="col-4" type="text" name="keys.{{key}}.description" value="{{description}}">
-                        <select class="col-4" name="keys.{{key}}.withKey" style="max-width:150px">
+                        <input type="hidden" name="types.{{key}}.showInColumn" value="{{showInColumn}}">
+                        <input type="hidden" name="types.{{key}}.showInHeader" value="{{showInHeader}}">
+                        <input class="col-1-5 text-center" type="text" name="types.{{key}}.displaySymbol" value="{{displaySymbol}}">
+                        <input class="col-4" type="text" name="types.{{key}}.description" value="{{description}}">
+                        <select class="col-4" name="types.{{key}}.withKey" style="max-width:150px">
                             <option value="">None</option>
                             {{#each withableTypes}}
                             <option value="{{@key}}">{{displaySymbol}}: {{description}}</option>
@@ -88,10 +91,10 @@ const controlsTemplate = `
                 <div class="col-6 header-text-replacements">
                     <span class="small-caps strong col-8">Global Replacements: <button class="borderless strong">+</button></span>
                     {{#each addressReplacements}}
-                    <p class="hover-light"><button class="borderless">&#8998;</button> In address, replace <input type="text" name="addressReplacements.{{@key}}.old" value="{{replaceValue}}"> with <input type="text" name="addressReplacements.{{@key}}.new" value="{{withValue}}"></p>
+                    <p class="hover-light"><button class="borderless">&#8998;</button> In address, replace <input type="text" name="addressReplacements.{{@key}}.old" value="{{old}}"> with <input type="text" name="addressReplacements.{{@key}}.new" value="{{new}}"></p>
                     {{/each}}
                     {{#each nameReplacements}}
-                    <p class="hover-light"><button class="borderless">&#8998;</button> In name, replace <input type="text" name="nameReplacements.{{@key}}.old" value="{{replaceValue}}"> with <input type="text" name="nameReplacements.{{@key}}.new" value="{{withValue}}"></p>
+                    <p class="hover-light"><button class="borderless">&#8998;</button> In name, replace <input type="text" name="nameReplacements.{{@key}}.old" value="{{old}}"> with <input type="text" name="nameReplacements.{{@key}}.new" value="{{new}}"></p>
                     {{/each}}
                 </div>
             </div>

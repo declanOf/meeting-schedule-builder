@@ -10,6 +10,8 @@ class Filters
 
     #includes;
 
+    #prefix;
+
     // instantiate filters template engine, pass filters array to it,
     constructor(meetings, filters)
     {
@@ -193,6 +195,16 @@ class Filters
         return filtersList;
     }
 
+    get prefix()
+    {
+        return this.#prefix;
+    }
+
+    set prefix(prefix)
+    {
+        this.#prefix = prefix;
+    }
+
     render()
     {
         const filtersTemplateEngine = Handlebars.compile(this.#template);
@@ -200,18 +212,19 @@ class Filters
         const filterList = this.getFilterList();
 
         return filtersTemplateEngine({
-                               "uuid":this.#uuid,
-                         "filterList":filterList,
-                       "includeTypes":this.getFilterInTypes(),
-                     "includeRegions":this.getFilterInRegions(),
-                   "includeDistricts":this.getFilterInDistricts(),
-                      "includeGroups":this.getFilterInGroups(),
-                       "excludeTypes":this.getFilterOutTypes(),
-                     "excludeRegions":this.getFilterInRegions(),
-                   "excludeDistricts":this.getFilterOutDistricts(),
-                      "excludeGroups":this.getFilterOutGroups(),
-            "excludeAttendanceOption":this.getFilterOutAttendanceOption(),
-            "includeAttendanceOption":this.getFilterInAttendanceOption(),
+                               "uuid"  : this.#uuid,
+                         "filterList" : filterList,
+                            "prefix"  : this.prefix,
+                       "includeTypes" : this.getFilterInTypes(),
+                     "includeRegions" : this.getFilterInRegions(),
+                   "includeDistricts" : this.getFilterInDistricts(),
+                      "includeGroups" : this.getFilterInGroups(),
+                       "excludeTypes" : this.getFilterOutTypes(),
+                     "excludeRegions" : this.getFilterInRegions(),
+                   "excludeDistricts" : this.getFilterOutDistricts(),
+                      "excludeGroups" : this.getFilterOutGroups(),
+            "excludeAttendanceOption" : this.getFilterOutAttendanceOption(),
+            "includeAttendanceOption" : this.getFilterInAttendanceOption(),
         });
     }
 }

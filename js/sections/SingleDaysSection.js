@@ -123,9 +123,9 @@ class SingleDaysSection extends GenericBlockSection
         let location = meeting['location'];
 
         this.#configuration.settings.addressReplacements.forEach((replacement) => {
-            address = address.replace(new RegExp(replacement.replaceValue), replacement.withValue);
+            address = address.replace(new RegExp(replacement.old), replacement.new);
 
-            location = location.replace(new RegExp(replacement.replaceValue), replacement.withValue);
+            location = location.replace(new RegExp(replacement.old), replacement.new);
         });
 
         if (address !== location) {
@@ -140,7 +140,7 @@ class SingleDaysSection extends GenericBlockSection
     #getFormattedName(name)
     {
         this.#configuration.settings.nameReplacements.forEach((replacement) => {
-            name = name.replace(new RegExp(replacement.replaceValue), replacement.withValue);
+            name = name.replace(new RegExp(replacement.old), replacement.new);
         });
 
         return name;
@@ -156,8 +156,8 @@ class SingleDaysSection extends GenericBlockSection
 
         const configuredTypes = this.configuration.settings.types;
 
-        meeting["types"].forEach((type) => {
-            if (type in configuredTypes) {
+        meeting.types.forEach((type) => {
+            if (configuredTypes[type].showInColumn) {
                 displayTypes.push(configuredTypes[type].displaySymbol);
             }
         });

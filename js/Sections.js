@@ -33,8 +33,15 @@ class Sections
                     this.#sections.push(new MultiDaysSection(this.#getMultiDayCandidates().multiDays, section, index, this.#configuration));
                 break;
 
-                case 'single-days':
+                // TODO: Add different day options to section type options
+                case 'mixed-full-days':
                     this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().mixedFullDays, section, this.#configuration, index));
+                break;
+                case 'single-inclusive-days':
+                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleInclusiveDays, section, this.#configuration, index));
+                break;
+                case 'single-exclusive-days':
+                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleExclusiveDays, section, this.#configuration, index));
                 break;
             }
         });
