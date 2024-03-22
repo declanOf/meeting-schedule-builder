@@ -24,9 +24,11 @@ class Sections
 
             switch (section.type) {
                 case 'generic':
-                case 'service':
                 case 'spanish':
                     this.#sections.push(new GenericBlockSection(this.#getMultiDayCandidates().singleInclusiveDays, section, index, this.#configuration));
+                break;
+                case 'service':
+                    this.#sections.push(new GenericBlockSection(this.#getMultiDayCandidates().mixedFullDays, section, index, this.#configuration));
                 break;
 
                 case 'multi-days':

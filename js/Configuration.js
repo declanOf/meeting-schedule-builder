@@ -2,7 +2,7 @@ class Configuration {
     #settings;
 
     constructor() {
-        // this.#loadSettings();
+        this.#loadSettings();
 
         if (!this.#settings) {
             this.#initialize();
@@ -336,7 +336,7 @@ class Configuration {
                 ]
             },
             {
-                "type": "generic",
+                "type": "service",
                 "source": "mixedDays",
                 "display": true,
                 "title": "General Service and Central Office",

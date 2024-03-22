@@ -6,13 +6,14 @@ DOCUMENT HEADER:
 ✓   Add date to document header's "Last Updated"
 
 MEETING TABLES:
--   Change class attached to tables based on font-size selection.
--   Get second Central Office meeting to show
+✓   Change class attached to tables based on font-size selection.
+✓   Get second Central Office meeting to show
 
 CONTROLS:
 ✓   Fix array keys in days of columns
+✓   Fix input names to enable filters and properly include columns
     SAVE CONFIGURATION
--       Collect data from different controls into an array.
+✓       Collect data from different controls into an array.
 -       Inject constructed controls array into a configuration.
 -       Apply configuration to loaded document.
 -       Save to local storage
@@ -21,18 +22,22 @@ CONTROLS:
     FONT SIZE:
 ✓       Enable font-size selection.
 -       Allow font variation modification for header and for office title.
--   Fix tab block width. It resizes for the content of different tabs.
+-   Fix tab content block width. It resizes for the content of different tabs.
     ADD/REMOVE control element blocks:
 -       Keys
 -       Filters
--       Columns
--       Sections
     STRING REPLACEMENT
 -       Add line
 -       Remove line
 -   Reflect combined keys in header controls.
+-   Add sections
+-   Delete sections
+-   Add columns to section
+-   Delete columns
+✓   Adding keys from meetings into configuration
 
 GLOBAL:
 -   Implement single days with different repetition of headers
 -   Implement single days with multi-days mixed in
 ✓   Add display option
+✓   Moved code into devoted app file
