@@ -1,0 +1,59 @@
+const addFilterDialogTemplate = `
+<div id ="filterDialog">
+    <form id="filterForm">
+        <p>
+            <label><input type="radio" name="filter-type" value="exclude"> Exclude</label>
+            <label><input type="radio" name="filter-type" value="include"> Include</label>
+        </p>
+        <dl>
+            <dt><label>Filter Type</label></dt>
+            <dd>
+                <select name="filter-target">
+                    <option value="">Select Filter Target</option>
+                    <option value="attendanceOption">Attendance</option>
+                    <option value="district_id">District ID</option>
+                    <option value="types">Types</option>
+                    <option value="name">Name contains</option>
+                </select>
+            </dd>
+        </dl>
+        <dl class="attendance-controls">
+            <dt><label>Attendance Option</label></dt>
+            <dd>
+                <select name="attendance-option">
+                    <option value="in-person">In Person</option>
+                    <option value="online">Online</option>
+                    <option value="hybrid">Hybrid (in person and online)</option>
+                </select>
+            </dd>
+        </dl>
+        <dl class="district-controls">
+            <dt><label>District IDs</label></dt>
+            <dd>
+                <input type="text" name="districts.0">
+            </dd>
+        </dl>
+        <dl class="types-controls">
+            <dt><label>Types</label></dt>
+            <dd>
+                <select multiple name="types">
+                {{#each types}}
+                    <option value="{{key}}">{{{displaySymbol}}}: {{{description}}}</option>
+                {{/each}}
+                </select>
+            </dd>
+        </dl>
+        <dl class="name-controls">
+            <dt><label>Group Name</label></dt>
+            <dd>
+                <input type="text" name="name.0">
+            </dd>
+        </dl>
+        <p>
+            <input type="submit" value="Add Filter">
+
+            <input type="cancel" value="Cancel">
+        </p>
+    </form>
+</div>
+`;

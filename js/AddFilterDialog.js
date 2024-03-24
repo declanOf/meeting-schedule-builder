@@ -4,11 +4,32 @@ class AddFilterDialog
     // list types of filters: attendance option, district, types, name string
     // allow entry of district, type, name, or attendance option
 
-    Type: <label><input type="radio" value="exclude"> Exclude</label> <label><input type="radio" value="include"> Include</label>
-    On: <select>
-        <option value="attendanceOption">Attendance</option>
-        <option value="district_id">District</option>
-        <option value="types">Types</option>
-        <option value="name">Name contains</option>
-    </select>
+    #configuration;
+
+    constructor()
+    {
+        this.#configuration = new Configuration();
+    }
+
+    render()
+    {
+        const addFilterDialogEngine = Handlebars.compile(addFilterDialogTemplate);
+
+        const types = Object.entries(this.#configuration.settings.types);
+        let showTypes = [];
+
+        types.forEach((entry) => {
+            showTypes.push({
+                "key": entry[0],
+                "displaySymbol": entry[1].displaySymbol.length > 0 ? entry[1].displaySymbol : `<i>${entry[0]}</i>`,
+                "description": entry[1].description.length > 0 ? entry[1].description : `<i>No description</i>`
+            });
+        });
+
+        let data = {
+            types: showTypes
+        };
+
+        return addFilterDialogEngine(data);
+    }
 }

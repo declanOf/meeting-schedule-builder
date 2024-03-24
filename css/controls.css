@@ -133,3 +133,7 @@ ul.ui-tabs-nav li.ui-tabs-tab.ui-state-active a.ui-tabs-anchor {
     color: #454545;
     font-weight: 700;
 }
+
+#filterDialog {
+    display: none;
+}
