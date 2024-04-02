@@ -14,15 +14,16 @@ CONTROLS:
 ✓   Fix input names to enable filters and properly include columns
     SAVE CONFIGURATION
 ✓       Collect data from different controls into an array.
+-       Validate data
 -       Inject constructed controls array into a configuration.
--       Apply configuration to loaded document.
 -       Save to local storage
+-       Apply configuration to loaded document.
 -   Convert the displayed section numbering from zero-indexed to one-indexed.
 -   Add dialog for new or edited filters.
     FONT SIZE:
 ✓       Enable font-size selection.
 -       Allow font variation modification for header and for office title.
--   Fix tab content block width. It resizes for the content of different tabs.
+-   Fix tab content block width. It shouldn't resize for the content of different tabs.
     ADD/REMOVE control element blocks:
 -       Keys
 -       Filters
