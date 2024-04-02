@@ -1,14 +1,14 @@
 const filtersTemplate = `
-    <div class="filter-row-{{uuid}} col-6">
+    <div class="filters-container filter-row-{{uuid}} col-6" data-prefix="{{prefix}}">
         <div class="col-12"><span class="strong">Filters </span><button class="add-filter hover-light borderless strong">+</button></div>
-        <div class="col-12">
+        <div class="col-12 filter-list">
             {{#each filterList}}
-            <div class="col-12 hover-light" data-id="{{type}}-{{key}}-{{idx}}">
+            <div class="filter-container col-12 hover-light" data-id="{{type}}-{{key}}-{{idx}}">
                 <button class="edit-filter borderless">&#128462;</button> <button class="remove-filter borderless">&#8998;</button> {{type}} groups with {{key}} including "{{item}}"
+                <input type="hidden" name="{{../prefix}}filters.{{@key}}.type" value="{{type}}">
+                <input type="hidden" name="{{../prefix}}filters.{{@key}}.key"  value="{{key}}">
+                <input type="hidden" name="{{../prefix}}filters.{{@key}}.item" value="{{item}}">
             </div>
-            <input type="hidden" name="{{../prefix}}filters.{{@key}}.type" value="{{type}}">
-            <input type="hidden" name="{{../prefix}}filters.{{@key}}.key"  value="{{key}}">
-            <input type="hidden" name="{{../prefix}}filters.{{@key}}.item" value="{{item}}">
             {{/each}}
         </div>
     </div>

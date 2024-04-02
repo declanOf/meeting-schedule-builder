@@ -2,8 +2,8 @@ var sectionControlsTemplate = `
 <div class="section collapsed">
     <div class="col-12">
         <span class="col-2 strong">Section {{sectionKey}}: </span>
-        <input class="col-6" type="text" name="sections.{{sectionKey}}.title" placeholder="No title" value="{{section.title}}">
-                <label class="col-3"><input type="checkbox" name="sections.{{sectionKey}}.display" placeholder="No title" value="{{section.display}}"> Display</label>
+        <input class="col-7" type="text" name="sections.{{sectionKey}}.title" placeholder="No title" value="{{section.title}}">
+        <label class="col-1"><input type="checkbox" name="sections.{{sectionKey}}.display" placeholder="No title" value="{{section.display}}"> Display</label>
         <input type="hidden" name="sections.{{sectionKey}}.source" placeholder="No title" value="{{section.source}}">
         <span class="col-2 expand-section">&or;</span>
         <span class="col-2 collapse-section">&and;</span>

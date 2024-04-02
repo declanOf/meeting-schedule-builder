@@ -1,6 +1,8 @@
 const addFilterDialogTemplate = `
-<div id ="filterDialog">
-    <form id="filterForm">
+<div id="filterDialog" style="width:400px">
+    <p class="errors" style="display: none;"></p>
+    <form id="filterForm" style="width: 400px">
+        <p>Will you include or exclude groups with this filter?</p>
         <p>
             <label><input type="radio" name="filter-type" value="exclude"> Exclude</label>
             <label><input type="radio" name="filter-type" value="include"> Include</label>
@@ -8,7 +10,7 @@ const addFilterDialogTemplate = `
         <dl>
             <dt><label>Filter Type</label></dt>
             <dd>
-                <select name="filter-target">
+                <select class="filter-target" name="filter-target">
                     <option value="">Select Filter Target</option>
                     <option value="attendanceOption">Attendance</option>
                     <option value="district_id">District ID</option>
@@ -17,42 +19,44 @@ const addFilterDialogTemplate = `
                 </select>
             </dd>
         </dl>
-        <dl class="attendance-controls">
+        <dl class="filter-targets filter-target-none">
+            <dt>&nbsp;</dt>
+            <dd>&nbsp;</dd>
+        </dl>
+        <dl class="filter-targets filter-target-attendanceOption" style="display: none;">
             <dt><label>Attendance Option</label></dt>
             <dd>
-                <select name="attendance-option">
+                <select class="attendance-option" name="attendance-option" multiple>
                     <option value="in-person">In Person</option>
                     <option value="online">Online</option>
                     <option value="hybrid">Hybrid (in person and online)</option>
                 </select>
             </dd>
         </dl>
-        <dl class="district-controls">
+        <dl class="filter-targets filter-target-district_id" style="display: none;">
             <dt><label>District IDs</label></dt>
-            <dd>
-                <input type="text" name="districts.0">
-            </dd>
+            <dd><input type="text" name="districts"></dd>
         </dl>
-        <dl class="types-controls">
-            <dt><label>Types</label></dt>
+        <dl class="filter-targets filter-target-types" style="display: none;">
+            <dt><label>Types (multi-choice)</label></dt>
             <dd>
-                <select multiple name="types">
+                <select multiple class="keys" name="keys[]">
                 {{#each types}}
                     <option value="{{key}}">{{{displaySymbol}}}: {{{description}}}</option>
                 {{/each}}
                 </select>
             </dd>
         </dl>
-        <dl class="name-controls">
+        <dl class="filter-targets filter-target-name" style="display: none;">
             <dt><label>Group Name</label></dt>
             <dd>
-                <input type="text" name="name.0">
+                <input type="text" name="name">
             </dd>
         </dl>
         <p>
-            <input type="submit" value="Add Filter">
+            <input id="addFilterButton" type="submit" value="Add Filter">
 
-            <input type="cancel" value="Cancel">
+            <input id="cancelAddFilterButton" type="submit" value="Cancel">
         </p>
     </form>
 </div>
