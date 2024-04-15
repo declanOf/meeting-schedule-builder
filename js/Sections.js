@@ -56,11 +56,10 @@ class Sections
 
     render()
     {
-        let content = "";
-
         this.#sections.forEach((section) => {
-            // TODO: Test configuration for whether separators should be used
-            $('div.page').append('<hr>');
+            if (this.#configuration.settings.showSectionDivider) {
+                $('div.page').append('<hr class="section-divider">');
+            }
 
             $('div.page').append(section.render());
         });
@@ -116,7 +115,7 @@ class Sections
             }, 500
         );
 
-        return content;
+        return this;
     }
 
     #getMultiDayCandidates()

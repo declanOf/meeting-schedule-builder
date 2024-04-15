@@ -17,7 +17,7 @@ hr {
 
 table.header th p {
     margin-block-start: 0em;
-    margin-block-end: .5em;
+    margin-block-end: .35em;
     line-height: 1.2em;
 }
 
@@ -77,7 +77,7 @@ table.meetings {
 }
 
 table.meetings tbody tr:not([style*="display: none"]):nth-child(odd) {
-background: #DDD;
+background: #EEE;
 margin: 0px;
 }
 

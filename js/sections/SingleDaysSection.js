@@ -28,7 +28,7 @@ class SingleDaysSection extends GenericBlockSection
         // get arrays of meetings broken into separate arrays of days
         const daySets = this.getDaySets();
 
-        const daysContent = Object.entries(daySets).map((entry, index) => [entry[0], this.renderDays(entry, index)]);
+        const daysContent = Object.entries(daySets).map((entry, index) => [entry[0], this.renderDay(entry, index)]);
 
         // for each day, render the day
         let daysOfWeekContent = Object.fromEntries(daysContent);
@@ -50,12 +50,25 @@ class SingleDaysSection extends GenericBlockSection
         return this.#configuration;
     }
 
+    getDayHeaders(index)
+    {
+        if (!this.#configuration.settings.showColumnHeadersForEachDay && index > 0) {
+            return null;
+        }
+
+        const headers = this.section.columns[index].map((column) => {
+            return {"key": column.source, "name": column.title, "width": column.width};
+        });
+
+        return headers;
+    }
+
     /**
      *
      * @param {*} data Contains day string, columns, and rows
      * @returns
      */
-    renderDays(data, index)
+    renderDay(data, index)
     {
         const controlsTemplateEngine = Handlebars.compile(repeatDayAndColumnNameTemplate);
         const rowTemplateEngine = Handlebars.compile(rowTemplate);
@@ -68,9 +81,7 @@ class SingleDaysSection extends GenericBlockSection
 
         const columnCount = this.section.columns.length;
 
-        const headers = this.section.columns[index].map((column) => {
-            return {"key": column.source, "name": column.title, "width": column.width};
-        });
+        const headers = this.getDayHeaders(index);
 
         data[1] = data[1].sort((a, b) => parseInt(a[1].time.replace(":", "")) - parseInt(b[1].time.replace(":", "")));
 

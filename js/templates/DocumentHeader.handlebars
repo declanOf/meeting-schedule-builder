@@ -10,7 +10,7 @@ const documentHeaderTemplate = `<table class="header">
             {{/ifNotEmptyOrWhitespace}}
 
             {{#ifNotEmptyOrWhitespace documentHeader.officeStreet}}
-            <p>{{documentHeader.officeStreet}}<br>{{documentHeader.officeCity}}, {{documentHeader.officeState}} {{documentHheader.officeZipcode}}</p>
+            <p class="font-size-9pt">{{documentHeader.officeStreet}}<br>{{documentHeader.officeCity}}, {{documentHeader.officeState}} {{documentHheader.officeZipcode}}</p>
             {{/ifNotEmptyOrWhitespace}}
 
             {{#ifNotEmptyOrWhitespace documentHeader.officePhone}}
@@ -18,11 +18,11 @@ const documentHeaderTemplate = `<table class="header">
             {{/ifNotEmptyOrWhitespace}}
 
             {{#ifNotEmptyOrWhitespace documentHeader.officeHours}}
-            <p>{{{documentHeader.officeHours}}}</p>
+            <p class="font-size-9pt">{{{documentHeader.officeHours}}}</p>
             {{/ifNotEmptyOrWhitespace}}
 
             {{#ifNotEmptyOrWhitespace documentHeader.holidayHours}}
-            <p>{{documentHeader.holidayHours}}</p>
+            <p class="font-size-9pt">{{documentHeader.holidayHours}}</p>
             {{/ifNotEmptyOrWhitespace}}
         </th>
         <th class="main_title_2 font-size-10-50pt">

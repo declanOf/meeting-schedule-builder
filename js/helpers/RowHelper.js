@@ -102,7 +102,10 @@ class RowHelper
                 if (column.source === "types") {
                     row.columns[column.source] = {"key": column.source, "name": column.name, "width": column.width, "value": this.#getTypesFromMeeting(meeting)};
                 } else if (column.source in meeting) {
-                    row.columns[column.source] = {"key": column.source, "name": column.name, "width": column.width, "value": meeting[column.source]};
+                    const columnValue = ("name" === column.source)
+                        ? this.#getFormattedName(meeting[column.source])
+                        : meeting[column.source];
+                    row.columns[column.source] = {"key": column.source, "name": column.name, "width": column.width, "value": columnValue};
                 } else if (column.source === "locationAddress") {
                     row.columns[column.source] = {"key": column.source, "name": column.name, "width": column.width, "value": this.#getFormattedAddress(meeting)};
                 } else {
@@ -117,6 +120,15 @@ class RowHelper
         this.#displayFriendlyRows = `<tbody>${content}</tbody>`;
 
         return this.#displayFriendlyRows;
+    }
+
+    #getFormattedName(name)
+    {
+        this.configuration.settings.nameReplacements.forEach((replacement) => {
+            name = name.replace(new RegExp(replacement.old), replacement.new);
+        });
+
+        return name;
     }
 
     #getFormattedAddress(meeting)

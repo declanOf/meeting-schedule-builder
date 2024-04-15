@@ -23,6 +23,7 @@ const App = class
 
         this.addHeader()
             .addSections()
+            .addFooter()
             .addControls()
             .addBehaviour();
     }
@@ -86,4 +87,16 @@ const App = class
 
         return this;
     };
+
+    addFooter() {
+        if (!this.#configuration.settings.printDocumentFooter) {
+            return this;
+        }
+
+        const footer = $(`<p style="text-align: center; padding-top: 12pt; margin-bottom: 0;" class="${this.#configuration.settings.footerFontSize}">${this.#configuration.settings.documentFooter}</p>`);
+
+        $("div.page").append(footer);
+
+        return this;
+    }
 };

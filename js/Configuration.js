@@ -2,7 +2,7 @@ class Configuration {
     #settings;
 
     constructor() {
-        this.#loadSettings();
+        //this.#loadSettings();
 
         if (!this.#settings) {
             this.#initialize();
@@ -154,10 +154,34 @@ class Configuration {
         }
     }
 
+    addFilter(filterData) {
+        let filterValues = {"type": filterData.type, "target": filterData.target};
+
+        switch (filterData.target) {
+            case "types":
+                filterValues["types"] = filterData.types;
+            break;
+
+            case "name":
+                filterValues["name"] = filterData.name.split(",");
+            break;
+
+            case "districts":
+                filterValues["districts"] = filterData.districts.split(",");
+            break;
+
+            case "attendanceOption":
+                filterValues["attendanceOption"] = filterData.attendanceOption;
+            break;
+        }
+
+        debugger;
+    }
     #defaultSettings = {
         "sourceUrl": "https://www.saltlakeaa.org/wp-admin/admin-ajax.php?action=meetings",
         "expiryHours": 24,
         "meetingFontSize": "font-size-10-75pt",
+        "footerFontSize": "font-size-9pt",
         "documentHeader": {
             "title": "AA Meeting Schedule",
             "officeTitle": "Central Office<br>of Salt Lake City",
@@ -173,7 +197,10 @@ class Configuration {
             "inPerson": "In-Person Meetings Only",
             "website": "Check website for online meetings and schedule updates",
         },
-        "documentFooter": "All meetings are self-reported. Central Office doesn't independently verify or endorse meetings.<br><br>To add, change, or deactivate meetings, please visit https://www.saltlakeaa.org/meeting-changes/.",
+        "showSectionDivider": true,
+        "printDocumentFooter": true,
+        "showColumnHeadersForEachDay": true,
+        "documentFooter": "All meetings are self-reported. Central Office doesn't independently verify or endorse meetings.<br>* Holidays may affect some meetings.",
         "types": {
             "O": {
                 "displaySymbol": "O",
@@ -182,14 +209,14 @@ class Configuration {
                 "description": "Open to anyone interested in AA",
                 "withKey": false
             },
-            "Y": {
-                "displaySymbol": "Y",
+            "C": {
                 "showInHeader": true,
+                "displaySymbol": "C",
                 "showInColumn": true,
-                "description": "Young people",
+                "description": "Closed to non-alcoholics",
                 "withKey": false
             },
-            "A": {
+            "X": {
                 "displaySymbol": "@",
                 "showInHeader": true,
                 "showInColumn": true,
@@ -201,13 +228,6 @@ class Configuration {
                 "showInHeader": true,
                 "showInColumn": true,
                 "description": "LGBTQ+",
-                "withKey": false
-            },
-            "C": {
-                "showInHeader": true,
-                "displaySymbol": "C",
-                "showInColumn": true,
-                "description": "Closed to non-alcoholics",
                 "withKey": false
             },
             "W": {
@@ -222,6 +242,13 @@ class Configuration {
                 "showInHeader": false,
                 "showInColumn": true,
                 "description": "Men",
+                "withKey": false
+            },
+            "Y": {
+                "displaySymbol": "Y",
+                "showInHeader": true,
+                "showInColumn": true,
+                "description": "Young people",
                 "withKey": false
             },
             "ASL": {
@@ -259,7 +286,7 @@ class Configuration {
                     {
                         "source": "time_formatted",
                         "title": "Time",
-                        "width": "60px",
+                        "width": "68px",
                     },
                     {
                         "source": "name",
@@ -269,7 +296,7 @@ class Configuration {
                     {
                         "source": "locationAddress",
                         "title": "Location",
-                        "width": "418px",
+                        "width": "412px",
                     },
                     {
                         "source": "days",
@@ -278,8 +305,8 @@ class Configuration {
                     },
                     {
                         "source": "types",
-                        "title": "Keys",
-                        "width": "44px",
+                        "title": "Types",
+                        "width": "62px",
                     },
                 ],
             },
@@ -298,40 +325,40 @@ class Configuration {
                 },
                 "columns": [
                     [
-                        {"dayKey": 0, "source": "time_formatted",  "title": "Time",     "width": "69px",},
-                        {"dayKey": 0, "source": "name",            "title": "Name",     "width": "230px",},
-                        {"dayKey": 0, "source": "locationAddress", "title": "Location", "width": "440px",},
-                        {"dayKey": 0, "source": "types",           "title": "Keys",     "width": "44px",},
+                        {"dayKey": 0, "source": "time_formatted",  "title": "Time",     "width": "68px",},
+                        {"dayKey": 0, "source": "name",            "title": "Name",     "width": "250px",},
+                        {"dayKey": 0, "source": "locationAddress", "title": "Location", "width": "448px",},
+                        {"dayKey": 0, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [
                         {"dayKey": 1, "source": "time_formatted",  "title": "Time",     "width": "69px",},
                         {"dayKey": 1, "source": "name",            "title": "Name",     "width": "220px",},
                         {"dayKey": 1, "source": "locationAddress", "title": "Location", "width": "460px",},
-                        {"dayKey": 1, "source": "types",           "title": "Keys",     "width": "50px",},
+                        {"dayKey": 1, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [
                         {"dayKey": 2, "source": "time_formatted",  "title": "Time",     "width": "69px",},
                         {"dayKey": 2, "source": "name",            "title": "Name",     "width": "221px",},
                         {"dayKey": 2, "source": "locationAddress", "title": "Location", "width": "388px",},
-                        {"dayKey": 2, "source": "types",           "title": "Keys",     "width": "44px",},
+                        {"dayKey": 2, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [
                         {"dayKey": 3, "source": "time_formatted",  "title": "Time",     "width": "67px",},
                         {"dayKey": 3, "source": "name",            "title": "Name",     "width": "224px",},
                         {"dayKey": 3, "source": "locationAddress", "title": "Location", "width": "436px",},
-                        {"dayKey": 3, "source": "types",           "title": "Keys",     "width": "61px",},
+                        {"dayKey": 3, "source": "types",           "title": "Types",     "width": "61px",},
                     ], [
                         {"dayKey": 4, "source": "time_formatted",  "title": "Time",     "width": "67px",},
                         {"dayKey": 4, "source": "name",            "title": "Name",     "width": "240px",},
                         {"dayKey": 4, "source": "locationAddress", "title": "Location", "width": "426px",},
-                        {"dayKey": 4, "source": "types",           "title": "Keys",     "width": "61px",},
+                        {"dayKey": 4, "source": "types",           "title": "Types",     "width": "61px",},
                     ], [
                         {"dayKey": 5, "source": "time_formatted",  "title": "Time",     "width": "67px",},
                         {"dayKey": 5, "source": "name",            "title": "Name",     "width": "252px",},
                         {"dayKey": 5, "source": "locationAddress", "title": "Location", "width": "415px",},
-                        {"dayKey": 5, "source": "types",           "title": "Keys",     "width": "60px",},
+                        {"dayKey": 5, "source": "types",           "title": "Types",     "width": "60px",},
                     ], [
                         {"dayKey": 6, "source": "time_formatted",  "title": "Time",     "width": "69px",},
                         {"dayKey": 6, "source": "name",            "title": "Name",     "width": "228px",},
                         {"dayKey": 6, "source": "locationAddress", "title": "Location", "width": "424px",},
-                        {"dayKey": 6, "source": "types",           "title": "Keys",     "width": "44px",},
+                        {"dayKey": 6, "source": "types",           "title": "Types",     "width": "62px",},
                     ]
                 ]
             },
@@ -367,7 +394,7 @@ class Configuration {
                     },
                     {
                         "source": "types",
-                        "title": "Keys",
+                        "title": "Types",
                         "width": "52px",
                     },
                 ],
@@ -405,7 +432,7 @@ class Configuration {
                     },
                     {
                         "source": "types",
-                        "title": "Keys",
+                        "title": "Types",
                         "width": "56px",
                     },
                 ],
@@ -424,6 +451,7 @@ class Configuration {
         "nameReplacements": [
             { "old": " of AA", "new": ""},
             { "old": "12 & 12", "new": "12&12"},
+            { "old": " of the month. If that's a holiday, then 2nd Monday", "new": " *"}
         ],
     };
 };
