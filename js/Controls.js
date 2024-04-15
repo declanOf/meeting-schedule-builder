@@ -91,7 +91,7 @@ class Controls
 
         const sectionsControls = new SectionsControls(this.#meetings, this.#configuration.settings.sections);
 
-        const filters = new Filters(this.#meetings, this.#configuration.settings.filter);
+        const filters = new Filters(this.#meetings, this.#configuration.settings.filter, null);
 
         const controlTemplatesData = {
             "documentHeader"           : this.#configuration.settings.documentHeader,

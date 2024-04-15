@@ -35,6 +35,12 @@ const App = class
 
         $('div#controls').append(controlsContent);
 
+        $(".add-filter").click((event) => {
+            event.preventDefault();
+            const addFilterDialog = new AddFilterDialog($(event.target));
+            addFilterDialog.openDialog();
+        })
+
         return this;
     };
 
