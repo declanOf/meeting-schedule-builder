@@ -123,7 +123,7 @@ class Sections
         if (!this.#multiDayCandidates) {
             this.#meetings = new MeetingFilter(this.#meetings, this.#configuration.settings.filter).meetings;
 
-            this.#multiDayCandidates = new MultiDayCandidates(this.#meetings);
+            this.#multiDayCandidates = new MultiDayCandidates(this.#meetings, this.#configuration);
         }
 
         return this.#multiDayCandidates;

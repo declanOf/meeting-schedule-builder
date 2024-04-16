@@ -177,10 +177,11 @@ class Configuration {
 
         debugger;
     }
+
     #defaultSettings = {
         "sourceUrl": "https://www.saltlakeaa.org/wp-admin/admin-ajax.php?action=meetings",
         "expiryHours": 24,
-        "meetingFontSize": "font-size-10-75pt",
+        "meetingFontSize": "font-size-10-50pt",
         "footerFontSize": "font-size-9pt",
         "documentHeader": {
             "title": "AA Meeting Schedule",
@@ -195,8 +196,9 @@ class Configuration {
             "holidayHours": "Call For Holiday Hours",
             "lastUpdated": "Last Updated",
             "inPerson": "In-Person Meetings Only",
-            "website": "Check website for online meetings and schedule updates",
+            "website": "Check website for online meetings, accessibility services, and holiday changes.",
         },
+        "minimumMultidayCount": 3,
         "showSectionDivider": true,
         "printDocumentFooter": true,
         "showColumnHeadersForEachDay": true,

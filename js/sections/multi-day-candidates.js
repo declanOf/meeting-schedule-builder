@@ -1,7 +1,11 @@
 class MultiDayCandidates
 {
-    constructor(meetings)
+    #configuration;
+
+    constructor(meetings, configuration)
     {
+        this.#configuration = configuration;
+
         this.multiDayCandidates = [];
         this.mixedDays = {};
 
@@ -60,7 +64,7 @@ class MultiDayCandidates
     process()
     {
         this.meetings.forEach((meeting) => {
-            let groupIdTime = `${meeting.time} ${meeting.group_id}`;
+            let groupIdTime = `${meeting.time} ${meeting.group_id} ${meeting.name}`;
 
             if (meeting.types) {
                 if (meeting.types.find((elem) => elem === 'M')) {
@@ -89,15 +93,26 @@ class MultiDayCandidates
                 this.mixedDays[key] = candidate[0];
             } else {
                 // clone object
-                let firstCandidate = {...candidate[0]};
+                if (candidate.length > this.#configuration.settings.minimumMultidayCount) {
+                    let firstCandidate = {...candidate[0]};
 
-                firstCandidate.dayType = "multi";
-                firstCandidate.days = this.#getDaysFromMultipleMeetings(candidate);
-                this.mixedDays[key] = firstCandidate;
+                    firstCandidate.dayType = "multi";
+                    firstCandidate.days = this.#getDaysFromMultipleMeetings(candidate);
+                    this.mixedDays[key] = firstCandidate;
+                }
 
                 candidate.forEach((item, index) => {
+                    if (candidate.length <= this.#configuration.settings.minimumMultidayCount) {
+                        let tempItem = {...item};
+
+                        tempItem.dayType = "semi-single";
+                        tempItem.day = daysOfTheWeek[item.day];
+
+                        this.mixedDays[key + "_" + index + "_exception"] = tempItem;
+                    }
+
                     item.dayType = "single-multi";
-                    item.day = daysOfTheWeek[item.day]
+                    item.day = daysOfTheWeek[item.day];
 
                     this.mixedDays[key + "_" + index] = item;
                 });
@@ -135,7 +150,7 @@ class MultiDayCandidates
         Object
             .entries(this.mixedDays)
             .map((entry) => {
-                if (entry[1].dayType === "single") {
+                if (entry[1].dayType === "single" || entry[1].dayType === "semi-single") {
                     filtered[entry[0]] = entry[1];
                 }
 
