@@ -77,12 +77,12 @@ table.meetings {
 }
 
 table.meetings tbody tr:not([style*="display: none"]):nth-child(odd) {
-background: #EEE;
-margin: 0px;
+    background: #EEE;
+    margin: 0px;
 }
 
 table.meetings th {
-text-align: left;
+    text-align: left;
 }
 
 table.meetings th,

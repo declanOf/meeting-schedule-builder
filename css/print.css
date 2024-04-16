@@ -1,5 +1,10 @@
+body {
+    /* margin: 10mm 5mm 5mm 5mm;
+    padding-top: 1em; */
+}
+
 @page {
-    size: portrait;
+    size: letter;
 }
 
 button {
