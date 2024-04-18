@@ -1,8 +1,16 @@
 class Configuration {
     #settings;
 
+    #activeConfigurationKey;
+
+    #availableConfigurations;
+
+    #dirtySettings = false;
+
+    #dirtyReasons = [];
+
     constructor() {
-        //this.#loadSettings();
+        this.#loadSettings();
 
         if (!this.#settings) {
             this.#initialize();
@@ -11,7 +19,8 @@ class Configuration {
 
     #initialize()
     {
-        localStorage.setItem("settings", JSON.stringify(this.#defaultSettings));
+        localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.#defaultSettings));
+
         this.#loadSettings();
     }
 
@@ -20,18 +29,68 @@ class Configuration {
             return;
         }
 
-        this.#settings = JSON.parse(localStorage.getItem("settings"));
+        this.#availableConfigurations = JSON.parse(localStorage.getItem("availableConfigurations")) ?? [['default', "Default"]];
+        this.#activeConfigurationKey = localStorage.getItem("activeConfigurationKey") ?? 'default';
+        this.#settings = JSON.parse(localStorage.getItem("settings-" + this.#activeConfigurationKey));
+
+        this.createDefaults();
     }
+
+    createDefaults() {
+        const availableConfigurations = localStorage.getItem("availableConfigurations") ?? false;
+
+        if (availableConfigurations) {
+            return;
+        }
+
+        localStorage.setItem("availableConfigurations", JSON.stringify([["default", "Default"]]));
+        localStorage.setItem("activeConfigurationKey", "default");
+        this.#write();
+    }
+
+    get availableConfigurations()
+    {
+        return this.#availableConfigurations;
+    }
+
+    get activeConfigurationKey()
+    {
+        return this.#activeConfigurationKey;
+    }
+
+    cloneConfiguration() {
+        function uuidv4() {
+            return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+              (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+            );
+        }
+
+        const newConfigurationKey = uuidv4();
+
+        this.#availableConfigurations.push([newConfigurationKey, "New configuration"]);
+
+        this.#activeConfigurationKey = newConfigurationKey;
+
+        this.#write();
+    }
+
+    write() { this.#write(); }
 
     #write()
     {
         console.info("Writing to local storage");
-        localStorage.setItem("settings", JSON.stringify(this.#settings));
+        localStorage.setItem("activeConfigurationKey", this.#activeConfigurationKey);
+        localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.#settings));
     }
 
     get settings()
     {
         return this.#settings;
+    }
+
+    set settings(settings)
+    {
+        this.#settings = settings;
     }
 
     set columnSizes(tableData)
@@ -54,9 +113,28 @@ class Configuration {
         } else {
             this.#settings.sections[sectionIndex].columns = columns;
         }
+
+        this.setDirty(true);
+
+        console.log(columnSizes);
     }
 
-    saveChanges() {
+    setDirty(isDirty, reason) {
+        if (!isDirty) {
+            this.#dirtyReasons = [];
+        }
+
+        $("span.change-handler").removeClass("dirty");
+        if (isDirty) {
+            $("span.change-handler").addClass("dirty");
+            this.#dirtyReasons.push(reason);
+        }
+    }
+
+    saveChanges(event) {
+        event.preventDefault();
+        console.log("saving");
+        return;
         function reserialize(flatArray) {
             var data = {};
             flatArray.forEach((element) => {

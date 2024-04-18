@@ -22,6 +22,11 @@ class Meetings {
         this.#loadMeetings(ready);
     }
 
+    get localPrefix()
+    {
+        return this.#configuration.activeConfigurationKey;
+    }
+
     #loadMeetings(ready) {
         this.#loadFromLocalStorage(ready);
 
@@ -36,22 +41,22 @@ class Meetings {
     {
         this.#loadTimestamp();
 
-        if (this.#needsRefresh()) {
-            return;
-        }
+        // if (this.#needsRefresh()) {
+        //     return;
+        // }
 
         console.info("Loading from local storage");
 
         try {
-            this.#rawMeetings = this.meetings = JSON.parse(localStorage.getItem('rawMeetings'));
+            this.#rawMeetings = this.meetings = JSON.parse(localStorage.getItem(this.localPrefix + 'rawMeetings'));
 
-            this.#groups = JSON.parse(localStorage.getItem("groups"));
+            this.#groups = JSON.parse(localStorage.getItem(this.localPrefix + "groups"));
 
-            this.#regions = JSON.parse(localStorage.getItem("regions"));
+            this.#regions = JSON.parse(localStorage.getItem(this.localPrefix + "regions"));
 
-            this.#districts = JSON.parse(localStorage.getItem("districts"));
+            this.#districts = JSON.parse(localStorage.getItem(this.localPrefix + "districts"));
 
-            this.#types = JSON.parse(localStorage.getItem("types"));
+            this.#types = JSON.parse(localStorage.getItem(this.localPrefix + "types"));
         } catch (e) {
             this.#rawMeetings = false;
 
@@ -61,7 +66,7 @@ class Meetings {
 
     #loadTimestamp()
     {
-        const timestamp = localStorage.getItem("timestamp");
+        const timestamp = localStorage.getItem(this.localPrefix + "timestamp");
 
         this.#lastUpdate = timestamp ? parseInt(timestamp) : false;
     }
@@ -91,7 +96,7 @@ class Meetings {
             .done((response) => {
                 this.#saveTimestamp();
 
-                localStorage.setItem("rawMeetings", JSON.stringify(response));
+                localStorage.setItem(this.localPrefix + "rawMeetings", JSON.stringify(response));
 
                 this.meetings = response;
 
@@ -118,7 +123,7 @@ class Meetings {
         groups = this.#filterUnique(groups, "group", "group_id")
             .sort((a, b) => (a.group < b.group) ? -1 : (a.group > b.group) ? 1 : 0);
 
-        localStorage.setItem("groups", JSON.stringify(groups));
+        localStorage.setItem(this.localPrefix + "groups", JSON.stringify(groups));
     }
 
     #populateRegions()
@@ -135,7 +140,7 @@ class Meetings {
         regions = this.#filterUnique(regions, "region", "region_id")
             .sort((a, b) => (a.region < b.region) ? -1 : (a.region > b.region) ? 1 : 0);
 
-        localStorage.setItem("regions", JSON.stringify(regions));
+        localStorage.setItem(this.localPrefix + "regions", JSON.stringify(regions));
     }
 
     #populateDistricts()
@@ -153,7 +158,7 @@ class Meetings {
         districts = this.#filterUnique(districts, "district", "district_id")
             .sort((a, b) => parseInt(a.district.split(" ")[1]) - parseInt(b.district.split(" ")[1]));
 
-        localStorage.setItem("districts", JSON.stringify(districts));
+        localStorage.setItem(this.localPrefix + "districts", JSON.stringify(districts));
     }
 
     #populateTypes()
@@ -176,7 +181,7 @@ class Meetings {
 
         types.sort((a, b) => (a < b) ? -1 : (a > b) ? 1 : 0);
 
-        localStorage.setItem("types", JSON.stringify(types));
+        localStorage.setItem(this.localPrefix + "types", JSON.stringify(types));
     }
 
     #filterUnique(data, label, id)
@@ -204,7 +209,7 @@ class Meetings {
     {
         if (!this.#groups)
         {
-            this.#groups = JSON.parse(localStorage.getItem("groups"));
+            this.#groups = JSON.parse(localStorage.getItem(this.localPrefix + "groups"));
         }
 
         return this.#groups;
@@ -214,7 +219,7 @@ class Meetings {
     {
         if (!this.#regions)
         {
-            this.#regions = JSON.parse(localStorage.getItem("regions"));
+            this.#regions = JSON.parse(localStorage.getItem(this.localPrefix + "regions"));
         }
 
         return this.#regions;
@@ -224,7 +229,7 @@ class Meetings {
     {
         if (!this.#districts)
         {
-            this.#districts = JSON.parse(localStorage.getItem("districts"));
+            this.#districts = JSON.parse(localStorage.getItem(this.localPrefix + "districts"));
         }
 
         return this.#districts;
@@ -234,7 +239,7 @@ class Meetings {
     {
         if (!this.#types)
         {
-            this.#types = JSON.parse(localStorage.getItem("types"));
+            this.#types = JSON.parse(localStorage.getItem(this.localPrefix + "types"));
         }
 
         return this.#types;

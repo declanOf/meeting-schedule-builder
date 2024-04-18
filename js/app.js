@@ -73,10 +73,28 @@ const App = class
 
         $(".collapse-section").on("click", collapseSection);
 
-        $("#controlsForm").tabs();
+/** TODO: Add list configurations from which one can be selected and applied, and new ones added */
+        $("#controlsForm").tabs(
+            {
+                "create": () => {
+                    $("ul.ui-tabs-nav").append($(`<li class="align-end" style="float: right">${this.getConfigurationOptions()}</li>`))
+                }
+            }
+        );
+
 
         return this;
     };
+
+    getConfigurationOptions() {
+        let options = `<option value="clone-configuration">Create New Configuration</option>`;
+        this.#configuration.availableConfigurations.forEach((elem) => {
+            const selected = this.#configuration.activeConfigurationKey === elem[0] ? "SELECTED" : "";
+            options += `<option value="${elem[0]}" ${selected}>${elem[1]}</option>`;
+        });
+
+        return `<label>Configuration: <select id="select-available-configuration">${options}</select></label>`;
+    }
 
     addHeader() {
         const header = new DocumentHeader(this.#configuration);
