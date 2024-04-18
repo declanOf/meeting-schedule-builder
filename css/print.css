@@ -5,6 +5,7 @@ body {
 
 @page {
     size: letter;
+    margin: 4mm;
 }
 
 button {

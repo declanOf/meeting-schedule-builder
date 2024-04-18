@@ -181,7 +181,7 @@ class Configuration {
     #defaultSettings = {
         "sourceUrl": "https://www.saltlakeaa.org/wp-admin/admin-ajax.php?action=meetings",
         "expiryHours": 24,
-        "meetingFontSize": "font-size-10-50pt",
+        "meetingFontSize": "font-size-10-25pt",
         "footerFontSize": "font-size-9pt",
         "documentHeader": {
             "title": "AA Meeting Schedule",
@@ -271,7 +271,7 @@ class Configuration {
         },
         "sections": [
             {
-                "title": "Multi-Day Meetings",
+                "title": "Daily Meetings",
                 "type": "multi-days",
                 "source": "multiDays",
                 "display": true,
