@@ -69,6 +69,8 @@ class Configuration {
 
         this.#availableConfigurations.push([newConfigurationKey, "New configuration"]);
 
+        localStorage.setItem("availableConfigurations", JSON.stringify(this.#availableConfigurations));
+
         this.#activeConfigurationKey = newConfigurationKey;
 
         this.#write();
@@ -349,7 +351,7 @@ class Configuration {
         },
         "sections": [
             {
-                "title": "Multi-Day Meetings",
+                "title": "Daily Meetings",
                 "type": "multi-days",
                 "source": "multiDays",
                 "display": true,
@@ -371,12 +373,12 @@ class Configuration {
                     {
                         "source": "name",
                         "title": "Name",
-                        "width": "185px",
+                        "width": "178px",
                     },
                     {
                         "source": "locationAddress",
                         "title": "Location",
-                        "width": "412px",
+                        "width": "422px",
                     },
                     {
                         "source": "days",
@@ -386,7 +388,7 @@ class Configuration {
                     {
                         "source": "types",
                         "title": "Types",
-                        "width": "62px",
+                        "width": "60px",
                     },
                 ],
             },
@@ -406,8 +408,8 @@ class Configuration {
                 "columns": [
                     [
                         {"dayKey": 0, "source": "time_formatted",  "title": "Time",     "width": "68px",},
-                        {"dayKey": 0, "source": "name",            "title": "Name",     "width": "250px",},
-                        {"dayKey": 0, "source": "locationAddress", "title": "Location", "width": "448px",},
+                        {"dayKey": 0, "source": "name",            "title": "Name",     "width": "254px",},
+                        {"dayKey": 0, "source": "locationAddress", "title": "Location", "width": "444px",},
                         {"dayKey": 0, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [
                         {"dayKey": 1, "source": "time_formatted",  "title": "Time",     "width": "69px",},
@@ -416,7 +418,7 @@ class Configuration {
                         {"dayKey": 1, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [
                         {"dayKey": 2, "source": "time_formatted",  "title": "Time",     "width": "69px",},
-                        {"dayKey": 2, "source": "name",            "title": "Name",     "width": "221px",},
+                        {"dayKey": 2, "source": "name",            "title": "Name",     "width": "224px",},
                         {"dayKey": 2, "source": "locationAddress", "title": "Location", "width": "388px",},
                         {"dayKey": 2, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [

@@ -1,7 +1,7 @@
 These changes are not ordered by priority or expected time consumption.
 
 DOCUMENT HEADER:
--   Fix vertical spacing of elements
+✓   Fix vertical spacing of elements
 ✓   Fix title case of Central Office label in document header
 ✓   Add date to document header's "Last Updated"
 
@@ -22,7 +22,7 @@ CONTROLS:
 -   Add dialog for new or edited filters.
     FONT SIZE:
 ✓       Enable font-size selection.
--       Allow font variation modification for header and for office title.
+-       Allow font size change for header and for office title.
 -   Fix tab content block width. It shouldn't resize for the content of different tabs.
     ADD/REMOVE control element blocks:
 -       Keys
@@ -42,3 +42,6 @@ GLOBAL:
 -   Implement single days with multi-days mixed in
 ✓   Add display option
 ✓   Moved code into devoted app file
+-   Add ability to save and switch between configurations.
+✓   Save an item "configurations", with one as "default"
+-   Load up configuration from list.

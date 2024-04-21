@@ -25,6 +25,8 @@ class Controls
         this.#districts = meetings.districts;
 
         this.#buildTypes();
+
+        this.assignConfigurationChangeHandler();
     }
 
     #buildTypes()
@@ -58,6 +60,26 @@ class Controls
                 "showInColumn": elem[1].showInColumn
             });
         });
+    }
+
+    assignConfigurationChangeHandler() {
+        setTimeout(
+            () => {
+                $("#select-available-configuration").on("change", (event) => {
+                    const selection = $("#select-available-configuration").val();
+
+                    if (selection === "clone-configuration") {
+                        (new Configuration().cloneConfiguration());
+                        location.reload();
+                    } else {
+                        localStorage.setItem("activeConfigurationKey", selection);
+                        location.reload();
+                    }
+                })
+
+            },
+            1000
+        )
     }
 
     // build existing section from configuration
