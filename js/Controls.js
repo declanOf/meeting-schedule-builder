@@ -40,19 +40,9 @@ class Controls
 
             const withableTypes = Object.fromEntries(Object.entries(types).filter((entry) => entry[0] !== key));
 
-            const selected   = withableTypes;
-
-            let withKey = null;
-
-            if (selected > -1) {
-                const headerType = headerTypeKeys[selected];
-
-                withKey = "withKey" in headerType ? headerType.withKey : null;
-            }
-
             this.#controlTypes.push({
                 "key"          : key,
-                "withKey"      : withKey,
+                "withKey"      : elem[1].withKey ? elem[1].withKey : null,
                 "withableTypes": withableTypes,
                 "description"  : elem[1].description,
                 "displaySymbol": elem[1].displaySymbol,
@@ -123,6 +113,7 @@ class Controls
             "addressReplacements"      : this.#configuration.settings.addressReplacements,
             "nameReplacements"         : this.#configuration.settings.nameReplacements,
             "meetingFontSize"          : this.#configuration.settings.meetingFontSize,
+            "footerFontSize"           : this.#configuration.settings.footerFontSize,
             "controlTypes"             : this.#controlTypes,
             "sectionsControlsContent"  : sectionsControls.render(),
             "filtersContent"           : filters.render(),

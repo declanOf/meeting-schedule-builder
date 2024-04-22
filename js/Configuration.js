@@ -186,6 +186,14 @@ class Configuration {
 
         const convertObjectToArray = (targetObject) => {
             if (typeof targetObject !== "object" || Array.isArray(targetObject)) {
+                if (typeof targetObject === "string")
+                {
+                    if (targetObject === "false") {
+                        targetObject = false;
+                    } else if (targetObject === "true") {
+                        targetObject = true;
+                    }
+                }
                 return targetObject;
             }
 
@@ -199,7 +207,13 @@ class Configuration {
             }
 
             keys.forEach((key) => {
-                targetObject[key] = convertObjectToArray(targetObject[key]);
+                if ("filters" === key) {
+                    targetObject[key] = denormalizeFilter(targetObject[key]);
+                } else if (key === "withKey" && typeof targetObject[key] === "string" && targetObject[key].length === 0) {
+                    targetObject[key] = false;
+                } else {
+                    targetObject[key] = convertObjectToArray(targetObject[key]);
+                }
             });
 
             if (numericalKeys.length === keys.length) {
@@ -209,7 +223,34 @@ class Configuration {
             return targetObject;
         }
 
-        return convertObjectToArray(nestedData);
+        const denormalizeFilter = (filter) => {
+            let filterObject = {
+                "exclude": {
+                    "districts": [],
+                    "group": [],
+                    "types": [],
+                    "attendanceOption": [],
+                    "name": [],
+                },
+                "include": {
+                    "districts": [],
+                    "group": [],
+                    "types": [],
+                    "attendanceOption": [],
+                    "name": []
+                }
+            };
+
+            Object.values(filter).forEach((elem) => {
+                filterObject[elem.type.toLowerCase()][elem.key].push(elem.item);
+            });
+
+            return filterObject;
+        };
+
+        const response = convertObjectToArray(nestedData);
+
+        return response;
     }
 
     addMeetingKeys(meetings)
@@ -264,18 +305,18 @@ class Configuration {
         "meetingFontSize": "font-size-10-50pt",
         "footerFontSize": "font-size-9pt",
         "documentHeader": {
-            "title": "AA Meeting Schedule",
+            "displayUrl": "https://www.saltlakeaa.org/meetings",
+            "holidayHours": "Call For Holiday Hours",
+            "inPerson": "In-Person Meetings Only",
+            "lastUpdated": "Last Updated",
             "officeTitle": "Central Office<br>of Salt Lake City",
             "officeStreet": "80 West Louise Ave (2860 South)",
             "officeCity": "Salt Lake City",
             "officeState": "UT",
             "officeZipcode": "84115",
             "officePhone": "(801) 484-7871",
-            "displayUrl": "https://www.saltlakeaa.org/meetings",
             "officeHours": "Monday-Friday 10AM-5PM<br>Saturday 10AM-2PM",
-            "holidayHours": "Call For Holiday Hours",
-            "lastUpdated": "Last Updated",
-            "inPerson": "In-Person Meetings Only",
+            "title": "AA Meeting Schedule",
             "website": "Check website for online meetings, accessibility services, and holiday changes.",
         },
         "minimumMultidayCount": 3,

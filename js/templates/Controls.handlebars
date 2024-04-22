@@ -25,7 +25,7 @@ const controlsTemplate = `
                         <input class="col-12" type="text" name="documentHeader.officeStreet" title="Street Address" placeholder="Street Address" value="{{ documentHeader.officeStreet }}">
                         <input class="col-6" type="text" name="documentHeader.officeCity"    title="City"           placeholder="City"           value="{{ documentHeader.officeCity }}">
                         <input class="col-2" type="text" name="documentHeader.officeState"   title="State"          placeholder="State"          value="{{ documentHeader.officeState }}">
-                        <input class="col-3" type="text" name="documentHeader.officeZipCode" title="ZIP Code"       placeholder="ZIP Code"       value="{{ documentHeader.officeZipcode }}">
+                        <input class="col-3" type="text" name="documentHeader.officeZipcode" title="ZIP Code"       placeholder="ZIP Code"       value="{{ documentHeader.officeZipcode }}">
                     </div>
                     <div><input type="text" class="hover-light" placeholder="Office Phone" title="Office Phone" name="documentHeader.officePhone." value="{{ documentHeader.officePhone }}"></div>
                     <div>Hours<textarea class="hover-light col-12" title="Office Hours" style="height:74px; overflow-y: scroll; resize: none;" name="documentHeader.officeHours.">{{#replace "<br>" "\n"}}{{{documentHeader.officeHours}}}{{/replace}}</textarea></div>
@@ -53,11 +53,11 @@ const controlsTemplate = `
                         <input type="hidden" name="types.{{key}}.showInColumn" value="{{showInColumn}}">
                         <input type="hidden" name="types.{{key}}.showInHeader" value="{{showInHeader}}">
                         <input class="col-1-5 text-center" type="text" name="types.{{key}}.displaySymbol" value="{{displaySymbol}}">
-                        <input class="col-4" type="text" name="types.{{key}}.description" value="{{description}}">
+                        <input class="col-4" type="text" name="types.{{key}}.description" placeholder="No description" value="{{description}}">
                         <select class="col-4" name="types.{{key}}.withKey" style="max-width:150px">
                             <option value="">None</option>
                             {{#each withableTypes}}
-                            <option value="{{@key}}">{{displaySymbol}}: {{description}}</option>
+                            <option value="{{@key}}" withKey="{{withKey}}" {{#ifEquals ../withKey displaySymbol}}SELECTED="SELECTED"{{/ifEquals}}>{{displaySymbol}}: {{description}}</option>
                             {{/each}}
                         </select>
                     </div>
@@ -81,7 +81,15 @@ const controlsTemplate = `
                     <span style="padding-right: 5px;" class="strong">Standard row text size</span>
                     <select class="col-6" title="Print Size" name="meetingFontSize">
                         {{#each fontSizes}}
-                        <option {{#ifEquals ../printSize cssKey}}SELECTED="SELECTED"{{/ifEquals}} value="{{cssKey}}">{{label}}</option>
+                        <option {{#ifEquals ../meetingFontSize cssKey}}SELECTED="SELECTED"{{/ifEquals}} value="{{cssKey}}">{{label}}</option>
+                        {{/each}}
+                    </select>
+            </div>
+            <div class="col-2-5 align-end">
+                    <span style="padding-right: 5px;" class="strong">Footer text size</span>
+                    <select class="col-6" title="Footer Size" name="footerFontSize">
+                        {{#each fontSizes}}
+                        <option {{#ifEquals ../footerFontSize cssKey}}SELECTED="SELECTED"{{/ifEquals}} value="{{cssKey}}">{{label}}</option>
                         {{/each}}
                     </select>
             </div>
