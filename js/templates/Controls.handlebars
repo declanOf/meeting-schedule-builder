@@ -20,7 +20,7 @@ const controlsTemplate = `
                 <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
                 <div class="col-3">
                     <div class="col-12 strong">Office Information</div>
-                    <textarea class="hover-light col-12" title="Office Title" placeholder="Office Title" name="documentHeader.officeTitle.">{{ documentHeader.officeTitle }}</textarea>
+                    <textarea class="hover-light col-12" title="Office Title" placeholder="Office Title" name="documentHeader.officeTitle.">{{#replace "<br>" "\n"}}{{{documentHeader.officeTitle}}}{{/replace}}</textarea>
                     <div class="col-12 hover-light">
                         <input class="col-12" type="text" name="documentHeader.officeStreet" title="Street Address" placeholder="Street Address" value="{{ documentHeader.officeStreet }}">
                         <input class="col-6" type="text" name="documentHeader.officeCity"    title="City"           placeholder="City"           value="{{ documentHeader.officeCity }}">

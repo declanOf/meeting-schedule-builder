@@ -41,7 +41,7 @@ const App = class
             addFilterDialog.openDialog();
         })
 
-        $("#save-changes").click((new Configuration()).saveChanges);
+        $("#save-changes").click(this.#configuration.saveChanges.bind(this.#configuration));
 
         return this;
     };

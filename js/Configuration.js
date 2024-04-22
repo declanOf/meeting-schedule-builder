@@ -135,8 +135,12 @@ class Configuration {
 
     saveChanges(event) {
         event.preventDefault();
-        console.log("saving");
 
+        /**
+         * Convert a flat array into a structured array
+         * @param {*} flatArray
+         * @returns
+         */
         function reserialize(flatArray) {
             var data = {};
             flatArray.forEach((element) => {
@@ -145,6 +149,8 @@ class Configuration {
                 if (!val) {
                     val = "";
                 }
+
+                val = val.replace("\r", "").replace("\n", "<br>");
 
                 let fullName = element.name;
 
@@ -180,10 +186,11 @@ class Configuration {
             return data;
         }
 
-        const formData = Object.entries($("form#controlsForm").serializeArray()).pluck(1);
-
-        const nestedData = reserialize(formData);
-
+        /**
+         * Convert any objects with numerical keys into an array, nested
+         * @param {*} targetObject
+         * @returns
+         */
         const convertObjectToArray = (targetObject) => {
             if (typeof targetObject !== "object" || Array.isArray(targetObject)) {
                 if (typeof targetObject === "string")
@@ -194,6 +201,7 @@ class Configuration {
                         targetObject = true;
                     }
                 }
+
                 return targetObject;
             }
 
@@ -207,8 +215,10 @@ class Configuration {
             }
 
             keys.forEach((key) => {
-                if ("filters" === key) {
+                if ("filter" === key) {
                     targetObject[key] = denormaliseFilter(targetObject[key]);
+                } else if ("districts" === key) {
+                    targetObject[key] = targetObject[key].map((elem) => parseInt(elem));
                 } else if (key === "withKey" && typeof targetObject[key] === "string" && targetObject[key].length === 0) {
                     targetObject[key] = false;
                 } else {
@@ -242,15 +252,49 @@ class Configuration {
             };
 
             Object.values(filter).forEach((elem) => {
+                if (elem.key === "districts") {
+                    elem.item = parseInt(elem.item);
+                }
+
                 filterObject[elem.type.toLowerCase()][elem.key].push(elem.item);
             });
 
             return filterObject;
         };
 
-        const response = convertObjectToArray(nestedData);
+        const restructureSectionsWithSetsOfSingleDays = (data) => {
+            data.sections = data.sections.map((section) => {
+                if ("days" in section) {
+                    section.columns = [];
+                    section.days.forEach((day) => {
+                        // numericise dayKey column
+                        day.columns = day.columns.map((column) => {
+                            column.dayKey = parseInt(column.dayKey);
+                            return column;
+                        });
 
-        return response;
+                        section.columns.push(day.columns)
+                    });
+
+                    delete section.days;
+                }
+
+                return section;
+            });
+
+            return data;
+        };
+
+
+        let formData = Object.entries($("form#controlsForm").serializeArray()).pluck(1);
+
+        formData = reserialize(formData);
+
+        formData = convertObjectToArray(formData);
+
+        const settings = restructureSectionsWithSetsOfSingleDays(formData);
+
+        return settings;
     }
 
     addMeetingKeys(meetings)

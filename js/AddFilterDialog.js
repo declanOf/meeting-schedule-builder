@@ -146,9 +146,9 @@ class AddFilterDialog
                 const content = $(`
                 <div class="col-12 hover-light filter-container" data-id="${values['type']}-${values['key']}-${index}">
                     <button class="edit-filter borderless">&#128462;</button> <button class="remove-filter borderless">&#8998;</button> ${friendlyType} groups with ${targetType} including "${target}"
-                    <input type="hidden" name="${prefix}filters.${index}.type" value="${values['type']}">
-                    <input type="hidden" name="${prefix}filters.${index}.key" value="${values['target']}">
-                    <input type="hidden" name="${prefix}filters.${index}.item" value="${target}">
+                    <input type="hidden" name="${prefix}filter.${index}.type" value="${values['type']}">
+                    <input type="hidden" name="${prefix}filter.${index}.key" value="${values['target']}">
+                    <input type="hidden" name="${prefix}filter.${index}.item" value="${target}">
                 </div>`);
 
                 this.#filterList.append(content);
