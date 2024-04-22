@@ -1,8 +1,16 @@
 class Configuration {
     #settings;
 
+    #activeConfigurationKey;
+
+    #availableConfigurations;
+
+    #dirtySettings = false;
+
+    #dirtyReasons = [];
+
     constructor() {
-        //this.#loadSettings();
+        this.#loadSettings();
 
         if (!this.#settings) {
             this.#initialize();
@@ -11,7 +19,8 @@ class Configuration {
 
     #initialize()
     {
-        localStorage.setItem("settings", JSON.stringify(this.#defaultSettings));
+        localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.#defaultSettings));
+
         this.#loadSettings();
     }
 
@@ -20,18 +29,70 @@ class Configuration {
             return;
         }
 
-        this.#settings = JSON.parse(localStorage.getItem("settings"));
+        this.#availableConfigurations = JSON.parse(localStorage.getItem("availableConfigurations")) ?? [['default', "Default"]];
+        this.#activeConfigurationKey = localStorage.getItem("activeConfigurationKey") ?? 'default';
+        this.#settings = JSON.parse(localStorage.getItem("settings-" + this.#activeConfigurationKey));
+
+        this.createDefaults();
     }
+
+    createDefaults() {
+        const availableConfigurations = localStorage.getItem("availableConfigurations") ?? false;
+
+        if (availableConfigurations) {
+            return;
+        }
+
+        localStorage.setItem("availableConfigurations", JSON.stringify([["default", "Default"]]));
+        localStorage.setItem("activeConfigurationKey", "default");
+        this.#write();
+    }
+
+    get availableConfigurations()
+    {
+        return this.#availableConfigurations;
+    }
+
+    get activeConfigurationKey()
+    {
+        return this.#activeConfigurationKey;
+    }
+
+    cloneConfiguration() {
+        function uuidv4() {
+            return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+              (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+            );
+        }
+
+        const newConfigurationKey = uuidv4();
+
+        this.#availableConfigurations.push([newConfigurationKey, "New configuration"]);
+
+        localStorage.setItem("availableConfigurations", JSON.stringify(this.#availableConfigurations));
+
+        this.#activeConfigurationKey = newConfigurationKey;
+
+        this.#write();
+    }
+
+    write() { this.#write(); }
 
     #write()
     {
         console.info("Writing to local storage");
-        localStorage.setItem("settings", JSON.stringify(this.#settings));
+        localStorage.setItem("activeConfigurationKey", this.#activeConfigurationKey);
+        localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.#settings));
     }
 
     get settings()
     {
         return this.#settings;
+    }
+
+    set settings(settings)
+    {
+        this.#settings = settings;
     }
 
     set columnSizes(tableData)
@@ -48,15 +109,53 @@ class Configuration {
 
         columnSizes.forEach((size, index) => columns[index].width = size+"px")
 
-        if (!isNaN(dayIndex))
-        {
+        if (!isNaN(dayIndex)) {
             this.#settings.sections[sectionIndex].columns[dayIndex] = columns;
         } else {
             this.#settings.sections[sectionIndex].columns = columns;
         }
+
+        this.setDirty(true);
+
+        this.modifyConfiguredColumnSizes(sectionIndex, dayIndex, columnSizes);
     }
 
-    saveChanges() {
+    modifyConfiguredColumnSizes(sectionIndex, dayIndex, columnSizes) {
+        let section = this.settings.sections[sectionIndex];
+
+        if (isNaN(dayIndex)) {
+            columnSizes.forEach((columnSize, index) => {
+                section.columns[index].width = columnSize + "px";
+            });
+        } else {
+            columnSizes.forEach((columnSize, index) => {
+                section.columns[dayIndex][index].width = columnSize + "px";
+            });
+        }
+
+        this.settings.sections[sectionIndex] = section;
+    }
+
+    setDirty(isDirty, reason) {
+        if (!isDirty) {
+            this.#dirtyReasons = [];
+        }
+
+        $("span.change-handler").removeClass("dirty");
+        if (isDirty) {
+            $("span.change-handler").addClass("dirty");
+            this.#dirtyReasons.push(reason);
+        }
+    }
+
+    saveChanges(event) {
+        event.preventDefault();
+
+        /**
+         * Convert a flat array into a structured array
+         * @param {*} flatArray
+         * @returns
+         */
         function reserialize(flatArray) {
             var data = {};
             flatArray.forEach((element) => {
@@ -65,6 +164,8 @@ class Configuration {
                 if (!val) {
                     val = "";
                 }
+
+                val = val.replace("\r", "").replace("\n", "<br>");
 
                 let fullName = element.name;
 
@@ -100,12 +201,22 @@ class Configuration {
             return data;
         }
 
-        const formData = Object.entries($("form#controlsForm").serializeArray()).pluck(1);
-
-        const nestedData = reserialize(formData);
-
+        /**
+         * Convert any objects with numerical keys into an array, nested
+         * @param {*} targetObject
+         * @returns
+         */
         const convertObjectToArray = (targetObject) => {
             if (typeof targetObject !== "object" || Array.isArray(targetObject)) {
+                if (typeof targetObject === "string")
+                {
+                    if (targetObject === "false") {
+                        targetObject = false;
+                    } else if (targetObject === "true") {
+                        targetObject = true;
+                    }
+                }
+
                 return targetObject;
             }
 
@@ -119,7 +230,15 @@ class Configuration {
             }
 
             keys.forEach((key) => {
-                targetObject[key] = convertObjectToArray(targetObject[key]);
+                if ("filter" === key) {
+                    targetObject[key] = denormaliseFilter(targetObject[key]);
+                } else if ("districts" === key) {
+                    targetObject[key] = targetObject[key].map((elem) => parseInt(elem));
+                } else if (key === "withKey" && typeof targetObject[key] === "string" && targetObject[key].length === 0) {
+                    targetObject[key] = false;
+                } else {
+                    targetObject[key] = convertObjectToArray(targetObject[key]);
+                }
             });
 
             if (numericalKeys.length === keys.length) {
@@ -129,7 +248,68 @@ class Configuration {
             return targetObject;
         }
 
-        return convertObjectToArray(nestedData);
+        const denormaliseFilter = (filter) => {
+            let filterObject = {
+                "exclude": {
+                    "districts": [],
+                    "group": [],
+                    "types": [],
+                    "attendanceOption": [],
+                    "name": [],
+                },
+                "include": {
+                    "districts": [],
+                    "group": [],
+                    "types": [],
+                    "attendanceOption": [],
+                    "name": []
+                }
+            };
+
+            Object.values(filter).forEach((elem) => {
+                if (elem.key === "districts") {
+                    elem.item = parseInt(elem.item);
+                }
+
+                filterObject[elem.type.toLowerCase()][elem.key].push(elem.item);
+            });
+
+            return filterObject;
+        };
+
+        const restructureSectionsWithSetsOfSingleDays = (data) => {
+            data.sections = data.sections.map((section) => {
+                if ("days" in section) {
+                    section.columns = [];
+                    section.days.forEach((day) => {
+                        // numericise dayKey column
+                        day.columns = day.columns.map((column) => {
+                            column.dayKey = parseInt(column.dayKey);
+                            return column;
+                        });
+
+                        section.columns.push(day.columns)
+                    });
+
+                    delete section.days;
+                }
+
+                return section;
+            });
+
+            return data;
+        };
+
+
+        let formData = Object.entries($("form#controlsForm").serializeArray()).pluck(1);
+
+        formData = reserialize(formData);
+
+        formData = convertObjectToArray(formData);
+
+        const settings = restructureSectionsWithSetsOfSingleDays(formData);
+
+        return settings;
     }
 
     addMeetingKeys(meetings)
@@ -184,18 +364,18 @@ class Configuration {
         "meetingFontSize": "font-size-10-25pt",
         "footerFontSize": "font-size-9pt",
         "documentHeader": {
-            "title": "AA Meeting Schedule",
+            "displayUrl": "https://www.saltlakeaa.org/meetings",
+            "holidayHours": "Call For Holiday Hours",
+            "inPerson": "In-Person Meetings Only",
+            "lastUpdated": "Last Updated",
             "officeTitle": "Central Office<br>of Salt Lake City",
             "officeStreet": "80 West Louise Ave (2860 South)",
             "officeCity": "Salt Lake City",
             "officeState": "UT",
             "officeZipcode": "84115",
             "officePhone": "(801) 484-7871",
-            "displayUrl": "https://www.saltlakeaa.org/meetings",
             "officeHours": "Monday-Friday 10AM-5PM<br>Saturday 10AM-2PM",
-            "holidayHours": "Call For Holiday Hours",
-            "lastUpdated": "Last Updated",
-            "inPerson": "In-Person Meetings Only",
+            "title": "AA Meeting Schedule",
             "website": "Check website for online meetings, accessibility services, and holiday changes.",
         },
         "minimumMultidayCount": 3,
@@ -293,12 +473,12 @@ class Configuration {
                     {
                         "source": "name",
                         "title": "Name",
-                        "width": "185px",
+                        "width": "178px",
                     },
                     {
                         "source": "locationAddress",
                         "title": "Location",
-                        "width": "412px",
+                        "width": "422px",
                     },
                     {
                         "source": "days",
@@ -308,7 +488,7 @@ class Configuration {
                     {
                         "source": "types",
                         "title": "Types",
-                        "width": "62px",
+                        "width": "60px",
                     },
                 ],
             },
@@ -328,8 +508,8 @@ class Configuration {
                 "columns": [
                     [
                         {"dayKey": 0, "source": "time_formatted",  "title": "Time",     "width": "68px",},
-                        {"dayKey": 0, "source": "name",            "title": "Name",     "width": "250px",},
-                        {"dayKey": 0, "source": "locationAddress", "title": "Location", "width": "448px",},
+                        {"dayKey": 0, "source": "name",            "title": "Name",     "width": "254px",},
+                        {"dayKey": 0, "source": "locationAddress", "title": "Location", "width": "444px",},
                         {"dayKey": 0, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [
                         {"dayKey": 1, "source": "time_formatted",  "title": "Time",     "width": "69px",},
@@ -338,7 +518,7 @@ class Configuration {
                         {"dayKey": 1, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [
                         {"dayKey": 2, "source": "time_formatted",  "title": "Time",     "width": "69px",},
-                        {"dayKey": 2, "source": "name",            "title": "Name",     "width": "221px",},
+                        {"dayKey": 2, "source": "name",            "title": "Name",     "width": "224px",},
                         {"dayKey": 2, "source": "locationAddress", "title": "Location", "width": "388px",},
                         {"dayKey": 2, "source": "types",           "title": "Types",     "width": "62px",},
                     ], [

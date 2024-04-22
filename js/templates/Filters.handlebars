@@ -5,9 +5,9 @@ const filtersTemplate = `
             {{#each filterList}}
             <div class="filter-container col-12 hover-light" data-id="{{type}}-{{key}}-{{idx}}">
                 <button class="edit-filter borderless">&#128462;</button> <button class="remove-filter borderless">&#8998;</button> {{type}} groups with {{key}} including "{{item}}"
-                <input type="hidden" name="{{../prefix}}filters.{{@key}}.type" value="{{type}}">
-                <input type="hidden" name="{{../prefix}}filters.{{@key}}.key"  value="{{key}}">
-                <input type="hidden" name="{{../prefix}}filters.{{@key}}.item" value="{{item}}">
+                <input type="hidden" name="{{../prefix}}filter.{{@key}}.type" value="{{type}}">
+                <input type="hidden" name="{{../prefix}}filter.{{@key}}.key"  value="{{key}}">
+                <input type="hidden" name="{{../prefix}}filter.{{@key}}.item" value="{{item}}">
             </div>
             {{/each}}
         </div>
