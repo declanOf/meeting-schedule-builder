@@ -109,8 +109,7 @@ class Configuration {
 
         columnSizes.forEach((size, index) => columns[index].width = size+"px")
 
-        if (!isNaN(dayIndex))
-        {
+        if (!isNaN(dayIndex)) {
             this.#settings.sections[sectionIndex].columns[dayIndex] = columns;
         } else {
             this.#settings.sections[sectionIndex].columns = columns;
@@ -118,7 +117,23 @@ class Configuration {
 
         this.setDirty(true);
 
-        console.log(columnSizes);
+        this.modifyConfiguredColumnSizes(sectionIndex, dayIndex, columnSizes);
+    }
+
+    modifyConfiguredColumnSizes(sectionIndex, dayIndex, columnSizes) {
+        let section = this.settings.sections[sectionIndex];
+
+        if (isNaN(dayIndex)) {
+            columnSizes.forEach((columnSize, index) => {
+                section.columns[index].width = columnSize + "px";
+            });
+        } else {
+            columnSizes.forEach((columnSize, index) => {
+                section.columns[dayIndex][index].width = columnSize + "px";
+            });
+        }
+
+        this.settings.sections[sectionIndex] = section;
     }
 
     setDirty(isDirty, reason) {
