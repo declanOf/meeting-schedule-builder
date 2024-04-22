@@ -136,7 +136,7 @@ class Configuration {
     saveChanges(event) {
         event.preventDefault();
         console.log("saving");
-        return;
+
         function reserialize(flatArray) {
             var data = {};
             flatArray.forEach((element) => {
@@ -208,7 +208,7 @@ class Configuration {
 
             keys.forEach((key) => {
                 if ("filters" === key) {
-                    targetObject[key] = denormalizeFilter(targetObject[key]);
+                    targetObject[key] = denormaliseFilter(targetObject[key]);
                 } else if (key === "withKey" && typeof targetObject[key] === "string" && targetObject[key].length === 0) {
                     targetObject[key] = false;
                 } else {
@@ -223,7 +223,7 @@ class Configuration {
             return targetObject;
         }
 
-        const denormalizeFilter = (filter) => {
+        const denormaliseFilter = (filter) => {
             let filterObject = {
                 "exclude": {
                     "districts": [],
