@@ -145,12 +145,14 @@ span.change-handler button {
     margin-right: 1em;
 }
 
-span.change-handler #reset-changes {
+span.change-handler #reset-changes,
+span.change-handler #save-changes {
     display: none;
 }
 
 span.change-handler.dirty #save-changes {
     background-color: yellow;
+    display: block;
 }
 
 span.change-handler.dirty #reset-changes {

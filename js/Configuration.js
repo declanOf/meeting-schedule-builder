@@ -106,8 +106,17 @@ class Configuration {
         if (!isNaN(dayIndex)) {
             columns = columns[dayIndex];
         }
+            columnSizes.forEach((size, index) => {
+                try {
+                    columns[index].width = size+"px";
+                } catch (error) {
+                    console.error("error setting width for columns", columns)
+                    console.error("index", index);
+                    console.error(error);
 
-        columnSizes.forEach((size, index) => columns[index].width = size+"px")
+                    throw error;
+                }
+            });
 
         if (!isNaN(dayIndex)) {
             this.#settings.sections[sectionIndex].columns[dayIndex] = columns;
@@ -115,7 +124,7 @@ class Configuration {
             this.#settings.sections[sectionIndex].columns = columns;
         }
 
-        this.setDirty(true);
+        this.setDirty(true, "Column width changes");
 
         this.modifyConfiguredColumnSizes(sectionIndex, dayIndex, columnSizes);
     }
@@ -139,6 +148,7 @@ class Configuration {
     setDirty(isDirty, reason) {
         if (!isDirty) {
             this.#dirtyReasons = [];
+            $("#save-changes").attr("title", "");
         }
 
         $("span.change-handler").removeClass("dirty");
@@ -166,6 +176,12 @@ class Configuration {
                 }
 
                 val = val.replace("\r", "").replace("\n", "<br>");
+
+                if (val === "on") {
+                    val = true;
+                } else if (val === "off") {
+                    val = false;
+                }
 
                 let fullName = element.name;
 
@@ -251,18 +267,8 @@ class Configuration {
         const denormaliseFilter = (filter) => {
             let filterObject = {
                 "exclude": {
-                    "districts": [],
-                    "group": [],
-                    "types": [],
-                    "attendanceOption": [],
-                    "name": [],
                 },
                 "include": {
-                    "districts": [],
-                    "group": [],
-                    "types": [],
-                    "attendanceOption": [],
-                    "name": []
                 }
             };
 
@@ -271,6 +277,9 @@ class Configuration {
                     elem.item = parseInt(elem.item);
                 }
 
+                if (!(elem.key in filterObject[elem.type.toLowerCase()])) {
+                    filterObject[elem.type.toLowerCase()][elem.key] = [];
+                }
                 filterObject[elem.type.toLowerCase()][elem.key].push(elem.item);
             });
 
@@ -308,6 +317,16 @@ class Configuration {
         formData = convertObjectToArray(formData);
 
         const settings = restructureSectionsWithSetsOfSingleDays(formData);
+
+        console.log("current", this.settings);
+        console.log("new", settings);
+
+        // TODO: activate settings, and save them
+        this.settings = settings;
+
+        localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.settings));
+
+        this.setDirty(false);
 
         return settings;
     }
@@ -463,7 +482,6 @@ class Configuration {
                         "name": ["Central Office", "District"],
                     }
                 },
-                "showTypes": ["+", "M", "W", "C", "@", "S", "Y", ],
                 "columns": [
                     {
                         "source": "time_formatted",
@@ -557,7 +575,6 @@ class Configuration {
                         "name": ["Central Office", "District"],
                     },
                 },
-                "showTypes": ["O", "C", "A"],
                 "columns": [
                     {
                         "source": "time_formatted",

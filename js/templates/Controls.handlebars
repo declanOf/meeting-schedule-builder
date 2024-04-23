@@ -77,8 +77,20 @@ const controlsTemplate = `
                 <span class="col-1-5 strong">Data Source</span>
                 <input type="text" class="col-9 hover-light" title="Data Source: please ask your central office IT or web chair for this URL" placeholder="Data Source" name="sourceUrl" value="{{ sourceUrl }}">
             </div>
-            <div class="col-2-5">
-                <span style="padding-right: 10px" class="strong">Expiration Hours</span><input type="number" class="hover-light col-3" title="Data Expiration (hours). Lower htis number to keep data fresher, and raise it back up to give your server a rest." name="expiryHours" value="{{ expiryHours }}">
+            <div class="col-4-5">
+                <input type="number" class="hover-light col-2" style="text-align: right" title="Data Expiration (hours). Lower htis number to keep data fresher, and raise it back up to give your server a rest." name="expiryHours" value="{{ expiryHours }}"> <span style="padding-right: 10px" class="strong">Expiration Hours</span>
+            </div>
+            <div class="col-4-5">
+                <input type="number" class="hover-light col-2" style="text-align: right" name="minimumMultidayCount" value="{{ minimumMultidayCount }}"> <span style="padding-right: 10px" class="strong">Minimum Multiday Count</span>
+            </div>
+            <div class="col-4-5">
+                <input type="checkbox" {{#ifEquals showSectionDivider true}}checked="checked"{{/ifEquals}} class="hover-light col-3" name="showSectionDivider"><span style="padding-right: 10px" class="strong">Show Section Divider</span>
+            </div>
+            <div class="col-4-5">
+                <input type="checkbox" {{#ifEquals printDocumentFooter true}}checked="checked"{{/ifEquals}} class="hover-light col-3" name="printDocumentFooter"> <span style="padding-right: 10px" class="strong">Print Document Footer</span>
+            </div>
+            <div class="col-4-5">
+                <input type="checkbox" {{#ifEquals showColumnHeadersForEachDay true}}checked="checked"{{/ifEquals}} class="hover-light col-3" name="showColumnHeadersForEachDay"> <span style="padding-right: 10px" class="strong">Show Column Headers For Each Day</span>
             </div>
             <div class="col-2-5 align-end">
                     <span style="padding-right: 5px;" class="strong">Standard row text size</span>

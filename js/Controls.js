@@ -96,7 +96,6 @@ class Controls
         // loop each section, get controls and filters
 
         Handlebars.registerPartial('filters', filtersTemplate);
-        // Handlebars.registerPartial
 
         // instantiate and render the sections controller, then pass that to the control template.
         // the advantage is the sections controller then handles the logic for columns, and possibly other logic that arises.
@@ -106,22 +105,26 @@ class Controls
         const filters = new Filters(this.#meetings, this.#configuration.settings.filter, null);
 
         const controlTemplatesData = {
-            "documentHeader"           : this.#configuration.settings.documentHeader,
-            "documentFooter"           : this.#configuration.settings.documentFooter,
-            "expiryHours"              : this.#configuration.settings.expiryHours,
-            "sourceUrl"                : this.#configuration.settings.sourceUrl,
-            "addressReplacements"      : this.#configuration.settings.addressReplacements,
-            "nameReplacements"         : this.#configuration.settings.nameReplacements,
-            "meetingFontSize"          : this.#configuration.settings.meetingFontSize,
-            "footerFontSize"           : this.#configuration.settings.footerFontSize,
-            "controlTypes"             : this.#controlTypes,
-            "sectionsControlsContent"  : sectionsControls.render(),
-            "filtersContent"           : filters.render(),
-            "regions"                  : this.#regions,
-            "groups"                   : this.#groups,
-            "districts"                : this.#districts,
-            "fontSizes"                : fontSizes,
-            "columnsMap"               : {"time": "Time", "locationAddress": "Location / Address", "days": "Days", "name": "Name", "types": "Types"}
+            "documentHeader"              : this.#configuration.settings.documentHeader,
+            "documentFooter"              : this.#configuration.settings.documentFooter,
+            "expiryHours"                 : this.#configuration.settings.expiryHours,
+            "minimumMultidayCount"        : this.#configuration.settings.minimumMultidayCount,
+            "showSectionDivider"          : this.#configuration.settings.showSectionDivider,
+            "printDocumentFooter"         : this.#configuration.settings.printDocumentFooter,
+            "showColumnHeadersForEachDay" : this.#configuration.settings.showColumnHeadersForEachDay,
+            "sourceUrl"                   : this.#configuration.settings.sourceUrl,
+            "addressReplacements"         : this.#configuration.settings.addressReplacements,
+            "nameReplacements"            : this.#configuration.settings.nameReplacements,
+            "meetingFontSize"             : this.#configuration.settings.meetingFontSize,
+            "footerFontSize"              : this.#configuration.settings.footerFontSize,
+            "controlTypes"                : this.#controlTypes,
+            "sectionsControlsContent"     : sectionsControls.render(),
+            "filtersContent"              : filters.render(),
+            "regions"                     : this.#regions,
+            "groups"                      : this.#groups,
+            "districts"                   : this.#districts,
+            "fontSizes"                   : fontSizes,
+            "columnsMap"                  : {"time": "Time", "locationAddress": "Location / Address", "days": "Days", "name": "Name", "types": "Types"}
         }
         return controlsTemplateEngine(controlTemplatesData);
     }

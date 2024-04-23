@@ -110,6 +110,7 @@ class RowHelper
                     row.columns[column.source] = {"key": column.source, "name": column.name, "width": column.width, "value": this.#getFormattedAddress(meeting)};
                 } else {
                     console.error("Unknown key", column.source);
+                    console.log("column", column);
                     console.log("Meeting", meeting);
                 }
             });
