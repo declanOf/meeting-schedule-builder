@@ -14,15 +14,15 @@ CONTROLS:
 ✓   Fix input names to enable filters and properly include columns
     SAVE CONFIGURATION
 ✓       Collect data from different controls into an array.
--       Validate data
--       Inject constructed controls array into a configuration.
--       Save to local storage
--       Apply configuration to loaded document.
+✓       Validate data
+✓       Inject constructed controls array into a configuration.
+✓       Save to local storage
+✓       Apply configuration to loaded document.
 -   Convert the displayed section numbering from zero-indexed to one-indexed.
--   Add dialog for new or edited filters.
+✓   Add dialog for new or edited filters.
     FONT SIZE:
 ✓       Enable font-size selection.
--       Allow font size change for header and for office title.
+✓       Allow font size change for header and for office title.
 -   Fix tab content block width. It shouldn't resize for the content of different tabs.
     ADD/REMOVE control element blocks:
 -       Keys
@@ -36,12 +36,14 @@ CONTROLS:
 -   Add columns to section
 -   Delete columns
 ✓   Adding keys from meetings into configuration
+-   Export/import settings
+-   Manually edit settings
 
 GLOBAL:
--   Implement single days with different repetition of headers
--   Implement single days with multi-days mixed in
+✓   Implement single days with different repetition of headers
+✓   Implement single days with multi-days mixed in
 ✓   Add display option
 ✓   Moved code into devoted app file
--   Add ability to save and switch between configurations.
+✓   Add ability to save and switch between configurations.
 ✓   Save an item "configurations", with one as "default"
--   Load up configuration from list.
+✓   Load up configuration from list.

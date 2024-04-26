@@ -41,9 +41,9 @@ class Meetings {
     {
         this.#loadTimestamp();
 
-        // if (this.#needsRefresh()) {
-        //     return;
-        // }
+        if (this.#needsRefresh()) {
+            return;
+        }
 
         console.info("Loading from local storage");
 
