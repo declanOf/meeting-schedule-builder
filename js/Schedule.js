@@ -1,4 +1,4 @@
-class Sections
+class Schedule
 {
     #configuration;
     #meetings;
@@ -63,6 +63,12 @@ class Sections
 
             $('div.page').append(section.render());
         });
+
+        if (this.#configuration.settings.printDocumentFooter) {
+            const footer = $(`<p style="text-align: center; padding-top: 12pt; margin-bottom: 0;" class="${this.#configuration.settings.footerFontSize}">${this.#configuration.settings.documentFooter}</p>`);
+
+            $("div.page").append(footer);
+        }
 
         window.setTimeout(
             () => {

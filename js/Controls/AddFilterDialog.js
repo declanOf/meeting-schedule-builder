@@ -33,7 +33,7 @@ class AddFilterDialog
         this.#addFilterDialog = $("#filterDialog").dialog({title: "Add Filter", height: 500, width: 450, autoOpen: false, modal: true});
     }
 
-    openDialog()
+    open()
     {
         $("form#filterForm")[0].reset();
 
@@ -230,4 +230,3 @@ class AddFilterDialog
         return addFilterDialogEngine(data);
     }
 }
-
