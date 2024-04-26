@@ -158,3 +158,8 @@ span.change-handler.dirty #save-changes {
 span.change-handler.dirty #reset-changes {
     display: block;
 }
+
+div#configuration-manage-dialog ul li
+{
+    list-style-type: none;
+}

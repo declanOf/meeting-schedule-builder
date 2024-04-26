@@ -10,6 +10,8 @@ class Controls
     #regions;
     #districts;
 
+    #configurationManageDialog
+
     constructor(Configuration, meetings)
     {
         this.#configuration = Configuration;
@@ -65,8 +67,11 @@ class Controls
                         localStorage.setItem("activeConfigurationKey", selection);
                         location.reload();
                     }
-                })
+                });
 
+                this.#configurationManageDialog = new ConfigurationManageDialog();
+
+                $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
             },
             1000
         )

@@ -15,11 +15,11 @@ var sectionControlsTemplate = `
         <div class="row section-type">
             <div class="col-1">Type</div>
             <select class="col-8" name="sections.{{sectionKey}}.type">
-                <option value="generic">Generic (service, language, etc)</option>
-                <option value="multi-days">Multi-days</option>
-                <option value="mixed-full-days">Mixed full days</option>
-                <option value="single-inclusive-days">Single-inclusive days</option>
-                <option value="single-exclusive-days">Single-exclusive days</option>
+                <option value="generic" {{#ifEquals "generic" section.type}}selected="selected"{{/ifEquals}}>Generic (service, language, etc)</option>
+                <option value="multi-days" {{#ifEquals "multi-days" section.type}}selected="selected"{{/ifEquals}}>Multi-days</option>
+                <option value="mixed-full-days" {{#ifEquals "mixed-full-days" section.type}}selected="selected"{{/ifEquals}}>Mixed full days</option>
+                <option value="single-inclusive-days" {{#ifEquals "single-inclusive-days" section.type}}selected="selected"{{/ifEquals}}>Single-inclusive days</option>
+                <option value="single-exclusive-days" {{#ifEquals "single-exclusive-days" section.type}}selected="selected"{{/ifEquals}}>Single-exclusive days</option>
             </select>
         </div>
         <div class="row col-12 section-columns">

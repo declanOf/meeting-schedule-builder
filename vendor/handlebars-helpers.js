@@ -4,6 +4,12 @@ Handlebars.registerHelper(
 );
 
 Handlebars.registerHelper(
+    'ifNotEquals',
+    (arg1, arg2, options) => (arg1 !== arg2) ? options.fn(this) : options.inverse(this)
+);
+
+
+Handlebars.registerHelper(
     'ifNotEmptyOrWhitespace',
     function (value, options) {
         return (!value)

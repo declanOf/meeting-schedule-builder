@@ -76,11 +76,17 @@
 
             $(".collapse-section").on("click", collapseSection);
 
-    /** TODO: Add list configurations from which one can be selected and applied, and new ones added */
+            /** TODO: Add list configurations from which one can be selected and applied, and new ones added */
             $("#controlsForm").tabs(
                 {
                     "create": () => {
-                        $("ul.ui-tabs-nav").append($(`<li class="align-end" style="float: right">${this.getConfigurationOptions()}</li>`))
+                        this.#configuration.availableConfigurations.forEach((elem) => {
+                            if (this.#configuration.activeConfigurationKey !== elem[0]) {
+                                return;
+                            }
+
+                            $("ul.ui-tabs-nav").append($(`<label>Current Configuration: <a href="#" id="show-configuration-manage-dialog">${elem[1]}</a></label>`));
+                        });
                     }
                 }
             );
@@ -88,16 +94,6 @@
 
             return this;
         };
-
-        getConfigurationOptions() {
-            let options = `<option value="clone-configuration">Create New Configuration</option>`;
-            this.#configuration.availableConfigurations.forEach((elem) => {
-                const selected = this.#configuration.activeConfigurationKey === elem[0] ? "SELECTED" : "";
-                options += `<option value="${elem[0]}" ${selected}>${elem[1]}</option>`;
-            });
-
-            return `<label>Configuration: <select id="select-available-configuration">${options}</select></label>`;
-        }
 
         addHeader() {
             const header = new DocumentHeader(this.#configuration);

@@ -30,7 +30,7 @@ class AddFilterDialog
 
         this.attachHandlers();
 
-        this.#addFilterDialog = $("#filterDialog").dialog({title: "Add Filter", height: 500, width: 450, autoOpen: false});
+        this.#addFilterDialog = $("#filterDialog").dialog({title: "Add Filter", height: 500, width: 450, autoOpen: false, modal: true});
     }
 
     openDialog()

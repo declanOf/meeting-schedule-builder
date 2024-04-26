@@ -1,0 +1,17 @@
+const configurationManageDialogTemplate = `
+<div id="configuration-manage-dialog">
+    <div class="content">
+        <ul>
+            <li><a href="#" class="clone">Clone Current Configuration</a></li>
+            {{#each availableConfigurations}}
+                <li data-key="{{ this.[0] }}">
+                    {{#ifNotEquals this.[0] ../activeConfigurationKey}} <a class="delete" href="#" title="Delete Configuration"><img src="./delete-icon.png" style="height: 14px; width: 14px;"></a>{{/ifNotEquals}}
+                    {{#ifEquals this.[0] ../activeConfigurationKey}}<span style="padding-left: 11px">&nbsp;</span>{{/ifEquals}}
+                    <a class="rename" href="#" title="Rename configuration"><img src="./rename-icon.png" style="height: 14px; width: 14px"></a>
+                    {{#ifNotEquals this.[0] activeConfigurationKey}}<a href="#" class="select">{{/ifNotEquals}}{{this.[1]}}{{#ifNotEquals this.[0] activeConfigurationKey}}</a>{{/ifNotEquals}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+`;
