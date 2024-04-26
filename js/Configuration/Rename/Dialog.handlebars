@@ -1,0 +1,22 @@
+const configurationRenameDialogTemplate = `
+<div id="renameConfigurationDialog" style="width:400px">
+    <p class="errors" style="display: none;"></p>
+    <form id="configurationRenameForm" style="width: 400px">
+        <p class="errors"></p>
+
+        <p>Rename "{{configurationName}}"?</p>
+
+        <input type="hidden" name="configuration-key" value="{{configurationKey}}">
+
+        <p>
+            <label><input type="text" class="new-name"></label>
+        </p>
+
+        <p>
+            <input class="submit" type="submit" value="Change Name">
+
+            <input class="cancel" type="submit" value="Cancel">
+        </p>
+    </form>
+</div>
+`;

@@ -13,7 +13,15 @@ class ConfigurationManageDialog
         const selectConfigurationHandler = (event) => {
             event.preventDefault();
 
-            alert("select");
+            const lineItem = $($(event.target).parents("li")[0]);
+
+            const configurationKey = lineItem.attr("data-key");
+
+            localStorage.setItem("activeConfigurationKey", configurationKey);
+
+            alert("Using new configuration. Page will reload automatically.");
+
+            location.reload();
         };
 
         // TODO: show dialog requesting new name, and indicating origin configuration
@@ -21,22 +29,34 @@ class ConfigurationManageDialog
             event.preventDefault();
 
             this.#configurationCloneDialog = new ConfigurationCloneDialog();
+
             this.#configurationCloneDialog.open();
-            alert("clone");
         };
 
-        // TODO: show dialog requesting confirmation with name of configuration to be deleted
+        // TODO: use dialog
         const deleteConfigurationHandler = (event) => {
             event.preventDefault();
 
-            alert("delete");
+            const lineItem = $($(event.target).parents("li")[0]);
+
+            const configurationKey = lineItem.attr("data-key");
+
+            this.configurationDeleteDialog = new ConfigurationDeleteDialog(configurationKey);
+
+            this.configurationDeleteDialog.open();
         };
 
         // TODO: show dialog showing old name and requesting new name
         const renameConfigurationHandler = (event) => {
             event.preventDefault();
 
-            alert("rename");
+            const lineItem = $($(event.target).parents("li")[0]);
+
+            const configurationKey = lineItem.attr("data-key");
+
+            this.configurationRenameDialog = new ConfigurationRenameDialog(configurationKey);
+
+            this.configurationRenameDialog.open();
         };
 
         $("#configuration-manage-dialog .select").click(selectConfigurationHandler);

@@ -1,0 +1,15 @@
+const configurationDeleteDialogTemplate = `
+<div id="deleteConfigurationDialog" style="width:400px">
+    <p class="errors" style="display: none;"></p>
+    <form id="configurationDeleteForm" style="width: 400px">
+        <p>Delete Configuration "{{configurationName}}"?</p>
+
+        <input type="hidden" name="configuration-key" value="{{configurationKey}}">
+        <p>
+            <input class="submit" type="submit" value="Delete">
+
+            <input class="cancel" type="submit" value="Cancel">
+        </p>
+    </form>
+</div>
+`;

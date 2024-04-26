@@ -36,6 +36,8 @@ class ConfigurationCloneDialog
                 return;
             }
 
+            debugger;
+
             this.#configuration.cloneConfiguration(name);
 
             location.reload();
@@ -57,9 +59,9 @@ class ConfigurationCloneDialog
 
         const activeConfigurationKey = localStorage.getItem("activeConfigurationKey")
 
-        const activeConfigurations = JSON.parse(localStorage.getItem("availableConfigurations"));
+        const availableConfigurations = JSON.parse(localStorage.getItem("availableConfigurations"));
 
-        const currentConfiguration = activeConfigurations[activeConfigurationKey];
+        const currentConfiguration = availableConfigurations[activeConfigurationKey];
 
         return configurationCloneDialogEngine(currentConfiguration);
     }
