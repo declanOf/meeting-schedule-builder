@@ -1,0 +1,18 @@
+This is a web app built to create printable meeting schedules generated using TSML.
+
+To use the meeting schedule builder, simply unzip to a location on your computer and open "index.html" with your browser. Configure settings as desired, and when the meeting schedule is suitable, print to PDF to generate a printable source or print directly to your printer.
+
+On some computers, access to local resources might be restricted. Please see the following sites for assistance:
+
+Upon loading the page for the first time, two options will be available to you:
+
+1. If you do not know the appropriate values for your Central Office or just want to see an example, you could accept the default configuration. It will use Salt Lake Central Office, which you can later change to your preferred Central Office.
+
+2. If you know the appropriate values for your Central Office, you could create your own configuration. (These can always be changed at a later time.)
+The Resource URL requested by install should be a TSML API URL along the lines of this:
+    https://<website>/wp-admin/admin-ajax.php?action=meetings
+
+If this doesn't work for you, or you do not know your website's URL, please contact your webservant or IT chair.
+
+You may also reach out to me at declanofiaich@gmail.com for assistance. Please include the main website for your Central Office. If I can't assist you, I will try to find contact information for someone in your Central Office who can help.
+
