@@ -11,7 +11,7 @@ class ConfigurationCloneDialog
 
         this.attachHandlers();
 
-        this.#configurationCloneDialog = $("#cloneConfigurationDialog").dialog({title: "Add Configuration", height: 500, width: 450, autoOpen: false, modal: true});
+        this.#configurationCloneDialog = $("#cloneConfigurationDialog").dialog({title: "Add Configuration", height: 580, width: 600, autoOpen: false, modal: true});
     }
 
     open() {
@@ -27,9 +27,9 @@ class ConfigurationCloneDialog
         const submitHandler = (event) => {
             event.preventDefault();
 
-            const name = $("#configurationCloneForm input.new-name").val();
+            let formData = Object.entries($("form#configurationCloneForm").serializeArray()).pluck(1).serialiseToObject();
 
-            if (name.length < 3) {
+            if (formData.name.length < 3) {
                 // TODO: add error
 
                 alert("Name must be longer than two characters")
@@ -38,7 +38,7 @@ class ConfigurationCloneDialog
 
             debugger;
 
-            this.#configuration.cloneConfiguration(name);
+            this.#configuration.cloneConfiguration(formData);
 
             location.reload();
         }
@@ -49,7 +49,7 @@ class ConfigurationCloneDialog
             $("#configurationCloneDialog").dialog("close");
         };
 
-        $("#configurationCloneForm .submit").on("click", submitHandler);
+        $('#configurationCloneForm input[type="submit"].submit').on("click", submitHandler);
 
         $("#configurationCloneForm .cancel").on("click", cancelHandler);
     }
@@ -61,8 +61,23 @@ class ConfigurationCloneDialog
 
         const availableConfigurations = JSON.parse(localStorage.getItem("availableConfigurations"));
 
-        const currentConfiguration = availableConfigurations[activeConfigurationKey];
+        let currentConfiguration = '';
 
-        return configurationCloneDialogEngine(currentConfiguration);
+        availableConfigurations.forEach((config) => {
+            if (config[0] === config[0]) {
+                currentConfiguration = config;
+            }
+        });
+
+        const templateData = {
+            activeConfigurationKey: activeConfigurationKey,
+            availableConfigurations: availableConfigurations,
+            sourceUrl: this.#configuration.settings.sourceUrl,
+            currentConfiguration: currentConfiguration,
+            documentHeader: this.#configuration.settings.documentHeader
+        };
+
+        console.log("template data", templateData);
+        return configurationCloneDialogEngine(templateData);
     }
 }

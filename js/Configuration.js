@@ -66,7 +66,7 @@ class Configuration {
         return this;
     }
 
-    cloneConfiguration(configurationName) {
+    cloneConfiguration(formData) {
         function uuidv4() {
             return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
               (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
@@ -75,12 +75,17 @@ class Configuration {
 
         const newConfigurationKey = uuidv4();
 
-        this.#availableConfigurations.push([newConfigurationKey, configurationName]);
+        this.#availableConfigurations.push([newConfigurationKey, formData.name]);
 
         localStorage.setItem("availableConfigurations", JSON.stringify(this.#availableConfigurations));
 
         this.#activeConfigurationKey = newConfigurationKey;
 
+        const validFormKeys = ["displayUrl", "officeTitle", "officeStreet", "officeCity", "officeState", "officeZipcode", "officePhone"];
+
+        validFormKeys.forEach((key) => this.#settings.documentHeader[key] = formData[key]);
+
+        this.#settings.sourceUrl = formData.sourceUrl;
         this.write();
     }
 

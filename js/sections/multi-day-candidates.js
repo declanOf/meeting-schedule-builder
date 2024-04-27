@@ -52,7 +52,7 @@ class MultiDayCandidates
             return "Mon - Sat";
         }
 
-        if (days.length === 6 && days.equals([1, 2, 3, 4, 5, 0])) {
+        if (days.length === 6 && days.equals([0, 1, 2, 3, 4, 5])) {
             return "Sun - Fri";
         }
 
