@@ -35,7 +35,6 @@ class Schedule
                     this.#sections.push(new MultiDaysSection(this.#getMultiDayCandidates().multiDays, section, index, this.#configuration));
                 break;
 
-                // TODO: Add different day options to section type options
                 case 'mixed-full-days':
                     this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().mixedFullDays, section, this.#configuration, index));
                 break;
@@ -105,12 +104,13 @@ class Schedule
                         entries.forEach((entry, columnIndex) => {
                             const target = $(entry.target);
 
-                            const size = entry.borderBoxSize[0].inlineSize
+                            const size = entry.borderBoxSize[0].inlineSize;
 
                             changeData.columnSizes.push(size);
                         });
 
                         this.#configuration.columnSizes = changeData;
+                        this.#configuration.write();
                     }, 500);
                 });
 

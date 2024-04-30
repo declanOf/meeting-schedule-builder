@@ -112,7 +112,7 @@ const controlsTemplate = `
             <div class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">
                 {{{filtersContent}}}
                 <div class="col-6 header-text-replacements">
-                    <span class="small-caps strong col-8">Global Replacements: <button class="borderless strong">+</button></span>
+                    <span class="small-caps strong col-8">Global Replacements: <button class="borderless strong" id="add-text-replacement">+</button></span>
                     {{#each addressReplacements}}
                     <p class="hover-light"><button class="borderless">&#8998;</button> In address, replace <input type="text" name="addressReplacements.{{@key}}.old" value="{{old}}"> with <input type="text" name="addressReplacements.{{@key}}.new" value="{{new}}"></p>
                     {{/each}}

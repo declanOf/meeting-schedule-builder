@@ -7,10 +7,15 @@
         constructor()
         {
             $(document).ready(() => {
-                this.#configuration = new Configuration();
+                this.#configuration = new Configuration(false);
 
-                new Promise((ready) => this.buildMeetings(ready))
-                    .then(this.buildPage.bind(this));
+                if (this.#configuration.initialized) {
+                    new Promise((ready) => this.buildMeetings(ready))
+                        .then(this.buildPage.bind(this));
+                } else {
+                    new Installer();
+                }
+
             });
         }
 
@@ -34,13 +39,28 @@
 
             $('div#controls').append(controlsContent);
 
+            $('div#controls input[type="text"]').keyup(() => { this.#configuration.setDirty(true, "Text changes have been made") });
+
+            $('div#controls textarea').keyup(() => { this.#configuration.setDirty(true, "Text changes have been made") });
+
+            $('div#controls select').change(() => { this.#configuration.setDirty(true, "Text changes have been made") });
+
+            $('div#controls input[type="checkbox"]').change(() => { this.#configuration.setDirty(true, "Text changes have been made") });
+
+            const addFilterDialog = new AddFilterDialog($(event.target));
             $(".add-filter").click((event) => {
                 event.preventDefault();
 
-                const addFilterDialog = new AddFilterDialog($(event.target));
-
                 addFilterDialog.open();
             })
+
+            const addReplacementDialog = new AddReplacementDialog();
+
+            $("#add-text-replacement").click((event) => {
+                event.preventDefault();
+
+                addReplacementDialog.open();
+            });
 
             $("#save-changes").click(this.#configuration.saveChanges.bind(this.#configuration));
 

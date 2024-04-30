@@ -134,15 +134,21 @@ class SingleDaysSection extends GenericBlockSection
         let location = meeting['location'];
 
         this.#configuration.settings.addressReplacements.forEach((replacement) => {
-            address = address.replace(new RegExp(replacement.old), replacement.new);
+            if (address) {
+                address = address.replace(new RegExp(replacement.old), replacement.new);
+            }
 
-            location = location.replace(new RegExp(replacement.old), replacement.new);
+            if (location) {
+                location = location.replace(new RegExp(replacement.old), replacement.new);
+            }
         });
 
         if (address !== location) {
             locationAddress = `${location}: ${address}`;
-        } else {
+        } else if (location) {
             locationAddress = location;
+        } else if (address) {
+            locationAddress = address;
         }
 
         return locationAddress;

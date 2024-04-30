@@ -6,10 +6,6 @@ class AddFilterDialog
 
     #configuration;
 
-    #handlersAttached = false;
-
-    #target;
-
     #filterList;
 
     #filtersContainer;
@@ -18,8 +14,6 @@ class AddFilterDialog
 
     constructor(target)
     {
-        this.#target = target;
-
         this.#filtersContainer = $(target.parents(".filters-container")[0]);
 
         this.#filterList = $(this.#filtersContainer.find(".filter-list"));

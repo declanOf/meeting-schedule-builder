@@ -10,7 +10,7 @@ class Controls
     #regions;
     #districts;
 
-    #configurationManageDialog
+    #configurationManageDialog;
 
     constructor(Configuration, meetings)
     {

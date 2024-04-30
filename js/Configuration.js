@@ -11,12 +11,12 @@ class Configuration {
 
     #defaultSettings;
 
-    constructor() {
+    constructor(autoCreate = true) {
         this.#defaultSettings = DefaultSettings;
 
         this.#loadSettings();
 
-        if (!this.#settings) {
+        if (!this.#settings && autoCreate) {
             this.#initialize();
         }
     };
@@ -95,6 +95,10 @@ class Configuration {
         localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.#settings));
     }
 
+    get initialized() {
+        return (this.#settings) ? true : false;
+    }
+
     get settings() {
         return this.#settings;
     }
@@ -110,6 +114,11 @@ class Configuration {
 
         let columns = this.#settings.sections[sectionIndex].columns;
 
+        if (columnSizes.length > 10) {
+            console.info("Window resize detected, not setting column sizes.");
+            return;
+        }
+
         if (!isNaN(dayIndex)) {
             columns = columns[dayIndex];
         }
@@ -118,6 +127,7 @@ class Configuration {
                     columns[index].width = size+"px";
                 } catch (error) {
                     console.error("error setting width for columns", columns)
+                    console.error("columnSizes", columnSizes);
                     console.error("index", index);
                     console.error(error);
 
@@ -130,8 +140,6 @@ class Configuration {
         } else {
             this.#settings.sections[sectionIndex].columns = columns;
         }
-
-        this.setDirty(true, "Column width changes");
 
         this.modifyConfiguredColumnSizes(sectionIndex, dayIndex, columnSizes);
     }
@@ -149,7 +157,11 @@ class Configuration {
             });
         }
 
-        this.settings.sections[sectionIndex] = section;
+        let settings = {...this.settings};
+
+        settings.sections[sectionIndex] = section;
+
+        this.settings = settings;
     }
 
     setDirty(isDirty, reason) {

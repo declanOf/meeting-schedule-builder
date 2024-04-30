@@ -112,6 +112,7 @@ class RowHelper
                     console.error("Unknown key", column.source);
                     console.log("column", column);
                     console.log("Meeting", meeting);
+                    console.log("expected columns", column);
                 }
             });
 

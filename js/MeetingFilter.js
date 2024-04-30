@@ -33,7 +33,7 @@ class MeetingFilter
                 this.meetings = this.meetings.filter((meeting) => this.exclusions.attendanceOption.indexOf(meeting.attendance_option) === -1);
             }
 
-            if ("name" in this.exclusions && typeof this.exclusions.name === "object") {
+            if ("name" in this.exclusions && typeof this.exclusions.name === "object" && this.exclusions.name !== null) {
                 this.meetings = this.meetings.filter((meeting) => !this.matches(meeting.name, this.exclusions.name) );
             }
         }

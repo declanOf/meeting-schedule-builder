@@ -44,8 +44,16 @@ class MultiDayCandidates
 
         let days = meetings.pluck("day");
 
+        if (days.length === 4 && days.equals([1, 2, 3, 4])) {
+            return "Mon - Thu";
+        }
+
         if (days.length === 5 && days.equals([1, 2, 3, 4, 5])) {
             return "Mon - Fri";
+        }
+
+        if (days.length === 5 && days.equals([2, 3, 4, 5, 6])) {
+            return "Tue - Sat";
         }
 
         if (days.length === 6 && days.equals([1, 2, 3, 4, 5, 6])) {
