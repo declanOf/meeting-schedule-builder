@@ -45,18 +45,20 @@ class AddReplacementDialog
             const handleAddReplacementDialog = (targetString) => {
                 // add controls content
 
+                event.preventDefault();
+
                 const id = parseInt(Math.random() * 10000);
 
                 let replacement =
                 `<p class="hover-light">
-                    <button class="borderless">⌦</button>
+                    <button class="borderless">&#x2326;</button>
                     In ${targetString}, replace
-                    <input type="text" name="${targetString}Replacements.6.old" value="">
+                    <input type="text" name="${targetString}Replacements.${id}.old" value="">
                     with
-                    <input type="text" name="${targetString}Replacements.6.new" value="">
+                    <input type="text" name="${targetString}Replacements.${id}.new" value="">
                 </p>`;
 
-                $(".headerStringReplacement").append(replacement);
+                $(".header-text-replacements").append(replacement);
 
                 // close dialog
                 this.#addReplacementDialog.dialog("close");
