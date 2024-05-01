@@ -50,13 +50,23 @@ class AddReplacementDialog
                 const id = parseInt(Math.random() * 10000);
 
                 let replacement =
-                `<p class="hover-light">
-                    <button class="borderless">&#x2326;</button>
+                $(`<p class="replacement hover-light">
+                    <button class="borderless remove-replacement">&#x2326;</button>
                     In ${targetString}, replace
                     <input type="text" name="${targetString}Replacements.${id}.old" value="">
                     with
                     <input type="text" name="${targetString}Replacements.${id}.new" value="">
-                </p>`;
+                </p>`);
+
+                const removeReplacement = (event) => {
+                    event.preventDefault();
+
+                    if (window.confirm("Remove this text replacement?")) {
+                        $(event.target).parents("p.replacement").remove();
+                    }
+                };
+
+                $(replacement.find("button.remove-replacement")).on("click", removeReplacement);
 
                 $(".header-text-replacements").append(replacement);
 

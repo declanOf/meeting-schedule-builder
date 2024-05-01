@@ -102,6 +102,16 @@
 
             $(".collapse-section").on("click", collapseSection);
 
+            const removeReplacement = (event) => {
+                event.preventDefault();
+
+                if (window.confirm("Remove this text replacement?")) {
+                    $(event.target).parents("p.replacement").remove();
+                }
+            };
+
+            $(".remove-replacement").on("click", removeReplacement);
+
             return this;
         };
 

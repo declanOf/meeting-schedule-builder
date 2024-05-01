@@ -145,7 +145,7 @@ class AddFilterDialog
                     <input type="hidden" name="${prefix}filter.${index}.item" value="${target}">
                 </div>`);
 
-                this.#filterList.append(content);
+                $("div.filter-list").append(content);
             }
 
             // intercept submission event
