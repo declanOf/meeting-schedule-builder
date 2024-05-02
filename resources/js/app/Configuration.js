@@ -287,7 +287,6 @@ class Configuration {
         console.log("current", this.settings);
         console.log("new", settings);
 
-        // TODO: activate settings, and save them
         this.settings = settings;
 
         localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.settings));

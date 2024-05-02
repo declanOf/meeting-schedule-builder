@@ -146,6 +146,8 @@ class AddFilterDialog
                 </div>`);
 
                 $("div.filter-list").append(content);
+
+                this.#configuration.setDirty(true);
             }
 
             // intercept submission event

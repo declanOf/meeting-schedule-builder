@@ -105,6 +105,8 @@
             const removeReplacement = (event) => {
                 event.preventDefault();
 
+                (new Configuration()).setDirty(true);
+
                 if (window.confirm("Remove this text replacement?")) {
                     $(event.target).parents("p.replacement").remove();
                 }

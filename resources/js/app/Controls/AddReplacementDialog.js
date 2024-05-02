@@ -50,6 +50,8 @@ class AddReplacementDialog
                 const removeReplacement = (event) => {
                     event.preventDefault();
 
+                    (new Configuration()).setDirty(true);
+
                     if (window.confirm("Remove this text replacement?")) {
                         $(event.target).parents("p.replacement").remove();
                     }
@@ -58,6 +60,8 @@ class AddReplacementDialog
                 $(replacement.find("button.remove-replacement")).on("click", removeReplacement);
 
                 $(".header-text-replacements").append(replacement);
+
+                (new Configuration()).setDirty(true);
 
                 this.#addReplacementDialog.dialog("close");
             }
