@@ -1,0 +1,11 @@
+const configurationExportDialogTemplate = `
+<div id="exportConfigurationDialog">
+    <p class="text-center"><a id="download-configuration" download="meeting-settings.json" href="data:application/text;base64,{{downloadData}}">Download
+        "{{name}}" configuration</a></p>
+    <p class="text-center">-or-</p>
+    <p class="text-center">
+        Copy the code:<br>
+        <textarea readonly style="font-size: 11pt; height: 80px; width: 450px;">{{configurationAsString}}</textarea>
+    </p>
+</div>
+`;

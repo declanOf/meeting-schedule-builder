@@ -64,7 +64,7 @@ class ConfigurationCloneDialog
         let currentConfiguration = '';
 
         availableConfigurations.forEach((config) => {
-            if (config[0] === config[0]) {
+            if (activeConfigurationKey === config[0]) {
                 currentConfiguration = config;
             }
         });

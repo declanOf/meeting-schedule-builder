@@ -2,6 +2,8 @@ class ConfigurationManageDialog
 {
     #configurationCloneDialog;
 
+    #configurationExportDialog;
+
     constructor() {
         this.render();
 
@@ -33,6 +35,14 @@ class ConfigurationManageDialog
             this.#configurationCloneDialog.open();
         };
 
+        const exportConfigurationHandler = (event) => {
+            event.preventDefault();
+
+            this.#configurationExportDialog = new ConfigurationExportDialog();
+
+            this.#configurationExportDialog.open();
+        }
+
         // TODO: use dialog
         const deleteConfigurationHandler = (event) => {
             event.preventDefault();
@@ -62,6 +72,8 @@ class ConfigurationManageDialog
         $("#configuration-manage-dialog .select").click(selectConfigurationHandler);
 
         $("#configuration-manage-dialog .clone").click(cloneConfigurationHandler);
+
+        $("#configuration-manage-dialog .export").click(exportConfigurationHandler);
 
         $("#configuration-manage-dialog .delete").click(deleteConfigurationHandler);
 
