@@ -1,17 +1,10 @@
 class AddReplacementDialog
 {
-    #configuration;
-
-    #replacementsContainer;
 
     #addReplacementDialog;
 
     constructor(target)
     {
-        this.#replacementsContainer = $(".header-text-replacements");
-
-        this.#configuration = new Configuration();
-
         $("body").append(this.render());
 
         this.#addReplacementDialog = $("#addReplacementDialog").dialog({title: "Add Replacement", height: 500, width: 450, autoOpen: false, modal: true});
@@ -29,22 +22,18 @@ class AddReplacementDialog
     attachHandlers() {
         setTimeout(() => {
             const handleAddNameReplacementDialog = (event) => {
-                // intercept submission event
                 event.preventDefault();
 
                 handleAddReplacementDialog("name");
             };
 
             const handleAddAddressReplacementDialog = (event) => {
-                // intercept submission event
                 event.preventDefault();
 
                 handleAddReplacementDialog("address");
             };
 
             const handleAddReplacementDialog = (targetString) => {
-                // add controls content
-
                 event.preventDefault();
 
                 const id = parseInt(Math.random() * 10000);
@@ -70,15 +59,12 @@ class AddReplacementDialog
 
                 $(".header-text-replacements").append(replacement);
 
-                // close dialog
                 this.#addReplacementDialog.dialog("close");
             }
 
             const handleCancelAddReplacementDialog = (event) => {
-                // intercept submission event
                 event.preventDefault();
 
-                // close dialog
                 $("#replacementDialog").close();
             }
 

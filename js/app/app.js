@@ -15,7 +15,6 @@
                 } else {
                     new Installer();
                 }
-
             });
         }
 
@@ -48,6 +47,7 @@
             $('div#controls input[type="checkbox"]').change(() => { this.#configuration.setDirty(true, "Text changes have been made") });
 
             const addFilterDialog = new AddFilterDialog($(event.target));
+
             $(".add-filter").click((event) => {
                 event.preventDefault();
 
@@ -66,29 +66,29 @@
 
             $("#reset-changes").click(() => window.reload());
 
-            $("#controlsForm").tabs(
-                {
-                    "create": () => {
-                        this.#configuration.availableConfigurations.forEach((elem) => {
-                            if (this.#configuration.activeConfigurationKey !== elem[0]) {
-                                return;
-                            }
+            $("#controlsForm").tabs({
+                "create": () => {
+                    this.#configuration.availableConfigurations.forEach((elem) => {
+                        if (this.#configuration.activeConfigurationKey !== elem[0]) {
+                            return;
+                        }
 
-                            $("ul.ui-tabs-nav").append($(`<label style="line-height 2.5em">Current Configuration: <a href="#" id="show-configuration-manage-dialog">${elem[1]}</a></label>`));
-                        });
-                    }
+                        $("ul.ui-tabs-nav").append($(`<label style="padding-left: 2em; line-height: 2.5em;">Current Configuration: <a href="#" id="show-configuration-manage-dialog">${elem[1]}</a></label>`));
+                    });
                 }
-            );
+            });
 
             return this;
         };
 
         addBehaviour() {
             const configurationDisplay = (event) => {
-                if ($("div#controls div.flex-container").hasClass("show")) {
-                    $("div#controls div.flex-container").removeClass("show").addClass("hide");
+                const flexContainer = $("div#controls div.flex-container");
+
+                if (flexContainer.hasClass("show")) {
+                    flexContainer.removeClass("show").addClass("hide");
                 } else {
-                    $("div#controls div.flex-container").removeClass("hide").addClass("show");
+                    flexContainer.removeClass("hide").addClass("show");
                 }
             };
 
