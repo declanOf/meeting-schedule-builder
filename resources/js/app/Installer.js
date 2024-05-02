@@ -13,6 +13,8 @@
 class Installer
 {
     constructor() {
+        localStorage.clear();
+
         new InstallDialog();
     }
 }

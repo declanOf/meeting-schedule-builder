@@ -4,16 +4,16 @@ const FreshSettings = {
     "meetingFontSize": "font-size-10-25pt",
     "footerFontSize": "font-size-9pt",
     "documentHeader": {
-        "displayUrl": "",
+        "displayUrl": "https://www.saltlakeaa.org/meetings",
         "holidayHours": "Call For Holiday Hours",
         "inPerson": "In-Person Meetings Only",
         "lastUpdated": "Last Updated",
-        "officeTitle": "",
-        "officeStreet": "#### Xxxxxxxx Xxx",
-        "officeCity": "Xxxxxxx",
-        "officeState": "XX",
-        "officeZipcode": "#####",
-        "officePhone": "(###) ###-####",
+        "officeTitle": "Central Office<br>of Salt Lake City",
+        "officeStreet": "80 West Louise Ave (2860 South)",
+        "officeCity": "Salt Lake City",
+        "officeState": "UT",
+        "officeZipcode": "84115",
+        "officePhone": "(801) 484-7871",
         "officeHours": "Monday-Friday 10AM-5PM<br>Saturday 10AM-2PM",
         "title": "AA Meeting Schedule",
         "website": "Check website for online meetings, accessibility services, and holiday changes.",
@@ -83,7 +83,7 @@ const FreshSettings = {
     },
     "filter": {
         "exclude": {
-            "districts": null,
+            "districts": [501, 491],
             "group": null,
             "types": [],
             "attendanceOption": ["online", "inactive"]
@@ -100,7 +100,7 @@ const FreshSettings = {
                     "districts": null,
                     "groups": null,
                     "types": ["S"],
-                    "name": null,
+                    "name": ["Central Office", "District"],
                 }
             },
             "columns": [
@@ -141,7 +141,7 @@ const FreshSettings = {
                     "districts": null,
                     "groups": null,
                     "types": ["S"],
-                    "name": null,
+                    "name": ["Central Office", "District"],
                 },
             },
             "columns": [
@@ -259,12 +259,19 @@ const FreshSettings = {
         }
     ],
     "addressReplacements": [
+        { "old": "Salt Lake City", "new": "SLC" },
+        { "old": "West Valley City", "new": "WVC" },
         { "old": ", [A-Z][A-Z] [0-9][0-9][0-9][0-9][0-9], USA", "new": ""},
         { "old": ", [A-Z][A-Z], [0-9][0-9][0-9][0-9][0-9]", "new": ""},
         { "old": ", [A-Z][A-Z], USA", "new": ""},
+        { "old": "/ Backstreet Club", "new": ""},
+        { "old": " \\(Formerly Utah Neurological Institute\\)", "new": ""},
     ],
     "nameReplacements": [
-        { "old": "of Alcoholics Anonymous", "new": ""},
+        { "old": " of Alcoholics Anonymous", "new": ""},
         { "old": "Alcoholics Anonymous", "new": "AA"},
+        { "old": " of AA", "new": ""},
+        { "old": "12 & 12", "new": "12&12"},
+        { "old": " of the month. If that's a holiday, then 2nd Monday", "new": " *"}
     ],
 };

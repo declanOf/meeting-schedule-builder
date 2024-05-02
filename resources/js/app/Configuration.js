@@ -280,7 +280,9 @@ class Configuration {
 
         formData = convertObjectToArray(formData);
 
-        const settings = restructureSectionsWithSetsOfSingleDays(formData);
+        let settings = restructureSectionsWithSetsOfSingleDays(formData);
+
+        settings.sections.forEach((section, index) => settings.sections[index].display = typeof(section.display) === "undefined" ? false : section.display);
 
         console.log("current", this.settings);
         console.log("new", settings);

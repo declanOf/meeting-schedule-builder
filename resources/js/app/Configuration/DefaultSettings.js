@@ -261,10 +261,9 @@ const DefaultSettings = {
     "addressReplacements": [
         { "old": "Salt Lake City", "new": "SLC" },
         { "old": "West Valley City", "new": "WVC" },
-        { "old": ", UT [0-9][0-9][0-9][0-9][0-9], USA", "new": ""},
-        { "old": ", UT, [0-9][0-9][0-9][0-9][0-9]", "new": ""},
-        { "old": ", UT, USA", "new": ""},
-        { "old": ", NV [0-9][0-9][0-9][0-9][0-9], USA", "new": ""},
+        { "old": ", [A-Z][A-Z] [0-9][0-9][0-9][0-9][0-9], USA", "new": ""},
+        { "old": ", [A-Z][A-Z], [0-9][0-9][0-9][0-9][0-9]", "new": ""},
+        { "old": ", [A-Z][A-Z], USA", "new": ""},
         { "old": "/ Backstreet Club", "new": ""},
         { "old": " \\(Formerly Utah Neurological Institute\\)", "new": ""},
     ],
