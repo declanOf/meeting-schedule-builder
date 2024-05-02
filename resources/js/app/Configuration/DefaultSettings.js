@@ -103,6 +103,7 @@ const DefaultSettings = {
                     "name": ["Central Office", "District"],
                 }
             },
+            "footer": "* The daily meetings are not listed again in the individual days below.",
             "columns": [
                 {
                     "source": "time_formatted",

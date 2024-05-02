@@ -45,7 +45,15 @@ class GenericBlockSection
 
     render()
     {
-        return `<table class="meetings ${this.#configuration.settings.meetingFontSize}" data-index="${this.sectionIndex}">${this.displayFriendlyRows}</table>`;
+        let content = `<table class="meetings ${this.#configuration.settings.meetingFontSize}" data-index="${this.sectionIndex}">${this.displayFriendlyRows}</table>`;
+
+        if (this.#section.footer) {
+            content += `<p
+                class="${this.#configuration.settings.footerFontSize} text-center"
+                style="margin-bottom: 0rem">${this.#section.footer}</p>`;
+        }
+
+        return content;
     }
 
     get displayFriendlyRows()
