@@ -112,6 +112,9 @@
 
             $(".remove-replacement").on("click", removeReplacement);
 
+            $("#print-page").on("click", (event) => window.print());
+
+            window.scrollTo(0,0);
             return this;
         };
 
