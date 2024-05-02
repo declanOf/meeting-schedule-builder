@@ -25,12 +25,12 @@ CONTROLS:
 ✓       Allow font size change for header and for office title.
 -   Fix tab content block width. It shouldn't resize for the content of different tabs.
     ADD/REMOVE control element blocks:
--       Keys
--       Filters
+✓       Keys
+✓       Filters
     STRING REPLACEMENT
--       Add line
--       Remove line
--   Reflect combined keys in header controls.
+✓       Add line
+✓       Remove line
+✓   Reflect combined keys in header controls.
 -   Add sections
 -   Delete sections
 -   Add columns to section
