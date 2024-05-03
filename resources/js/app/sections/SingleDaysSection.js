@@ -70,7 +70,7 @@ class SingleDaysSection extends GenericBlockSection
      */
     renderDay(data, index)
     {
-        const controlsTemplateEngine = Handlebars.compile(repeatDayAndColumnNameTemplate);
+        const repeatDayAndColumnNameTemplateEngine = Handlebars.compile(repeatDayAndColumnNameTemplate);
         const rowTemplateEngine = Handlebars.compile(rowTemplate);
 
         let content = "";
@@ -120,7 +120,7 @@ class SingleDaysSection extends GenericBlockSection
             "dayIndex": index
         };
 
-        content = controlsTemplateEngine(handlebarsData);
+        content = repeatDayAndColumnNameTemplateEngine(handlebarsData);
 
         return content;
     }

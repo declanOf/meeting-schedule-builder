@@ -13,6 +13,7 @@ const controlsTemplate = `
             <li><a href="#tab-1">Header & Footer</a></li>
             <li><a href="#tab-2">Controls</a></li>
             <li><a href="#tab-3">Sections</a></li>
+            <li><a href="#tab-4">Manage</a></li>
         </ul>
 
         <div id="tab-1" class="col-11">
@@ -126,6 +127,133 @@ const controlsTemplate = `
             <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
             <div class="sections-controls-container">
                 {{{sectionsControlsContent}}}
+            </div>
+        </div>
+        <div id="tab-4" class="col-11">
+            <div id="controlsManageForm">
+                <ul>
+                    <li><a href="#subtab-1">Current Schedule</a></li>
+                    <li><a href="#subtab-2">Clone Schedule</a></li>
+                    <li><a href="#subtab-3">Build a New Schedule</a></li>
+                    <li><a href="#subtab-4">Import &amp; Export Schedule Configuration</a></li>
+                </ul>
+                <div id="subtab-1" class="col-11">
+                    <p><input type="submit" id="refresh-schedule" value="Refresh Schedule"></p>
+                    <p>Available Schedules:</p>
+                    <ul>
+                        {{#each availableConfigurations}}
+                            <li data-key="{{ this.[0] }}">
+                                {{#ifNotEquals this.[0] ../activeConfigurationKey}} <a class="delete" href="#" title="Delete Configuration"><img src="./resources/images/delete-icon.png" style="height: 14px; width: 14px;"></a>{{/ifNotEquals}}
+                                {{#ifEquals this.[0] ../activeConfigurationKey}}<span style="padding-left: 11px">&nbsp;</span>{{/ifEquals}}
+                                <a class="rename" href="#" title="Rename configuration"><img src="./resources/images/rename-icon.png" style="height: 14px; width: 14px"></a>
+                                {{#ifNotEquals this.[0] activeConfigurationKey}}<a href="#" class="select">{{/ifNotEquals}}{{this.[1]}}{{#ifNotEquals this.[0] activeConfigurationKey}}</a>{{/ifNotEquals}}
+                                {{#ifEquals this.[0] ../activeConfigurationKey}}(active){{/ifEquals}}
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div id="subtab-2" class="col-11">
+                    <form id="configurationCloneForm">
+                        <p class="errors"></p>
+
+                        <p title="Key is &quot;{{currentConfiguration.[0]}}&quot;">Clone configuration "{{currentConfiguration.[1]}}"</p>
+
+                        <p>
+                            <label class="col-md-12">Schedule Name: (not shown on schedule)<br><input type="text" placeholder="Schedule Name" name="name" class="col-md-12"></label>
+                        </p>
+
+                        <p>
+                            <label class="col-md-12">Source URL:<br><input type="text" value="{{sourceUrl}}" placeholder="Source URL" name="sourceUrl" class="col-md-12"></label>
+                        </p>
+
+                        <p>
+                            <label class="col-md-12">Office Title<br><textarea type="text" placeholder="Office Title" name="officeTitle" class="col-md-12">{{documentHeader.[officeTitle]}}</textarea></label>
+                        </p>
+
+                        <p>
+                            <label class="col-md-12">
+                                Office Address<br>
+                                <input type="text" value="{{documentHeader.[officeStreet]}}" placeholder="Street" name="officeStreet" class="col-md-12">
+                                <br>
+                                <input type="text" value="{{documentHeader.[officeCity]}}" placeholder="City" name="officeCity" class="col-md-6">
+                                <input type="text" value="{{documentHeader.[officeState]}}" placeholder="State" name="officeState" class="col-md-2">
+                                <input type="text" value="{{documentHeader.[officeZipcode]}}" placeholder="ZIP Code" name="officeZipcode" class="col-md-3">
+                            </label>
+                        </p>
+
+                        <p>
+                            <label class="col-md-12">
+                                Office Phone:<br><input type="text" value="{{documentHeader.[officePhone]}}" name="officePhone" placeholder="Office Phone"></label>
+                        </p>
+
+                        <p>
+                            <label class="col-md-12">
+                                Website/URL:<br><input class="col-md-11" type="text" value="{{documentHeader.[displayUrl]}}" name="displayUrl" placeholder="Displayed Url"></label>
+                        </p>
+
+                        <p class="col-md-12" style="font-style: italic">Other settings can be changed in the newly-created configuration</p>
+
+                        <p>
+                            <input class="submit" type="submit" value="Add Configuration">
+
+                            <input class="cancel" type="submit" value="Cancel">
+                        </p>
+                    </form>
+                </div>
+                <div id="subtab-3" class="col-11">
+    <form id="buildNewScheduleForm">
+        <p>Welcome to TSML Meeting Schedule Builder!</p>
+        <p class="small">The meeting schedule builder connects to your central office's API to generate a meeting schedule customised to your office.</p>
+        <p class="small">You may select a pre-configured office or start fresh with one of your own. We would suggest a pre-configured office as it's easy to reconfigure for yours, and will show you to power of this schedule builder.</p>
+        <p class="small">Once you're familiar with the software, you can create a new configuration, modify your configuration, or clone an existing configuration for your office.</p>
+        <p>&nbsp;</p>
+        <div class="row">
+            <p class="row">
+                Load pre-set schedule:
+                </p>
+            <p class="row col-12">
+                <select id="preexisting-schedule" class="col-10">
+                    {{#each centralOffices}}
+                    <option value="{{url}}">{{name}}</option>
+                    {{/each}}
+                </select>
+                <input type="submit" class="col-2" id="use-preexisting-schedule" value="Go">
+            </p>
+        </div>
+        <p style="text-align: center; font-size: 1.25em; font-weight: 700">-or-</p>
+        <p>Build schedule from source:</p>
+        <table class="col-12">
+            <tr><td>Name</td><td colspan="3"><input class="col-md-12" type="text" name="office-name" placeholder="Office name" value=""></td></tr>
+            <tr><td>Source Url</td><td colspan="3"><input type="text" class="col-md-12" name="source-url" placeholder="https://yourwebsite.org/api-url" value=""></td></tr>
+            <tr><td colspan="4">&nbsp;</td></tr>
+            <tr><td>&nbsp;</td><td style="text-align: right"><input type="submit" name="create-new-schedule" value="Create fresh schedule"></td></tr>
+        </table>
+    </form>
+
+                </div>
+                <div id="subtab-4" class="col-11">
+                    <h2>Import</h2>
+                    <div id="importConfiguration">
+                        <p><label>Name: <input type="text" name="name"></label></p>
+                        <p>
+                            Paste the configuration:<br>
+                            <textarea name="settings" style="font-size: 11pt; height: 80px; width: 450px;"></textarea>
+                        </p>
+                        <p><input type="submit" id="import-configuration" value="Import"></p>
+                    </div>
+                    <hr>
+                    <h2>Export</h2>
+                    <div id="exportConfiguration">
+                        <p class="text-center"><a id="download-configuration" download="meeting-settings.json" href="data:application/text;base64,{{downloadData}}">Download
+                            "{{name}}" configuration</a></p>
+                        <p class="text-center">-or-</p>
+                        <p class="text-center">
+                            Copy the code:<br>
+                            <textarea readonly style="font-size: 11pt; height: 80px; width: 450px;">{{configurationAsString}}</textarea>
+                        </p>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

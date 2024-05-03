@@ -122,6 +122,8 @@ class Controls
             "nameReplacements"            : this.#configuration.settings.nameReplacements,
             "meetingFontSize"             : this.#configuration.settings.meetingFontSize,
             "footerFontSize"              : this.#configuration.settings.footerFontSize,
+            "activeConfigurationKey"      : this.#configuration.activeConfigurationKey,
+            "availableConfigurations"     : this.#configuration.availableConfigurations,
             "controlTypes"                : this.#controlTypes,
             "sectionsControlsContent"     : sectionsControls.render(),
             "filtersContent"              : filters.render(),
@@ -129,6 +131,7 @@ class Controls
             "groups"                      : this.#groups,
             "districts"                   : this.#districts,
             "fontSizes"                   : fontSizes,
+            "centralOffices"              : CentralOffices,
             "columnsMap"                  : {"time": "Time", "locationAddress": "Location / Address", "days": "Days", "name": "Name", "types": "Types"}
         }
         return controlsTemplateEngine(controlTemplatesData);

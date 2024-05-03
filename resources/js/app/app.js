@@ -78,6 +78,8 @@
                 }
             });
 
+            $("#controlsManageForm").tabs();
+
             return this;
         };
 
