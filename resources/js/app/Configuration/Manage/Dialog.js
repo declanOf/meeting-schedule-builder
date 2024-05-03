@@ -4,6 +4,8 @@ class ConfigurationManageDialog
 
     #configurationExportDialog;
 
+    #configurationImportDialog;
+
     constructor() {
         this.render();
 
@@ -43,6 +45,14 @@ class ConfigurationManageDialog
             this.#configurationExportDialog.open();
         }
 
+        const importConfigurationHandler = (event) => {
+            event.preventDefault();
+
+            this.#configurationImportDialog = new ConfigurationImportDialog();
+
+            this.#configurationImportDialog.open();
+        }
+
         // TODO: use dialog
         const deleteConfigurationHandler = (event) => {
             event.preventDefault();
@@ -69,15 +79,17 @@ class ConfigurationManageDialog
             this.configurationRenameDialog.open();
         };
 
-        $("#configuration-manage-dialog .select").click(selectConfigurationHandler);
-
         $("#configuration-manage-dialog .clone").click(cloneConfigurationHandler);
-
-        $("#configuration-manage-dialog .export").click(exportConfigurationHandler);
 
         $("#configuration-manage-dialog .delete").click(deleteConfigurationHandler);
 
+        $("#configuration-manage-dialog .export").click(exportConfigurationHandler);
+
+        $("#configuration-manage-dialog .import").click(importConfigurationHandler);
+
         $("#configuration-manage-dialog .rename").click(renameConfigurationHandler);
+
+        $("#configuration-manage-dialog .select").click(selectConfigurationHandler);
     }
 
     render() {

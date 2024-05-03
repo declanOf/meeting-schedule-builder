@@ -2,8 +2,10 @@ const configurationManageDialogTemplate = `
 <div id="configuration-manage-dialog">
     <div class="content">
         <ul>
-            <li><a href="#" class="clone">Clone Current Configuration</a></li>
-            <li><a href="#" class="export">Export Current Configuration</a></li>
+            <li><a href="#" class="clone">Clone</a></li>
+            <li><a href="#" class="export">Export</a></li>
+            <li><a href="#" class="import">Import</a></li>
+            <li>Available configurations:</li>
             {{#each availableConfigurations}}
                 <li data-key="{{ this.[0] }}">
                     {{#ifNotEquals this.[0] ../activeConfigurationKey}} <a class="delete" href="#" title="Delete Configuration"><img src="./resources/images/delete-icon.png" style="height: 14px; width: 14px;"></a>{{/ifNotEquals}}

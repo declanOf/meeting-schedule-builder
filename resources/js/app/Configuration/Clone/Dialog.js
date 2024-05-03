@@ -36,8 +36,6 @@ class ConfigurationCloneDialog
                 return;
             }
 
-            debugger;
-
             this.#configuration.cloneConfiguration(formData);
 
             location.reload();
