@@ -48,11 +48,8 @@
 
             $('div#controls input[type="checkbox"]').change(() => { this.#configuration.setDirty(true, "Text changes have been made") });
 
-
             $(".add-filter").click((event) => {
                 event.preventDefault();
-
-                const addFilterDialog = new AddFilterDialog($(event.target));
 
                 const addFilterDialog = new AddFilterDialog($(event.target));
 
