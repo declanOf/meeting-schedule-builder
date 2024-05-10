@@ -163,3 +163,18 @@ div#configuration-manage-dialog ul li
 {
     list-style-type: none;
 }
+
+div.page.error button#print-page {
+    display: none;
+}
+
+div.page.error h2 {
+    text-align: center;
+    color: #FF0000;
+    font-family: Georgia;
+}
+
+div.page.error p {
+    color: #FF0000;
+    text-align: center;
+}

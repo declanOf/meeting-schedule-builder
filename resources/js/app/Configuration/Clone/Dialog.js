@@ -24,34 +24,6 @@ class ConfigurationCloneDialog
     }
 
     attachHandlers() {
-        const submitHandler = (event) => {
-            event.preventDefault();
-
-            let formData = Object.entries($("form#configurationCloneForm").serializeArray()).pluck(1).serialiseToObject();
-
-            if (formData.name.length < 3) {
-                // TODO: add error
-
-                alert("Name must be longer than two characters")
-                return;
-            }
-
-            debugger;
-
-            this.#configuration.cloneConfiguration(formData);
-
-            location.reload();
-        }
-
-        const cancelHandler = (event) => {
-            event.preventDefault();
-
-            $("#configurationCloneDialog").dialog("close");
-        };
-
-        $('#configurationCloneForm input[type="submit"].submit').on("click", submitHandler);
-
-        $("#configurationCloneForm .cancel").on("click", cancelHandler);
     }
 
     render() {

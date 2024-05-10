@@ -1,33 +1,10 @@
 const installDialogTemplate = `
 <div id="installDialog">
-    <p class="errors" style="display: none;"></p>
-    <form id="configurationCloneForm">
-        <p>Welcome to TSML Meeting Schedule Builder!</p>
-        <p class="small">The meeting schedule builder connects to your central office's API to generate a meeting schedule customised to your office.</p>
-        <p class="small">You may select a pre-configured office or start fresh with one of your own. We would suggest a pre-configured office as it's easy to reconfigure for yours, and will show you to power of this schedule builder.</p>
-        <p class="small">Once you're familiar with the software, you can create a new configuration, modify your configuration, or clone an existing configuration for your office.</p>
-        <p>&nbsp;</p>
-        <div class="row">
-            <p class="row">
-                Load pre-set schedule:
-                </p>
-            <p class="row col-12">
-                <select id="preexisting-schedule" class="col-10">
-                    {{#each centralOffices}}
-                    <option value="{{url}}">{{name}}</option>
-                    {{/each}}
-                </select>
-                <input type="submit" class="col-2" id="use-preexisting-schedule" value="Go">
-            </p>
-        </div>
-        <p style="text-align: center; font-size: 1.25em; font-weight: 700">-or-</p>
-        <p>Build schedule from source:</p>
-        <table class="col-12">
-            <tr><td>Name</td><td colspan="3"><input class="col-md-12" type="text" name="office-name" placeholder="Office name" value=""></td></tr>
-            <tr><td>Source Url</td><td colspan="3"><input type="text" class="col-md-12" name="source-url" placeholder="https://yourwebsite.org/api-url" value=""></td></tr>
-            <tr><td colspan="4">&nbsp;</td></tr>
-            <tr><td>&nbsp;</td><td style="text-align: right"><input type="submit" name="create-new-schedule" value="Create fresh schedule"></td></tr>
-        </table>
-    </form>
+    <p>Welcome to TSML Meeting Schedule Builder!</p>
+    <p class="small">The meeting schedule builder connects to your central office's API to generate a meeting schedule customised to your office.</p>
+    <p class="small">You may select a pre-configured office or start fresh with one of your own. We would suggest a pre-configured office as it's easy to reconfigure for yours, and will show you to power of this schedule builder.</p>
+    <p class="small">Once you're familiar with the software, you can create a new configuration, modify your configuration, or clone an existing configuration for your office.</p>
+    <p>&nbsp;</p>
+    {{{buildNewScheduleForm}}}
 </div>
 `;

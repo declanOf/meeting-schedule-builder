@@ -23,7 +23,9 @@
         }
 
         buildPage() {
-            this.#configuration.addMeetingKeys(this.#meetings);
+            if (this.#meetings.isValid) {
+                this.#configuration.addMeetingKeys(this.#meetings);
+            }
 
             this.addHeader()
                 .addSections()
@@ -46,10 +48,10 @@
 
             $('div#controls input[type="checkbox"]').change(() => { this.#configuration.setDirty(true, "Text changes have been made") });
 
-            const addFilterDialog = new AddFilterDialog($(event.target));
-
             $(".add-filter").click((event) => {
                 event.preventDefault();
+
+                const addFilterDialog = new AddFilterDialog($(event.target));
 
                 addFilterDialog.open();
             })
@@ -73,7 +75,7 @@
                             return;
                         }
 
-                        $("ul.ui-tabs-nav").append($(`<label style="padding-left: 2em; line-height: 2.5em;">Current Configuration: <a href="#" id="show-configuration-manage-dialog">${elem[1]}</a></label>`));
+                        $("ul.ui-tabs-nav").append($(`<label style="padding-left: 2em; line-height: 2.5em;">Current Configuration: ${elem[1]}</label>`));
                     });
                 }
             });
@@ -124,6 +126,10 @@
         };
 
         addHeader() {
+            if (!this.#meetings.isValid) {
+                return this;
+            }
+
             const header = new DocumentHeader(this.#configuration);
 
             $('div.page').append(header.render());
@@ -132,10 +138,21 @@
         };
 
         addSections() {
+            if (!this.#meetings.isValid) {
+                this.appendError()
+                return this;
+            }
+
             const sections = new Schedule(this.#configuration, this.#meetings);
 
             sections.render();
 
             return this;
         };
+
+        appendError() {
+            $(".page").addClass("error");
+            $(".page").append($(`<h2>No valid meetings</h2>`));
+            $(".page").append(`<p>Please check your configuration and try again.</p>`);
+        }
     };

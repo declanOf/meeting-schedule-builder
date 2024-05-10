@@ -92,6 +92,10 @@ class Filters
 
     getFilterInTypes()
     {
+        if (!this.#meetings.isValid) {
+            throw "Invalid meeting";
+        }
+
         return this.#meetings.types.map((type) => {
             return {
                   "symbol":type,
@@ -207,6 +211,10 @@ class Filters
 
     render()
     {
+        if (!this.#meetings.isValid) {
+            return "";
+        }
+
         const filtersTemplateEngine = Handlebars.compile(this.#template);
 
         const filterList = this.getFilterList();

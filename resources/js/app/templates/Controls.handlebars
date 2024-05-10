@@ -135,7 +135,7 @@ const controlsTemplate = `
                     <li><a href="#subtab-1">Current Schedule</a></li>
                     <li><a href="#subtab-2">Clone Schedule</a></li>
                     <li><a href="#subtab-3">Build a New Schedule</a></li>
-                    <li><a href="#subtab-4">Import &amp; Export Schedule Configuration</a></li>
+                    <li><a href="#subtab-4">Import / Export Schedule Configuration</a></li>
                 </ul>
                 <div id="subtab-1" class="col-11">
                     <p><input type="submit" id="refresh-schedule" value="Refresh Schedule"></p>
@@ -153,106 +153,78 @@ const controlsTemplate = `
                     </ul>
                 </div>
                 <div id="subtab-2" class="col-11">
-                    <form id="configurationCloneForm">
+                    <form id="cloneScheduleForm-jquery-ui-bug">
+                    </form>
+                    <form id="cloneScheduleForm">
                         <p class="errors"></p>
-
                         <p title="Key is &quot;{{currentConfiguration.[0]}}&quot;">Clone configuration "{{currentConfiguration.[1]}}"</p>
-
                         <p>
-                            <label class="col-md-12">Schedule Name: (not shown on schedule)<br><input type="text" placeholder="Schedule Name" name="name" class="col-md-12"></label>
+                            <label class="col-md-12">Schedule Name: (not shown on schedule)<br><input type="text" placeholder="Schedule Name" name="name" class="col-md-12 hover-light"></label>
                         </p>
-
                         <p>
-                            <label class="col-md-12">Source URL:<br><input type="text" value="{{sourceUrl}}" placeholder="Source URL" name="sourceUrl" class="col-md-12"></label>
+                            <label class="col-md-12">Source URL:<br><input type="text" value="{{sourceUrl}}" placeholder="Source URL" name="sourceUrl" class="col-md-12 hover-light"></label>
                         </p>
-
                         <p>
-                            <label class="col-md-12">Office Title<br><textarea type="text" placeholder="Office Title" name="officeTitle" class="col-md-12">{{documentHeader.[officeTitle]}}</textarea></label>
+                            <label class="col-md-12">Office Title<br><textarea type="text" placeholder="Office Title" name="officeTitle" class="col-md-12 hover-light">{{documentHeader.[officeTitle]}}</textarea></label>
                         </p>
-
                         <p>
                             <label class="col-md-12">
                                 Office Address<br>
-                                <input type="text" value="{{documentHeader.[officeStreet]}}" placeholder="Street" name="officeStreet" class="col-md-12">
+                                <input type="text" value="{{documentHeader.[officeStreet]}}" placeholder="Street" name="officeStreet" class="col-md-12 hover-light">
                                 <br>
-                                <input type="text" value="{{documentHeader.[officeCity]}}" placeholder="City" name="officeCity" class="col-md-6">
-                                <input type="text" value="{{documentHeader.[officeState]}}" placeholder="State" name="officeState" class="col-md-2">
-                                <input type="text" value="{{documentHeader.[officeZipcode]}}" placeholder="ZIP Code" name="officeZipcode" class="col-md-3">
+                                <input type="text" value="{{documentHeader.[officeCity]}}" placeholder="City" name="officeCity" class="col-md-6 hover-light">
+                                <input type="text" value="{{documentHeader.[officeState]}}" placeholder="State" name="officeState" class="col-md-2 hover-light">
+                                <input type="text" value="{{documentHeader.[officeZipcode]}}" placeholder="ZIP Code" name="officeZipcode" class="col-md-3 hover-light">
                             </label>
                         </p>
-
                         <p>
                             <label class="col-md-12">
-                                Office Phone:<br><input type="text" value="{{documentHeader.[officePhone]}}" name="officePhone" placeholder="Office Phone"></label>
+                                Office Phone:<br><input class="hover-light" type="text" value="{{documentHeader.[officePhone]}}" name="officePhone" placeholder="Office Phone"></label>
                         </p>
-
                         <p>
                             <label class="col-md-12">
-                                Website/URL:<br><input class="col-md-11" type="text" value="{{documentHeader.[displayUrl]}}" name="displayUrl" placeholder="Displayed Url"></label>
+                                Website/URL:<br><input class="col-md-11 hover-light" type="text" value="{{documentHeader.[displayUrl]}}" name="displayUrl" placeholder="Displayed Url"></label>
                         </p>
-
                         <p class="col-md-12" style="font-style: italic">Other settings can be changed in the newly-created configuration</p>
-
                         <p>
-                            <input class="submit" type="submit" value="Add Configuration">
-
-                            <input class="cancel" type="submit" value="Cancel">
+                            <input class="submit hover-light" type="submit" value="Add Schedule">
+                            <input class="cancel hover-light" type="submit" value="Cancel">
                         </p>
                     </form>
                 </div>
                 <div id="subtab-3" class="col-11">
-    <form id="buildNewScheduleForm">
-        <p>Welcome to TSML Meeting Schedule Builder!</p>
-        <p class="small">The meeting schedule builder connects to your central office's API to generate a meeting schedule customised to your office.</p>
-        <p class="small">You may select a pre-configured office or start fresh with one of your own. We would suggest a pre-configured office as it's easy to reconfigure for yours, and will show you to power of this schedule builder.</p>
-        <p class="small">Once you're familiar with the software, you can create a new configuration, modify your configuration, or clone an existing configuration for your office.</p>
-        <p>&nbsp;</p>
-        <div class="row">
-            <p class="row">
-                Load pre-set schedule:
-                </p>
-            <p class="row col-12">
-                <select id="preexisting-schedule" class="col-10">
-                    {{#each centralOffices}}
-                    <option value="{{url}}">{{name}}</option>
-                    {{/each}}
-                </select>
-                <input type="submit" class="col-2" id="use-preexisting-schedule" value="Go">
-            </p>
-        </div>
-        <p style="text-align: center; font-size: 1.25em; font-weight: 700">-or-</p>
-        <p>Build schedule from source:</p>
-        <table class="col-12">
-            <tr><td>Name</td><td colspan="3"><input class="col-md-12" type="text" name="office-name" placeholder="Office name" value=""></td></tr>
-            <tr><td>Source Url</td><td colspan="3"><input type="text" class="col-md-12" name="source-url" placeholder="https://yourwebsite.org/api-url" value=""></td></tr>
-            <tr><td colspan="4">&nbsp;</td></tr>
-            <tr><td>&nbsp;</td><td style="text-align: right"><input type="submit" name="create-new-schedule" value="Create fresh schedule"></td></tr>
-        </table>
-    </form>
-
+                    <form id="buildNewScheduleForm">
+                        <p>Welcome to TSML Meeting Schedule Builder!</p>
+                        <p class="small">The meeting schedule builder connects to your central office's API to generate a meeting schedule customised to your office.</p>
+                        <p class="small">You may select a pre-configured office or start fresh with one of your own. We would suggest a pre-configured office as it's easy to reconfigure for yours, and will show you to power of this schedule builder.</p>
+                        <p class="small">Once you're familiar with the software, you can create a new configuration, modify your configuration, or clone an existing configuration for your office.</p>
+                        <p>&nbsp;</p>
+                        {{{buildNewScheduleForm}}}
+                    </form>
                 </div>
                 <div id="subtab-4" class="col-11">
                     <h2>Import</h2>
-                    <div id="importConfiguration">
-                        <p><label>Name: <input type="text" name="name"></label></p>
-                        <p>
-                            Paste the configuration:<br>
-                            <textarea name="settings" style="font-size: 11pt; height: 80px; width: 450px;"></textarea>
-                        </p>
-                        <p><input type="submit" id="import-configuration" value="Import"></p>
-                    </div>
+                    <form id="importConfigurationClone">
+                        <div id="importConfiguration">
+                            <p><label>Name: <input class="hover-light" type="text" name="name"></label></p>
+                            <p>
+                                Paste the configuration:<br>
+                                <textarea name="settings" style="font-size: 11pt; height: 80px; width: 450px;" class="hover-light"></textarea>
+                            </p>
+                            <p><input class="hover-light" type="submit" id="import-configuration" value="Import"></p>
+                        </div>
+                    </form>
                     <hr>
                     <h2>Export</h2>
                     <div id="exportConfiguration">
-                        <p class="text-center"><a id="download-configuration" download="meeting-settings.json" href="data:application/text;base64,{{downloadData}}">Download
+                        <p class="text-center"><a class="hover-light" id="download-configuration" download="meeting-settings.json" href="data:application/text;base64,{{downloadData}}">Download
                             "{{name}}" configuration</a></p>
                         <p class="text-center">-or-</p>
                         <p class="text-center">
                             Copy the code:<br>
-                            <textarea readonly style="font-size: 11pt; height: 80px; width: 450px;">{{configurationAsString}}</textarea>
+                            <textarea readonly style="font-size: 11pt; height: 80px; width: 450px;" class="hover-light">{{configurationAsString}}</textarea>
                         </p>
                     </div>
-
                 </div>
             </div>
         </div>
