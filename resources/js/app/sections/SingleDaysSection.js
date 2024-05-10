@@ -70,7 +70,7 @@ class SingleDaysSection extends GenericBlockSection
      */
     renderDay(data, index)
     {
-        const controlsTemplateEngine = Handlebars.compile(repeatDayAndColumnNameTemplate);
+        const repeatDayAndColumnNameTemplateEngine = Handlebars.compile(repeatDayAndColumnNameTemplate);
         const rowTemplateEngine = Handlebars.compile(rowTemplate);
 
         let content = "";
@@ -120,7 +120,7 @@ class SingleDaysSection extends GenericBlockSection
             "dayIndex": index
         };
 
-        content = controlsTemplateEngine(handlebarsData);
+        content = repeatDayAndColumnNameTemplateEngine(handlebarsData);
 
         return content;
     }
@@ -129,9 +129,9 @@ class SingleDaysSection extends GenericBlockSection
     {
         let locationAddress = "";
 
-        let address = meeting['formatted_address'];
+        let address = meeting['formatted_address'] ?? "";
 
-        let location = meeting['location'];
+        let location = meeting['location'] ?? "";
 
         this.#configuration.settings.addressReplacements.forEach((replacement) => {
             if (address) {
@@ -143,11 +143,11 @@ class SingleDaysSection extends GenericBlockSection
             }
         });
 
-        if (address !== location) {
+        if (address !== location && location.length > 0 && address.length > 0) {
             locationAddress = `${location}: ${address}`;
-        } else if (location) {
+        } else if (location.length > 0) {
             locationAddress = location;
-        } else if (address) {
+        } else if (address.length > 0) {
             locationAddress = address;
         }
 

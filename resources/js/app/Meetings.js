@@ -15,11 +15,17 @@ class Meetings {
 
     #types;
 
+    #isValid;
+
     constructor(Configuration, ready)
     {
         this.#configuration = Configuration;
 
         this.#loadMeetings(ready);
+    }
+
+    get isValid() {
+        return this.#isValid;
     }
 
     get localPrefix()
@@ -31,6 +37,7 @@ class Meetings {
         this.#loadFromLocalStorage(ready);
 
         if (this.#rawMeetings) {
+            this.#isValid = true;
             return ready();
         }
 
@@ -75,7 +82,7 @@ class Meetings {
     {
         const timestamp = Date.now();
 
-        localStorage.setItem("timestamp", timestamp);
+        localStorage.setItem(this.#configuration.activeConfigurationKey + "timestamp", timestamp);
     }
 
     #needsRefresh()
@@ -105,8 +112,19 @@ class Meetings {
                 this.#populateDistricts();
                 this.#populateTypes();
 
+                this.#isValid = true;
+
+                ready();
+            }).fail((error) => {
+                this.#isValid = false;
+
+                this.showError(error);
                 ready();
             });
+    }
+
+    showError(error) {
+        console.log(JSON.stringify(error));
     }
 
     #populateGroups()

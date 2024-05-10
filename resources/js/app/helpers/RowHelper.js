@@ -137,9 +137,9 @@ class RowHelper
     {
         let locationAddress = "";
 
-        let address = meeting['formatted_address'];
+        let address = meeting['formatted_address'] ?? "";
 
-        let location = meeting['location'];
+        let location = meeting['location'] ?? "";
 
         this.configuration.settings.addressReplacements.forEach((replacement) => {
             address = address.replace(new RegExp(replacement.old), replacement.new);
@@ -147,10 +147,12 @@ class RowHelper
             location = location.replace(new RegExp(replacement.old), replacement.new);
         });
 
-        if (address !== location) {
+        if (address !== location && location.length > 0) {
             locationAddress = `${location}: ${address}`;
-        } else {
+        } else if (location.length > 0) {
             locationAddress = location;
+        } else if (address.length > 0) {
+            locationAddress = address;
         }
 
         return locationAddress;

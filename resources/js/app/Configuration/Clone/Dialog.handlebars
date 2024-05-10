@@ -1,51 +1,5 @@
 const configurationCloneDialogTemplate = `
 <div id="cloneConfigurationDialog">
-    <p class="errors" style="display: none;"></p>
-    <form id="configurationCloneForm">
-        <p class="errors"></p>
 
-        <p title="Key is &quot;{{currentConfiguration.[0]}}&quot;">Clone configuration "{{currentConfiguration.[1]}}"</p>
-
-        <p>
-            <label class="col-md-12">Schedule Name: (not shown on schedule)<br><input type="text" placeholder="Schedule Name" name="name" class="col-md-12"></label>
-        </p>
-
-        <p>
-            <label class="col-md-12">Source URL:<br><input type="text" value="{{sourceUrl}}" placeholder="Source URL" name="sourceUrl" class="col-md-12"></label>
-        </p>
-
-        <p>
-            <label class="col-md-12">Office Title<br><textarea type="text" placeholder="Office Title" name="officeTitle" class="col-md-12">{{documentHeader.[officeTitle]}}</textarea></label>
-        </p>
-
-        <p>
-            <label class="col-md-12">
-                Office Address<br>
-                <input type="text" value="{{documentHeader.[officeStreet]}}" placeholder="Street" name="officeStreet" class="col-md-12">
-                <br>
-                <input type="text" value="{{documentHeader.[officeCity]}}" placeholder="City" name="officeCity" class="col-md-6">
-                <input type="text" value="{{documentHeader.[officeState]}}" placeholder="State" name="officeState" class="col-md-2">
-                <input type="text" value="{{documentHeader.[officeZipcode]}}" placeholder="ZIP Code" name="officeZipcode" class="col-md-3">
-            </label>
-        </p>
-
-        <p>
-            <label class="col-md-12">
-                Office Phone:<br><input type="text" value="{{documentHeader.[officePhone]}}" name="officePhone" placeholder="Office Phone"></label>
-        </p>
-
-        <p>
-            <label class="col-md-12">
-                Website/URL:<br><input class="col-md-11" type="text" value="{{documentHeader.[displayUrl]}}" name="displayUrl" placeholder="Displayed Url"></label>
-        </p>
-
-        <p class="col-md-12" style="font-style: italic">Other settings can be changed in the newly-created configuration</p>
-
-        <p>
-            <input class="submit" type="submit" value="Add Configuration">
-
-            <input class="cancel" type="submit" value="Cancel">
-        </p>
-    </form>
 </div>
 `;

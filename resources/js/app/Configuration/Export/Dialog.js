@@ -19,19 +19,7 @@ class ConfigurationExportDialog
     }
 
     attachHandlers() {
-        const submitHandler = (event) => {
-            event.preventDefault();
 
-            let formData = Object.entries($("form#configurationExportForm").serializeArray()).pluck(1).serialiseToObject();
-
-            debugger;
-
-            this.#configuration.exportConfiguration(formData);
-
-            location.reload();
-        }
-
-        $('#configurationCloneForm input[type="submit"].submit').on("click", submitHandler);
 
         $("#exportConfigurationDialog textarea").on("click", (event) => $("#exportConfigurationDialog textarea").select());
     }
