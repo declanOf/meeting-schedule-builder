@@ -39,8 +39,3 @@ Array.prototype.equals = function (array) {
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 
-Object.defineProperty(Array.prototype, "pluck", {
-    value: function(key) {
-        return this.map((object) => object[key]);
-    }
-});
