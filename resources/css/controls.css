@@ -159,11 +159,6 @@ span.change-handler.dirty #reset-changes {
     display: block;
 }
 
-div#configuration-manage-dialog ul li
-{
-    list-style-type: none;
-}
-
 div.page.error button#print-page {
     display: none;
 }

@@ -10,8 +10,6 @@ class Controls
     #regions;
     #districts;
 
-    #configurationManageDialog;
-
     constructor(Configuration, meetings)
     {
         this.#configuration = Configuration;
@@ -27,9 +25,6 @@ class Controls
         this.#districts = meetings.districts;
 
         this.#buildTypes();
-
-        this.#configurationManageDialog = new ConfigurationManageDialog();
-        this.#configurationManageDialog = new ConfigurationManageDialog();
 
         this.assignHandlers();
     }
@@ -171,8 +166,6 @@ class Controls
             $("#exportConfiguration textarea").on("click", (event) => $("#exportConfiguration textarea").select());
 
             $("#select-available-configuration").on("change", handleConfigurationChange);
-
-            $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
         }, 1000);
     }
 
@@ -190,10 +183,6 @@ class Controls
                         location.reload();
                     }
                 });
-
-                this.#configurationManageDialog = new ConfigurationManageDialog();
-
-                $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
             },
             1000
         )
