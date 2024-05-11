@@ -28,7 +28,7 @@ class Controls
 
         this.#buildTypes();
 
-        this.assignConfigurationChangeHandler();
+        this.#configurationManageDialog = new ConfigurationManageDialog();
 
         this.assignHandlers();
     }
@@ -71,7 +71,6 @@ class Controls
 
             location.reload();
         };
-
 
         // TODO: show dialog requesting new name, and indicating origin configuration
 
@@ -116,7 +115,7 @@ class Controls
             configuration.cloneConfiguration(formData);
 
             location.reload();
-        }
+        };
 
         const refreshSchedule = (event) => {
             event.preventDefault();
@@ -153,7 +152,21 @@ class Controls
 
                 location.reload();
             }
-        }
+        };
+
+        const handleConfigurationChange = (event) => {
+            const selection = $("#select-available-configuration").val();
+
+            if (selection === "clone-configuration") {
+                (new Configuration().cloneConfiguration());
+
+                location.reload();
+            } else {
+                localStorage.setItem("activeConfigurationKey", selection);
+
+                location.reload();
+            }
+        };
 
         setTimeout(() => {
             $("li a.select").click(selectConfigurationHandler);
@@ -169,47 +182,12 @@ class Controls
             $("#create-schedule").click(createSchedule);
 
             $("#exportConfiguration textarea").on("click", (event) => $("#exportConfiguration textarea").select());
+
+            $("#select-available-configuration").on("change", handleConfigurationChange);
+
+            $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
         }, 1000);
     }
-
-    assignConfigurationChangeHandler() {
-        setTimeout(
-            () => {
-                $("#select-available-configuration").on("change", (event) => {
-                    const selection = $("#select-available-configuration").val();
-
-                    if (selection === "clone-configuration") {
-                        (new Configuration().cloneConfiguration());
-                        location.reload();
-                    } else {
-                        localStorage.setItem("activeConfigurationKey", selection);
-                        location.reload();
-                    }
-                });
-
-                this.#configurationManageDialog = new ConfigurationManageDialog();
-
-                $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
-            },
-            1000
-        )
-    }
-
-    // build existing section from configuration
-    /**
-     * title
-     * columns (displayed)
-     * filter
-     *  name contains none of
-     *  name contains one of
-     *  types
-     *  attendance option
-     *  in district, regions, groups
-     *  out districts, regions, groups
-     * showTypes
-     *
-     */
-    // build empty section
 
     render()
     {
@@ -228,7 +206,6 @@ class Controls
         const filters = new Filters(this.#meetings, this.#configuration.settings.filter, null);
 
         const buildNewScheduleFormEngine = Handlebars.compile(buildNewScheduleFormTemplate);
-
 
         const configurationString = JSON.stringify(this.#configuration.settings, null, 4);
 
