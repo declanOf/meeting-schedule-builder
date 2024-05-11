@@ -164,8 +164,6 @@ class Controls
             $("#create-schedule").click(createSchedule);
 
             $("#exportConfiguration textarea").on("click", (event) => $("#exportConfiguration textarea").select());
-
-            $("#select-available-configuration").on("change", handleConfigurationChange);
         }, 1000);
     }
 
@@ -224,9 +222,18 @@ class Controls
 
         const configurationString = JSON.stringify(this.#configuration.settings, null, 4);
 
+        let configurationName = "";
+
+        this.#configuration.availableConfigurations.forEach((config) => {
+            if (this.#configuration.activeConfigurationKey === config[0]) {
+                configurationName = config[1];
+            }
+        })
+
         const controlTemplatesData = {
             downloadData                : btoa(configurationString + "\n"),
             configurationAsString       : configurationString,
+            configurationName           : configurationName,
             documentHeader              : this.#configuration.settings.documentHeader,
             documentFooter              : this.#configuration.settings.documentFooter,
             expiryHours                 : this.#configuration.settings.expiryHours,
