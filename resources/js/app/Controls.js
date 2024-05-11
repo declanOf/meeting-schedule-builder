@@ -29,6 +29,7 @@ class Controls
         this.#buildTypes();
 
         this.#configurationManageDialog = new ConfigurationManageDialog();
+        this.#configurationManageDialog = new ConfigurationManageDialog();
 
         this.assignHandlers();
     }
@@ -152,21 +153,7 @@ class Controls
 
                 location.reload();
             }
-        };
-
-        const handleConfigurationChange = (event) => {
-            const selection = $("#select-available-configuration").val();
-
-            if (selection === "clone-configuration") {
-                (new Configuration().cloneConfiguration());
-
-                location.reload();
-            } else {
-                localStorage.setItem("activeConfigurationKey", selection);
-
-                location.reload();
-            }
-        };
+        }
 
         setTimeout(() => {
             $("li a.select").click(selectConfigurationHandler);
@@ -188,6 +175,45 @@ class Controls
             $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
         }, 1000);
     }
+
+    assignConfigurationChangeHandler() {
+        setTimeout(
+            () => {
+                $("#select-available-configuration").on("change", (event) => {
+                    const selection = $("#select-available-configuration").val();
+
+                    if (selection === "clone-configuration") {
+                        (new Configuration().cloneConfiguration());
+                        location.reload();
+                    } else {
+                        localStorage.setItem("activeConfigurationKey", selection);
+                        location.reload();
+                    }
+                });
+
+                this.#configurationManageDialog = new ConfigurationManageDialog();
+
+                $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
+            },
+            1000
+        )
+    }
+
+    // build existing section from configuration
+    /**
+     * title
+     * columns (displayed)
+     * filter
+     *  name contains none of
+     *  name contains one of
+     *  types
+     *  attendance option
+     *  in district, regions, groups
+     *  out districts, regions, groups
+     * showTypes
+     *
+     */
+    // build empty section
 
     render()
     {
