@@ -31,13 +31,13 @@ CONTROLS:
 ✓       Add line
 ✓       Remove line
 ✓   Reflect combined keys in header controls.
--   Add sections
--   Delete sections
+✓   Add sections
+✓   Delete sections
 -   Add columns to section
 -   Delete columns
 ✓   Adding keys from meetings into configuration
--   Export/import settings
--   Manually edit settings
+✓   Export/import settings
+✓   Manually edit settings
 
 GLOBAL:
 ✓   Implement single days with different repetition of headers
