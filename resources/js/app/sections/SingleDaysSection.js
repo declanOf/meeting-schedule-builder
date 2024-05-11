@@ -103,8 +103,8 @@ class SingleDaysSection extends GenericBlockSection
                 } else if (column.source === "locationAddress") {
                     row.columns[column.source] = { "key": column.source, "value": this.#getFormattedAddress(meeting) };
                 } else {
-                    console.error("Unknown key", column);
-                    console.log("Meeting", meeting);
+                    console.error("An unknown column type was found in the fullowing meeting:", meeting)
+                    console.error("Column", column);
                 }
             });
 

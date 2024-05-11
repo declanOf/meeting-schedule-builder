@@ -28,7 +28,7 @@ class Controls
 
         this.#buildTypes();
 
-        this.assignConfigurationChangeHandler();
+        this.#configurationManageDialog = new ConfigurationManageDialog();
 
         this.assignHandlers();
     }
@@ -116,7 +116,7 @@ class Controls
             configuration.cloneConfiguration(formData);
 
             location.reload();
-        }
+        };
 
         const refreshSchedule = (event) => {
             event.preventDefault();
@@ -153,7 +153,19 @@ class Controls
 
                 location.reload();
             }
-        }
+        };
+
+        const handleConfigurationChange = (event) => {
+            const selection = $("#select-available-configuration").val();
+
+            if (selection === "clone-configuration") {
+                (new Configuration().cloneConfiguration());
+                location.reload();
+            } else {
+                localStorage.setItem("activeConfigurationKey", selection);
+                location.reload();
+            }
+        };
 
         setTimeout(() => {
             $("li a.select").click(selectConfigurationHandler);
@@ -169,27 +181,16 @@ class Controls
             $("#create-schedule").click(createSchedule);
 
             $("#exportConfiguration textarea").on("click", (event) => $("#exportConfiguration textarea").select());
+
+            $("#select-available-configuration").on("change", handleConfigurationChange);
+
+            $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
         }, 1000);
     }
 
     assignConfigurationChangeHandler() {
         setTimeout(
             () => {
-                $("#select-available-configuration").on("change", (event) => {
-                    const selection = $("#select-available-configuration").val();
-
-                    if (selection === "clone-configuration") {
-                        (new Configuration().cloneConfiguration());
-                        location.reload();
-                    } else {
-                        localStorage.setItem("activeConfigurationKey", selection);
-                        location.reload();
-                    }
-                });
-
-                this.#configurationManageDialog = new ConfigurationManageDialog();
-
-                $('#show-configuration-manage-dialog').click((event) => this.#configurationManageDialog.open(event));
             },
             1000
         )
