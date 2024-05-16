@@ -33,6 +33,10 @@ class Meetings {
         return this.#configuration.activeConfigurationKey;
     }
 
+    set localPrefix(localPrefix) {
+        this.#configuration.activeConfigurationKey = localPrefix;
+    }
+
     #loadMeetings(ready) {
         this.#loadFromLocalStorage(ready);
 
@@ -64,7 +68,9 @@ class Meetings {
             this.#districts = JSON.parse(localStorage.getItem(this.localPrefix + "districts"));
 
             this.#types = JSON.parse(localStorage.getItem(this.localPrefix + "types"));
-        } catch (e) {
+        } catch (error) {
+            console.error("Error", error);
+
             this.#rawMeetings = false;
 
             this.#refresh(ready);
@@ -97,30 +103,83 @@ class Meetings {
         return this.#lastUpdate < expiryTimestamp;
     }
 
+    saveTimestamp() {
+        this.#saveTimestamp();
+    }
+
+    populateGroups() {
+        this.#populateGroups();
+    }
+
+    populateRegions() {
+        this.#populateRegions();
+    }
+
+    populateDistricts() {
+        this.#populateDistricts();
+    }
+
+    populateTypes() {
+        this.#populateTypes();
+    }
+
+    set isValid(isValid) {
+        this.#isValid = isValid;
+    }
+
     #refresh(ready)
     {
-        jQuery.get({url: this.#configuration.settings.sourceUrl})
-            .done((response) => {
-                this.#saveTimestamp();
+        const xhttp = new XMLHttpRequest();
 
-                localStorage.setItem(this.localPrefix + "rawMeetings", JSON.stringify(response));
+        xhttp.onload = function (response) {
+            const meetings = this;
 
-                this.meetings = response;
+            const meetingsList = JSON.parse(response.currentTarget.response);
 
-                this.#populateGroups();
-                this.#populateRegions();
-                this.#populateDistricts();
-                this.#populateTypes();
+            meetings.saveTimestamp();
 
-                this.#isValid = true;
+            localStorage.setItem(meetings.localPrefix + "rawMeetings", JSON.stringify(meetingsList));
 
-                ready();
-            }).fail((error) => {
-                this.#isValid = false;
+            meetings.meetings = meetingsList;
 
-                this.showError(error);
-                ready();
-            });
+            meetings.populateGroups();
+            meetings.populateRegions();
+            meetings.populateDistricts();
+            meetings.populateTypes();
+
+            meetings.isValid = true;
+
+            ready();
+        }.bind(this);
+
+        xhttp.open("GET", this.#configuration.settings.sourceUrl, true);
+        xhttp.send();
+
+        // jQuery.get({
+        //     dataType: "json",
+        //     url: this.#configuration.settings.sourceUrl
+        // })
+        // .done((response) => {
+        //     this.#saveTimestamp();
+
+        //     localStorage.setItem(this.localPrefix + "rawMeetings", JSON.stringify(response));
+
+        //     this.meetings = response;
+
+        //     this.#populateGroups();
+        //     this.#populateRegions();
+        //     this.#populateDistricts();
+        //     this.#populateTypes();
+
+        //     this.#isValid = true;
+
+        //     ready();
+        // }).fail((error) => {
+        //     this.#isValid = false;
+
+        //     this.showError(error);
+        //     ready();
+        // });
     }
 
     showError(error) {

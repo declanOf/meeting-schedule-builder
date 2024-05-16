@@ -68,8 +68,6 @@ class Controls
             location.reload();
         };
 
-        // TODO: show dialog requesting new name, and indicating origin configuration
-
         // TODO: use dialog
         const deleteConfigurationHandler = (event) => {
             event.preventDefault();
@@ -83,7 +81,6 @@ class Controls
             this.configurationDeleteDialog.open();
         };
 
-        // TODO: show dialog showing old name and requesting new name
         const renameConfigurationHandler = (event) => {
             event.preventDefault();
 
@@ -127,10 +124,21 @@ class Controls
             location.reload();
         };
 
-        $("#create-new-schedule").click((event) => {
+        const createScheduleFromScratch = ((event) => {
             event.preventDefault();
 
-            alert("create new");
+            const scheduleData = {
+                url: $("#scratch-source-url").val(),
+                name: $("#scratch-name").val()
+            };
+
+            if (createFreshSchedule(scheduleData)) {
+                alert("Close this alert to load your new configuration!");
+
+                location.reload();
+
+                return;
+            }
         });
 
         const createSchedule = (event) => {
@@ -139,14 +147,16 @@ class Controls
             const schedule = $("#preexisting-schedule").find(":selected");
 
             const scheduleData = {
-                 url: schedule.val(),
+                 url: schedule.val() + "/wp-admin/admin-ajax.php?action=meetings",
                 name: schedule.text()
             };
 
-            if (createFreshConfiguration(scheduleData)) {
+            if (createFreshSchedule(scheduleData)) {
                 alert("Close this alert to load your new configuration!");
 
                 location.reload();
+
+                return;
             }
         }
 
@@ -161,7 +171,9 @@ class Controls
 
             $("#controlsManageForm #refresh-schedule").on("click", refreshSchedule);
 
-            $("#create-schedule").click(createSchedule);
+            $("#create-schedule").on("click", createSchedule);
+
+            $("#create-schedule-from-scratch").on("click", createScheduleFromScratch);
 
             $("#exportConfiguration textarea").on("click", (event) => $("#exportConfiguration textarea").select());
         }, 1000);
@@ -186,33 +198,11 @@ class Controls
         )
     }
 
-    // build existing section from configuration
-    /**
-     * title
-     * columns (displayed)
-     * filter
-     *  name contains none of
-     *  name contains one of
-     *  types
-     *  attendance option
-     *  in district, regions, groups
-     *  out districts, regions, groups
-     * showTypes
-     *
-     */
-    // build empty section
-
     render()
     {
         const controlsTemplateEngine = Handlebars.compile(this.#template);
 
-        // get the main controls, and filters
-        // loop each section, get controls and filters
-
         Handlebars.registerPartial('filters', filtersTemplate);
-
-        // instantiate and render the sections controller, then pass that to the control template.
-        // the advantage is the sections controller then handles the logic for columns, and possibly other logic that arises.
 
         const sectionsControls = new SectionsControls(this.#meetings, this.#configuration.settings.sections);
 

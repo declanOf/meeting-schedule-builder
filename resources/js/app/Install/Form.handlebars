@@ -17,10 +17,10 @@ const buildNewScheduleFormTemplate = `
     <p style="text-align: center; font-size: 1.25em; font-weight: 700">-or-</p>
     <p>Build schedule from source:</p>
     <table class="col-12">
-        <tr><td>Name</td><td colspan="3"><input class="col-md-12" type="text" name="office-name" placeholder="Office name" value=""></td></tr>
-        <tr><td>Source Url</td><td colspan="3"><input type="text" class="col-md-12" name="source-url" placeholder="https://yourwebsite.org/api-url" value=""></td></tr>
+        <tr><td>Name</td><td colspan="3"><input class="col-md-12" type="text" id="scratch-name" name="office-name" placeholder="Office name" value=""></td></tr>
+        <tr><td>Source Url</td><td colspan="3"><input type="text" class="col-md-12" id="scratch-source-url" name="source-url" placeholder="https://yourwebsite.org/api-url" value=""></td></tr>
         <tr><td colspan="4">&nbsp;</td></tr>
-        <tr><td>&nbsp;</td><td style="text-align: right"><input type="submit" name="create-new-schedule" value="Create fresh schedule"></td></tr>
+        <tr><td>&nbsp;</td><td style="text-align: right"><input type="submit" id="create-schedule-from-scratch" name="create-schedule" value="Create fresh schedule"></td></tr>
     </table>
 </form>
 `;
