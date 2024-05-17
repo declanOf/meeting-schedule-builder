@@ -3,6 +3,8 @@ const FreshSettings = {
     "expiryHours": 24,
     "meetingFontSize": "font-size-10-25pt",
     "footerFontSize": "font-size-9pt",
+    "pageOrientation": "portrait",
+    "pageSize": "letter",
     "documentHeader": {
         "displayUrl": "https://www.saltlakeaa.org/meetings",
         "holidayHours": "Call For Holiday Hours",

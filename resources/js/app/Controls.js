@@ -221,6 +221,8 @@ class Controls
         })
 
         const controlTemplatesData = {
+            pageSizes                   : PageSizes,
+            pageOrientations            : PageOrientations,
             downloadData                : btoa(configurationString + "\n"),
             configurationAsString       : configurationString,
             configurationName           : configurationName,
@@ -238,6 +240,8 @@ class Controls
             footerFontSize              : this.#configuration.settings.footerFontSize,
             activeConfigurationKey      : this.#configuration.activeConfigurationKey,
             availableConfigurations     : this.#configuration.availableConfigurations,
+            pageSize                    : this.#configuration.settings.pageSize,
+            pageOrientation             : this.#configuration.settings.pageOrientation,
             controlTypes                : this.#controlTypes,
             sectionsControlsContent     : sectionsControls.render(),
             filtersContent              : filters.render(),

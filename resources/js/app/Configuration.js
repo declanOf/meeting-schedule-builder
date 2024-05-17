@@ -273,7 +273,6 @@ class Configuration {
             return data;
         };
 
-
         let formData = Object.entries($("form#controlsForm").serializeArray()).pluck(1);
 
         formData = formData.serialiseToObject();

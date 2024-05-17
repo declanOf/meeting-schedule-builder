@@ -154,32 +154,6 @@ class Meetings {
 
         xhttp.open("GET", this.#configuration.settings.sourceUrl, true);
         xhttp.send();
-
-        // jQuery.get({
-        //     dataType: "json",
-        //     url: this.#configuration.settings.sourceUrl
-        // })
-        // .done((response) => {
-        //     this.#saveTimestamp();
-
-        //     localStorage.setItem(this.localPrefix + "rawMeetings", JSON.stringify(response));
-
-        //     this.meetings = response;
-
-        //     this.#populateGroups();
-        //     this.#populateRegions();
-        //     this.#populateDistricts();
-        //     this.#populateTypes();
-
-        //     this.#isValid = true;
-
-        //     ready();
-        // }).fail((error) => {
-        //     this.#isValid = false;
-
-        //     this.showError(error);
-        //     ready();
-        // });
     }
 
     showError(error) {

@@ -27,10 +27,40 @@
                 this.#configuration.addMeetingKeys(this.#meetings);
             }
 
-            this.addHeader()
+            this.addPageStyle()
+                .addHeader()
                 .addSections()
                 .addControls()
                 .addBehaviour();
+        }
+
+        addPageStyle() {
+            const pageSizeData = PageSizes.find((element) => element.size === this.#configuration.settings.pageSize);
+
+            const pageWidth = (this.#configuration.settings.pageOrientation === "portrait")
+                ? pageSizeData.width
+                : pageSizeData.height;
+
+            const printStyle = $(`
+            <style type="text/css" media="print">
+                @page {
+                    size: ${this.#configuration.settings.pageSize} ${this.#configuration.settings.pageOrientation};
+                    margin: 4mm;
+                }
+            </style>`);
+
+            $(document.head).append(printStyle);
+
+            const screenStyle = $(`
+            <style type="text/css" media="screen">
+            div.page {
+                width: ${pageWidth};
+            }
+            </style>`);
+
+            $(document.head).append(screenStyle);
+
+            return this;
         }
 
         addControls() {
