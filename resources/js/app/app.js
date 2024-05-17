@@ -27,38 +27,39 @@
                 this.#configuration.addMeetingKeys(this.#meetings);
             }
 
-            this.addPageStyle()
+            this.addScreenStyle()
+                .addPrintStyle()
                 .addHeader()
                 .addSections()
                 .addControls()
                 .addBehaviour();
         }
 
-        addPageStyle() {
+        addScreenStyle() {
             const pageSizeData = PageSizes.find((element) => element.size === this.#configuration.settings.pageSize);
 
             const pageWidth = (this.#configuration.settings.pageOrientation === "portrait")
                 ? pageSizeData.width
                 : pageSizeData.height;
 
-            const printStyle = $(`
-            <style type="text/css" media="print">
-                @page {
-                    size: ${this.#configuration.settings.pageSize} ${this.#configuration.settings.pageOrientation};
-                    margin: 4mm;
-                }
-            </style>`);
+            const screenStyleEngine = Handlebars.compile(ScreenStyleTemplate);
 
-            $(document.head).append(printStyle);
-
-            const screenStyle = $(`
-            <style type="text/css" media="screen">
-            div.page {
-                width: ${pageWidth};
-            }
-            </style>`);
+            const screenStyle = screenStyleEngine({pageWidth: pageWidth});
 
             $(document.head).append(screenStyle);
+
+            return this;
+        }
+
+        addPrintStyle() {
+            const printStyleEngine = Handlebars.compile(PrintStyleTemplate);
+
+            const printStyle = printStyleEngine({
+                pageSize: this.#configuration.settings.pageSize,
+                pageOrientation: this.#configuration.settings.pageOrientation
+            });
+
+            $(document.head).append(printStyle);
 
             return this;
         }
