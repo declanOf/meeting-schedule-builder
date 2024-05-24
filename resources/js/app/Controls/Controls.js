@@ -45,7 +45,7 @@ class Controls
                 "withKey"      : elem[1].withKey ? elem[1].withKey : null,
                 "withableTypes": withableTypes,
                 "description"  : elem[1].description,
-                "displaySymbol": elem[1].displaySymbol,
+                "displaySymbol": elem[1].displaySymbol.length > 0 ? elem[1].displaySymbol : key,
                 "showInHeader": elem[1].showInHeader,
                 "showInColumn": elem[1].showInColumn
             });
@@ -119,8 +119,6 @@ class Controls
 
             localStorage.setItem(prefix + "timestamp", 0);
 
-            debugger;
-
             location.reload();
         };
 
@@ -160,12 +158,26 @@ class Controls
             }
         }
 
+        const saveManualEdits = (event) => {
+            event.preventDefault();
+
+            const configurationString = $("#configuration-textarea").val();
+
+            try {
+                JSON.parse(configurationString);
+
+                (new Configuration()).saveEdit(configurationString);
+            } catch (error) {
+                return alert("Error: " + error);
+            }
+        }
+
         setTimeout(() => {
-            $("li a.select").click(selectConfigurationHandler);
+            $("li a.select").on("click", selectConfigurationHandler);
 
-            $("#controlsManageForm .delete").click(deleteConfigurationHandler);
+            $("#controlsManageForm .delete").on("click", deleteConfigurationHandler);
 
-            $("#controlsManageForm .rename").click(renameConfigurationHandler);
+            $("#controlsManageForm .rename").on("click", renameConfigurationHandler);
 
             $('#cloneScheduleForm input[type="submit"].submit').on("click", addScheduleHandler);
 
@@ -174,6 +186,8 @@ class Controls
             $("#create-schedule").on("click", createSchedule);
 
             $("#create-schedule-from-scratch").on("click", createScheduleFromScratch);
+
+            $("#save-manual-edits").on("click", saveManualEdits);
 
             $("#exportConfiguration textarea").on("click", (event) => $("#exportConfiguration textarea").select());
         }, 1000);

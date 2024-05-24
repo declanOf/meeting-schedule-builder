@@ -62,8 +62,8 @@
         <script type="text/javascript" src="./resources/js/app/Installer.js"></script>
 
         <script type="text/javascript" src="./resources/js/app/Meetings.js"></script>
-        <script type="text/javascript" src="./resources/js/app/Controls.js"></script>
-        <script type="text/javascript" src="./resources/js/app/DocumentHeader.js"></script>
+        <script type="text/javascript" src="./resources/js/app/Controls/Controls.js"></script>
+        <script type="text/javascript" src="./resources/js/app/DocumentHeader/DocumentHeader.js"></script>
 
         <script type="text/javascript" src="./resources/js/app/helpers/RowHelper.js"></script>
 
@@ -73,8 +73,8 @@
         <script type="text/javascript" src="./resources/js/app/Controls/AddReplacementDialog.js"></script>
         <script type="text/javascript" src="./resources/js/app/Controls/AddReplacementDialog.handlebars"></script>
 
-        <script type="text/javascript" src="./resources/js/app/templates/Filters.js"></script>
-        <script type="text/javascript" src="./resources/js/app/templates/Filters.handlebars"></script>
+        <script type="text/javascript" src="./resources/js/app/Filters/Filters.js"></script>
+        <script type="text/javascript" src="./resources/js/app/Filters/Filters.handlebars"></script>
 
         <script type="text/javascript" src="./resources/js/app/templates/RowHelper/Header.handlebars"></script>
         <script type="text/javascript" src="./resources/js/app/templates/RowHelper/Row.handlebars"></script>
@@ -83,31 +83,31 @@
         <script type="text/javascript" src="./resources/js/app/templates/RowHelper/SingleDay/RepeatDayAndColumnName.handlebars"></script>
         <script type="text/javascript" src="./resources/js/app/templates/RowHelper/SingleDay/SingleHeaders.handlebars"></script>
 
-        <script type="text/javascript" src="./resources/js/app/templates/SectionsControls.js"></script>
-        <script type="text/javascript" src="./resources/js/app/templates/SectionsControls.handlebars"></script>
+        <script type="text/javascript" src="./resources/js/app/Controls/Sections/SectionsControls.js"></script>
+        <script type="text/javascript" src="./resources/js/app/Controls/Sections/SectionsControls.handlebars"></script>
 
-        <script type="text/javascript" src="./resources/js/app/templates/SectionControls.js"></script>
-        <script type="text/javascript" src="./resources/js/app/templates/SectionControls.handlebars"></script>
+        <script type="text/javascript" src="./resources/js/app/Controls/Sections/SectionControls.js"></script>
+        <script type="text/javascript" src="./resources/js/app/Controls/Sections/SectionControls.handlebars"></script>
 
-        <script type="text/javascript" src="./resources/js/app/templates/Controls.handlebars"></script>
-        <script type="text/javascript" src="./resources/js/app/templates/DocumentHeader.handlebars"></script>
+        <script type="text/javascript" src="./resources/js/app/Controls/Controls.handlebars"></script>
+        <script type="text/javascript" src="./resources/js/app/DocumentHeader/DocumentHeader.handlebars"></script>
 
-        <script type="text/javascript" src="./resources/templates/PrintStyle.css.handlebars"></script>
-        <script type="text/javascript" src="./resources/templates/ScreenStyle.css.handlebars"></script>
+        <script type="text/javascript" src="./resources/style/PrintStyle.css.handlebars"></script>
+        <script type="text/javascript" src="./resources/style/ScreenStyle.css.handlebars"></script>
 
         <!-- STYLE SHEETS -->
-        <link rel="stylesheet" href="./resources/css/controls.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="./resources/css/schedule.css" type="text/css">
-		<link rel="stylesheet" href="./resources/css/screen.tiny.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="./resources/css/print.css" type="text/css" media="print">
+        <link rel="stylesheet" href="./resources/style/controls.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="./resources/style/schedule.css" type="text/css">
+		<link rel="stylesheet" href="./resources/style/screen.tiny.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="./resources/style/print.css" type="text/css" media="print">
 
-        <link rel="stylesheet" href="./resources/css/font-sizes.css" type="text/css">
+        <link rel="stylesheet" href="./resources/style/font-sizes.css" type="text/css">
 	</head>
     <body>
         <div id="controls">
         </div>
         <div class="page">
-            <button id="print-page" style="position: absolute; top: 0; right: 0; width: 90px; height: 30px; border: 1px solid grey">Print</button>
+            <button id="print-page" style="display: none;">Print</button>
         </div>
     </body>
 </html>

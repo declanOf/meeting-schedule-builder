@@ -36,6 +36,10 @@
         }
 
         addScreenStyle() {
+            if ($("#screen-style").length > 0) {
+                $("#screen-style").remove();
+            }
+
             const pageSizeData = PageSizes.find((element) => element.size === this.#configuration.settings.pageSize);
 
             const pageWidth = (this.#configuration.settings.pageOrientation === "portrait")
@@ -52,6 +56,10 @@
         }
 
         addPrintStyle() {
+            if ($("#print-style").length > 0) {
+                $("#print-style").remove();
+            }
+
             const printStyleEngine = Handlebars.compile(PrintStyleTemplate);
 
             const printStyle = printStyleEngine({
@@ -65,6 +73,8 @@
         }
 
         addControls() {
+            $("div#controls").html("");
+
             const controls = new Controls(this.#configuration, this.#meetings);
 
             const controlsContent = controls.render();

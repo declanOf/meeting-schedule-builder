@@ -177,6 +177,12 @@ class Configuration {
         }
     }
 
+    saveEdit(editedConfiguration) {
+        localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(editedConfiguration));
+
+        location.reload();
+    }
+
     // TODO: incorrect section types on save because the section type isn't set correctly in the controls
     saveChanges(event) {
         event.preventDefault();
@@ -190,9 +196,9 @@ class Configuration {
             if (typeof targetObject !== "object" || Array.isArray(targetObject)) {
                 if (typeof targetObject === "string")
                 {
-                    if (targetObject === "false") {
+                    if (targetObject === "false" || targetObject === "off") {
                         targetObject = false;
-                    } else if (targetObject === "true") {
+                    } else if (targetObject === "true" || targetObject === "on") {
                         targetObject = true;
                     }
                 }
@@ -282,9 +288,6 @@ class Configuration {
         let settings = restructureSectionsWithSetsOfSingleDays(formData);
 
         settings.sections.forEach((section, index) => settings.sections[index].display = typeof(section.display) === "undefined" ? false : section.display);
-
-        console.log("current", this.settings);
-        console.log("new", settings);
 
         this.settings = settings;
 

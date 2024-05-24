@@ -4,9 +4,9 @@ const controlsTemplate = `
         <div class="col-12" style="display: flex; justify-content: space-between">
             <div>&nbsp;</div>
             <h2 class="text-center configuration-display">CONFIGURATION <span class="arrow down">&#9660;</span><span class="arrow up">&#9650;</span></h2>
-            <span class="change-handler align-end" style="float:right;">
-                <button id="save-changes" class="align-end" style="float: right;">Save Changes</button>
-                <button id="reset-changes" class="align-end" style="float: right;">Reset Changes</button>
+            <span class="change-handler text-end" style="float:right;">
+                <button id="save-changes" class="text-end" style="float: right;">Save Changes</button>
+                <button id="reset-changes" class="text-end" style="float: right;">Reset Changes</button>
             </span>
         </div>
 
@@ -15,6 +15,7 @@ const controlsTemplate = `
             <li><a href="#tab-2">Controls</a></li>
             <li><a href="#tab-3">Sections</a></li>
             <li><a href="#tab-4">Manage</a></li>
+            <li><a href="#tab-5">Advanced</a></li>
         </ul>
 
         <div id="tab-1" class="col-11">
@@ -46,20 +47,20 @@ const controlsTemplate = `
                 <div class="col-6">
                     <div class="row strong">
                         <div class="col-1">&nbsp;</div>
-                        <div class="col-1-5 text-end">Key</div>
                         <div class="col-1-5 text-center">Display</div>
-                        <div class="col-4">Description</div>
-                        <div class="col-4">Combine With</div>
+                        <div class="col-1-5 text-center">Key</div>
+                        <div class="col-4-5">Description</div>
+                        <div class="col-3-5">Combine With</div>
                     </div>
                     {{#each controlTypes}}
-                    <div class="row hover-light" draggable="true">
-                        <button class="col-1 borderless strong">&#8998;</button>
-                        <div class="col-1-5 text-end">{{key}}</div>
-                        <input type="hidden" name="types.{{key}}.showInColumn" value="{{showInColumn}}">
-                        <input type="hidden" name="types.{{key}}.showInHeader" value="{{showInHeader}}">
+                    <div class="row hover-light" draggable="true" style="padding: 2px;">
+                        <div class="col-1">&nbsp;</div>
+                        <input type="hidden" name="types.{{key}}.showInColumn" value="false">
+                        <input type="checkbox" name="types.{{key}}.showInColumn" {{#if showInColumn}}checked="checked"{{/if}} class="col-1-5 text-end" style="max-height: 20px; margin-top: 3px;">
                         <input class="col-1-5 text-center" type="text" name="types.{{key}}.displaySymbol" value="{{displaySymbol}}">
-                        <input class="col-4" type="text" name="types.{{key}}.description" placeholder="No description" value="{{description}}">
-                        <select class="col-4" name="types.{{key}}.withKey" style="max-width:150px">
+                        <input type="hidden" name="types.{{key}}.showInHeader" value="{{showInHeader}}"">
+                        <input class="col-4-5" type="text" name="types.{{key}}.description" placeholder="No description" value="{{description}}">
+                        <select class="col-3-5" name="types.{{key}}.withKey" style="max-width:150px">
                             <option value="">None</option>
                             {{#each withableTypes}}
                             <option value="{{@key}}" withKey="{{withKey}}" {{#ifEquals ../withKey displaySymbol}}SELECTED="SELECTED"{{/ifEquals}}>{{displaySymbol}}: {{description}}</option>
@@ -137,7 +138,7 @@ const controlsTemplate = `
                 </div>
             </div>
         </div>
-        <div id="tab-3" class="col-11">
+        <div id="tab-3" class="col-12">
             <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
             <div class="sections-controls-container">
                 {{{sectionsControlsContent}}}
@@ -240,6 +241,12 @@ const controlsTemplate = `
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="tab-5" class="col-11">
+            <div id="advancedControlForm">
+                <textarea class="col-12" id="configuration-textarea" style="height:500px;">{{configurationAsString}}</textarea>
+                <p class="col-12 text-end"><button id="save-manual-edits">Save Changes</button></p>
             </div>
         </div>
     </div>

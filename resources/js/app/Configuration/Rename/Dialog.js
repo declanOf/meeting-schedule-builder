@@ -32,6 +32,8 @@ class ConfigurationRenameDialog
 
             const name = $("#configurationRenameForm input.new-name").val();
 
+            const configurationKey = $("#configurationRenameForm input.configuration-key").val();
+
             if (name.length < 3) {
 
                 return alert("Name must be longer than two characters")
@@ -44,8 +46,6 @@ class ConfigurationRenameDialog
                     availableConfigurations[index][1] = name;
                 }
             });
-
-            debugger;
 
             localStorage.setItem("availableConfigurations", JSON.stringify(availableConfigurations));
 

@@ -11,6 +11,7 @@ Array.prototype.serialiseToObject = function() {
     const flatArray = this;
 
     var data = {};
+
     flatArray.forEach((element) => {
         let val = element.value;
 

@@ -1,6 +1,11 @@
 class InstallDialog
 {
     constructor() {
+        $("body").css("background-image",    "url(resources/images/triangle-circle-symbol.png)");
+        $("body").css("background-repeat",   "no-repeat");
+        $("body").css("background-size",     "auto 80%");
+        $("body").css("background-position", "center center");
+
         $("body").append(this.render());
 
         $("#installDialog").dialog({title: "Meeting Schedule Builder", width: 600});

@@ -38,6 +38,10 @@ CONTROLS:
 ✓   Adding keys from meetings into configuration
 ✓   Export/import settings
 ✓   Manually edit settings
+-   Sort types by drag n drop.
+-   Sort sections by drag n drop.
+-   Match edit configuration to configuration changes.
+-   Update configuration width values when columns are resized.
 
 GLOBAL:
 ✓   Implement single days with different repetition of headers
@@ -47,3 +51,8 @@ GLOBAL:
 ✓   Add ability to save and switch between configurations.
 ✓   Save an item "configurations", with one as "default"
 ✓   Load up configuration from list.
+-   Match display toggle for types in header keys and columns.
+-   Update schedule dynamically when configuration is updated.
+-       Update header
+-       Update meetings listing
+-       Load new meetings if source URL changes. (Might as well reload page.))
