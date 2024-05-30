@@ -107,6 +107,9 @@ class Schedule
                         });
 
                         configuration.columnSizes = changeData;
+
+                        configuration.copyColumnWidthChangesToFormFields(changeData);
+
                         configuration.write();
                     }, 500);
                 });

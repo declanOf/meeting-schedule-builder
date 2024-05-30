@@ -41,7 +41,9 @@ CONTROLS:
 -   Sort types by drag n drop.
 -   Sort sections by drag n drop.
 -   Match edit configuration to configuration changes.
--   Update configuration width values when columns are resized.
+-   Prevent global config changes when there are unsaved changes and the widths are resized.
+✓   Update global configuration when configuration is changed but unsaved.
+✓   Update configuration width values when columns are resized.
 
 GLOBAL:
 ✓   Implement single days with different repetition of headers

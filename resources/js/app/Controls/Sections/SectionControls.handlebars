@@ -35,7 +35,7 @@ var sectionControlsTemplate = `
                                 <option value="{{source}}">{{source}}</option>
                             </select>
                             <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.title" type="text" style="width: 65px" value="{{title}}">
-                            <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
+                            <input id="sections-{{../../sectionKey}}-days-{{dayKey}}-columns-{{@key}}-width" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
                             <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.dayKey" type="hidden" style="width:50px" value="{{dayKey}}">
                         </div>
                     {{/each}}
@@ -47,7 +47,7 @@ var sectionControlsTemplate = `
                                 <option value="{{source}}">{{source}}</option>
                             </select>
                             <input name="sections.{{../sectionKey}}.columns.{{@key}}.title" type="text" style="width: 65px" value="{{title}}">
-                            <input name="sections.{{../sectionKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
+                            <input id="sections-{{../sectionKey}}-columns-{{@key}}-width" name="sections.{{../sectionKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
                         </div>
                     {{/if}}
                 {{/each}}

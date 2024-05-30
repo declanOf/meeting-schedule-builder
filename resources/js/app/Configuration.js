@@ -181,6 +181,14 @@ class Configuration {
         }
     }
 
+    copyColumnWidthChangesToFormFields(columnWidths) {
+        const inputIdPrefix = (isNaN(columnWidths.dayIndex))
+            ? `#sections-${columnWidths.meetingIndex}-columns-`
+            : `#sections-${columnWidths.meetingIndex}-days-${columnWidths.dayIndex}-columns-`;
+
+        columnWidths.columnSizes.forEach((columnWidth, index) => $(inputIdPrefix + `${index}-width`).val(columnWidth + "px"));
+    }
+
     copyLiveFormChangesToConfiguration() {
         this.settings = this.getConfigurationObjectFromForm();
     }
