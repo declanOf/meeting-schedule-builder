@@ -172,9 +172,17 @@ class Configuration {
 
         $("span.change-handler").removeClass("dirty");
         if (isDirty) {
+
+            this.copyLiveFormChangesToConfiguration();
+
             $("span.change-handler").addClass("dirty");
+
             this.#dirtyReasons.push(reason);
         }
+    }
+
+    copyLiveFormChangesToConfiguration() {
+        this.settings = this.getConfigurationObjectFromForm();
     }
 
     saveEdit(editedConfiguration) {
@@ -183,8 +191,7 @@ class Configuration {
         location.reload();
     }
 
-    // TODO: incorrect section types on save because the section type isn't set correctly in the controls
-    saveChanges() {
+    getConfigurationObjectFromForm() {
         /**
          * Convert any objects with numerical keys into an array, nested
          * @param {*} targetObject
@@ -287,13 +294,16 @@ class Configuration {
 
         settings.sections.forEach((section, index) => settings.sections[index].display = typeof(section.display) === "undefined" ? false : section.display);
 
-        this.settings = settings;
+        return settings;
+    }
+
+    // TODO: incorrect section types on save because the section type isn't set correctly in the controls
+    saveChanges() {
+        this.settings = this.getConfigurationObjectFromForm();
 
         localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.settings));
 
         this.setDirty(false);
-
-        return settings;
     }
 
     addMeetingKeys(meetings) {
