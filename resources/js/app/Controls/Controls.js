@@ -1,6 +1,5 @@
 class Controls
 {
-    #configuration;
     #controlTypes;
     #template;
 
@@ -12,8 +11,6 @@ class Controls
 
     constructor(Configuration, meetings)
     {
-        this.#configuration = Configuration;
-
         this.#template = controlsTemplate;
 
         this.#groups = meetings.groups;
@@ -26,12 +23,11 @@ class Controls
 
         this.#buildTypes();
 
-        this.assignHandlers();
     }
 
     #buildTypes()
     {
-        const types = this.#configuration.settings.types;
+        const types = configuration.settings.types;
 
         this.#controlTypes = [];
 
@@ -54,6 +50,7 @@ class Controls
 
     assignHandlers() {
         console.info("Assigning handlers");
+
         const selectConfigurationHandler = (event) => {
             event.preventDefault();
 
@@ -172,8 +169,54 @@ class Controls
             }
         }
 
+        const addFilter = (event) => {
+            event.preventDefault();
+
+            const addFilterDialog = new AddFilterDialog($(event.target));
+
+            addFilterDialog.open();
+        };
+
+        const addTextReplacement = (event) => {
+            event.preventDefault();
+
+            const addReplacementDialog = new AddReplacementDialog();
+
+            addReplacementDialog.open();
+        };
+
+        const setControlsDirty = (event) => {
+            configuration.setDirty(true, "Text changes have been made");
+        };
+
+        const resetChanges = (event) => {
+            window.reload();
+        };
+
+        const saveChanges = function (event) {
+            event.preventDefault();
+
+            configuration.saveChanges();
+        };
+
         setTimeout(() => {
-            $("li a.select").on("click", selectConfigurationHandler);
+            $("#save-changes").on("click", saveChanges);
+
+            $("#reset-changes").on("click", resetChanges);
+
+            $('div#controls input[type="text"]').on("keyup", setControlsDirty);
+
+            $('div#controls textarea').on("keyup", setControlsDirty);
+
+            $('div#controls select').on("change", setControlsDirty);
+
+            $('div#controls input[type="checkbox"]').on("change", setControlsDirty);
+
+            $("#add-text-replacement").on("click", addTextReplacement);
+
+            $(".filters-container .add-filter").on("click", addFilter);
+
+            $("#controlsManageForm li a.select").on("click", selectConfigurationHandler);
 
             $("#controlsManageForm .delete").on("click", deleteConfigurationHandler);
 
@@ -190,6 +233,21 @@ class Controls
             $("#save-manual-edits").on("click", saveManualEdits);
 
             $("#exportConfiguration textarea").on("click", (event) => $("#exportConfiguration textarea").select());
+
+            $("#controlsForm").tabs({
+                "create": () => {
+                    configuration.availableConfigurations.forEach((elem) => {
+                        if (configuration.activeConfigurationKey !== elem[0]) {
+                            return;
+                        }
+
+                        $("ul.ui-tabs-nav").append($(`<label style="padding-left: 2em; line-height: 2.5em;">Current Configuration: ${elem[1]}</label>`));
+                    });
+                }
+            });
+
+            $("#controlsManageForm").tabs();
+
         }, 1000);
     }
 
@@ -218,18 +276,18 @@ class Controls
 
         Handlebars.registerPartial('filters', filtersTemplate);
 
-        const sectionsControls = new SectionsControls(this.#meetings, this.#configuration.settings.sections);
+        const sectionsControls = new SectionsControls(this.#meetings, configuration.settings.sections);
 
-        const filters = new Filters(this.#meetings, this.#configuration.settings.filter, null);
+        const filters = new Filters(this.#meetings, configuration.settings.filter, null);
 
         const buildNewScheduleFormEngine = Handlebars.compile(buildNewScheduleFormTemplate);
 
-        const configurationString = JSON.stringify(this.#configuration.settings, null, 4);
+        const configurationString = JSON.stringify(configuration.settings, null, 4);
 
         let configurationName = "";
 
-        this.#configuration.availableConfigurations.forEach((config) => {
-            if (this.#configuration.activeConfigurationKey === config[0]) {
+        configuration.availableConfigurations.forEach((config) => {
+            if (configuration.activeConfigurationKey === config[0]) {
                 configurationName = config[1];
             }
         })
@@ -240,22 +298,22 @@ class Controls
             downloadData                : btoa(configurationString + "\n"),
             configurationAsString       : configurationString,
             configurationName           : configurationName,
-            documentHeader              : this.#configuration.settings.documentHeader,
-            documentFooter              : this.#configuration.settings.documentFooter,
-            expiryHours                 : this.#configuration.settings.expiryHours,
-            minimumMultidayCount        : this.#configuration.settings.minimumMultidayCount,
-            showSectionDivider          : this.#configuration.settings.showSectionDivider,
-            printDocumentFooter         : this.#configuration.settings.printDocumentFooter,
-            showColumnHeadersForEachDay : this.#configuration.settings.showColumnHeadersForEachDay,
-            sourceUrl                   : this.#configuration.settings.sourceUrl,
-            addressReplacements         : this.#configuration.settings.addressReplacements,
-            nameReplacements            : this.#configuration.settings.nameReplacements,
-            meetingFontSize             : this.#configuration.settings.meetingFontSize,
-            footerFontSize              : this.#configuration.settings.footerFontSize,
-            activeConfigurationKey      : this.#configuration.activeConfigurationKey,
-            availableConfigurations     : this.#configuration.availableConfigurations,
-            pageSize                    : this.#configuration.settings.pageSize,
-            pageOrientation             : this.#configuration.settings.pageOrientation,
+            documentHeader              : configuration.settings.documentHeader,
+            documentFooter              : configuration.settings.documentFooter,
+            expiryHours                 : configuration.settings.expiryHours,
+            minimumMultidayCount        : configuration.settings.minimumMultidayCount,
+            showSectionDivider          : configuration.settings.showSectionDivider,
+            printDocumentFooter         : configuration.settings.printDocumentFooter,
+            showColumnHeadersForEachDay : configuration.settings.showColumnHeadersForEachDay,
+            sourceUrl                   : configuration.settings.sourceUrl,
+            addressReplacements         : configuration.settings.addressReplacements,
+            nameReplacements            : configuration.settings.nameReplacements,
+            meetingFontSize             : configuration.settings.meetingFontSize,
+            footerFontSize              : configuration.settings.footerFontSize,
+            activeConfigurationKey      : configuration.activeConfigurationKey,
+            availableConfigurations     : configuration.availableConfigurations,
+            pageSize                    : configuration.settings.pageSize,
+            pageOrientation             : configuration.settings.pageOrientation,
             controlTypes                : this.#controlTypes,
             sectionsControlsContent     : sectionsControls.render(),
             filtersContent              : filters.render(),
@@ -267,6 +325,7 @@ class Controls
             buildNewScheduleForm        : buildNewScheduleFormEngine({centralOffices: CentralOffices}),
             columnsMap                  : {"time": "Time", "locationAddress": "Location / Address", "days": "Days", "name": "Name", "types": "Types"}
         }
+
         return controlsTemplateEngine(controlTemplatesData);
     }
 }

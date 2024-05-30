@@ -1,15 +1,11 @@
     const App = class
     {
-        #configuration;
-
         #meetings;
 
         constructor()
         {
             $(document).ready(() => {
-                this.#configuration = new Configuration(false);
-
-                if (this.#configuration.initialized) {
+                if (configuration.initialized) {
                     new Promise((ready) => this.buildMeetings(ready))
                         .then(this.buildPage.bind(this));
                 } else {
@@ -19,20 +15,41 @@
         }
 
         buildMeetings(ready) {
-            this.#meetings = new Meetings(this.#configuration, ready);
+            this.#meetings = new Meetings(configuration, ready);
         }
 
         buildPage() {
             if (this.#meetings.isValid) {
-                this.#configuration.addMeetingKeys(this.#meetings);
+                configuration.addMeetingKeys(this.#meetings);
             }
 
+            /**
+             * Separate out:
+             *  Style addition
+             *  controls (content & handlers) addition
+             */
             this.addScreenStyle()
                 .addPrintStyle()
                 .addHeader()
                 .addSections()
+                .addPrintButton()
                 .addControls()
                 .addBehaviour();
+        }
+
+        addPrintButton()
+        {
+            if ($("#print-page").length > 0) {
+                $("#print-page").remove();
+            }
+
+            const printButton = $(`<button id="print-page" style="display: none;">Print</button>`);
+
+            $("div.page").prepend(printButton);
+
+            printButton.on("click", (event) => window.print());
+
+            return this;
         }
 
         addScreenStyle() {
@@ -40,9 +57,9 @@
                 $("#screen-style").remove();
             }
 
-            const pageSizeData = PageSizes.find((element) => element.size === this.#configuration.settings.pageSize);
+            const pageSizeData = PageSizes.find((element) => element.size === configuration.settings.pageSize);
 
-            const pageWidth = (this.#configuration.settings.pageOrientation === "portrait")
+            const pageWidth = (configuration.settings.pageOrientation === "portrait")
                 ? pageSizeData.width
                 : pageSizeData.height;
 
@@ -63,8 +80,8 @@
             const printStyleEngine = Handlebars.compile(PrintStyleTemplate);
 
             const printStyle = printStyleEngine({
-                pageSize: this.#configuration.settings.pageSize,
-                pageOrientation: this.#configuration.settings.pageOrientation
+                pageSize: configuration.settings.pageSize,
+                pageOrientation: configuration.settings.pageOrientation
             });
 
             $(document.head).append(printStyle);
@@ -73,55 +90,17 @@
         }
 
         addControls() {
-            $("div#controls").html("");
+            if ($("div#controls").html().length > 0) {
+                $("div#controls").html("");
+            }
 
-            const controls = new Controls(this.#configuration, this.#meetings);
+            const controls = new Controls(configuration, this.#meetings);
 
             const controlsContent = controls.render();
 
             $('div#controls').append(controlsContent);
 
-            $('div#controls input[type="text"]').keyup(() => { this.#configuration.setDirty(true, "Text changes have been made") });
-
-            $('div#controls textarea').keyup(() => { this.#configuration.setDirty(true, "Text changes have been made") });
-
-            $('div#controls select').change(() => { this.#configuration.setDirty(true, "Text changes have been made") });
-
-            $('div#controls input[type="checkbox"]').change(() => { this.#configuration.setDirty(true, "Text changes have been made") });
-
-            $(".add-filter").click((event) => {
-                event.preventDefault();
-
-                const addFilterDialog = new AddFilterDialog($(event.target));
-
-                addFilterDialog.open();
-            })
-
-            const addReplacementDialog = new AddReplacementDialog();
-
-            $("#add-text-replacement").click((event) => {
-                event.preventDefault();
-
-                addReplacementDialog.open();
-            });
-
-            $("#save-changes").click(this.#configuration.saveChanges.bind(this.#configuration));
-
-            $("#reset-changes").click(() => window.reload());
-
-            $("#controlsForm").tabs({
-                "create": () => {
-                    this.#configuration.availableConfigurations.forEach((elem) => {
-                        if (this.#configuration.activeConfigurationKey !== elem[0]) {
-                            return;
-                        }
-
-                        $("ul.ui-tabs-nav").append($(`<label style="padding-left: 2em; line-height: 2.5em;">Current Configuration: ${elem[1]}</label>`));
-                    });
-                }
-            });
-
-            $("#controlsManageForm").tabs();
+            controls.assignHandlers();
 
             return this;
         };
@@ -159,8 +138,6 @@
 
             $(".remove-replacement").on("click", removeReplacement);
 
-            $("#print-page").on("click", (event) => window.print());
-
             window.scrollTo(0,0);
 
             return this;
@@ -171,9 +148,12 @@
                 return this;
             }
 
-            const header = new DocumentHeader(this.#configuration);
+            if ($("div.page table.header").length > 0) {
+                $("div.page table.header").remove();
+            }
+            const header = new DocumentHeader(configuration);
 
-            $('div.page').append(header.render());
+            $('div.page').prepend(header.render());
 
             return this;
         };
@@ -184,7 +164,7 @@
                 return this;
             }
 
-            const sections = new Schedule(this.#configuration, this.#meetings);
+            const sections = new Schedule(configuration, this.#meetings);
 
             sections.render();
 

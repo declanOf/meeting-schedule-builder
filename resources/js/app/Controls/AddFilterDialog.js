@@ -4,8 +4,6 @@ class AddFilterDialog
     // list types of filters: attendance option, district, types, name string
     // allow entry of district, type, name, or attendance option
 
-    #configuration;
-
     #filterList;
 
     #filtersContainer;
@@ -17,8 +15,6 @@ class AddFilterDialog
         this.#filtersContainer = $(target.parents(".filters-container")[0]);
 
         this.#filterList = $(this.#filtersContainer.find(".filter-list"));
-
-        this.#configuration = new Configuration();
 
         $("body").append(this.render());
 
@@ -147,7 +143,7 @@ class AddFilterDialog
 
                 $("div.filter-list").append(content);
 
-                this.#configuration.setDirty(true);
+                configuration.setDirty(true);
             }
 
             // intercept submission event
@@ -208,7 +204,7 @@ class AddFilterDialog
     {
         const addFilterDialogEngine = Handlebars.compile(addFilterDialogTemplate);
 
-        const types = Object.entries(this.#configuration.settings.types);
+        const types = Object.entries(configuration.settings.types);
         let showTypes = [];
 
         types.forEach((entry) => {

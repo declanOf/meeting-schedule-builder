@@ -1,12 +1,8 @@
 class ConfigurationExportDialog
 {
-    #configuration;
-
     #configurationExportDialog;
 
     constructor() {
-        this.#configuration = new Configuration();
-
         $("body").append(this.render());
 
         this.attachHandlers();
@@ -39,7 +35,7 @@ class ConfigurationExportDialog
             }
         });
 
-        const configurationString = JSON.stringify(this.#configuration.settings, null, 4);
+        const configurationString = JSON.stringify(configuration.settings, null, 4);
 
         const templateData = {
             name: configurationName,

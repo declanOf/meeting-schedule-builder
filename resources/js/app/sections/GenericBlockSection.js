@@ -8,8 +8,6 @@ class GenericBlockSection
 
     #sectionIndex;
 
-    #configuration;
-
     constructor(meetings, section, sectionIndex, configuration)
     {
         this.#meetings = meetings;
@@ -19,8 +17,6 @@ class GenericBlockSection
         this.#sectionIndex = sectionIndex;
 
         this.#meetings = GenericBlockSection_Filter.filter(this.#meetings, this.#section);
-
-        this.#configuration = configuration;
     }
 
     get section()
@@ -45,11 +41,11 @@ class GenericBlockSection
 
     render()
     {
-        let content = `<table class="meetings ${this.#configuration.settings.meetingFontSize}" data-index="${this.sectionIndex}">${this.displayFriendlyRows}</table>`;
+        let content = `<table class="meetings ${configuration.settings.meetingFontSize}" data-index="${this.sectionIndex}">${this.displayFriendlyRows}</table>`;
 
         if (this.#section.footer) {
             content += `<p
-                class="${this.#configuration.settings.footerFontSize} text-center"
+                class="${configuration.settings.footerFontSize} text-center"
                 style="margin-bottom: 0rem">${this.#section.footer}</p>`;
         }
 

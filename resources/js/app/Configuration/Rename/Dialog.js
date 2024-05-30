@@ -1,14 +1,10 @@
 class ConfigurationRenameDialog
 {
-    #configuration;
-
     #configurationRenameDialog;
 
     #configurationKey;
 
     constructor(configurationKey) {
-        this.#configuration = new Configuration();
-
         this.#configurationKey = configurationKey;
 
         $("body").append(this.render());
@@ -39,7 +35,7 @@ class ConfigurationRenameDialog
                 return alert("Name must be longer than two characters")
             }
 
-            let availableConfigurations = this.#configuration.availableConfigurations;
+            let availableConfigurations = configuration.availableConfigurations;
 
             availableConfigurations.forEach((elem, index) => {
                 if (configurationKey === elem[0]) {
@@ -70,7 +66,7 @@ class ConfigurationRenameDialog
 
         let configurationName = '';
 
-        this.#configuration.availableConfigurations.forEach((elem) => {
+        configuration.availableConfigurations.forEach((elem) => {
             if (this.#configurationKey === elem[0]) {
                 configurationName = elem[1];
             }

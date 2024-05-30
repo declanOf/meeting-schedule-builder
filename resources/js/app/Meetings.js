@@ -1,6 +1,4 @@
 class Meetings {
-    #configuration;
-
     #lastUpdate;
 
     #meetings;
@@ -19,8 +17,6 @@ class Meetings {
 
     constructor(Configuration, ready)
     {
-        this.#configuration = Configuration;
-
         this.#loadMeetings(ready);
     }
 
@@ -30,11 +26,11 @@ class Meetings {
 
     get localPrefix()
     {
-        return this.#configuration.activeConfigurationKey;
+        return configuration.activeConfigurationKey;
     }
 
     set localPrefix(localPrefix) {
-        this.#configuration.activeConfigurationKey = localPrefix;
+        configuration.activeConfigurationKey = localPrefix;
     }
 
     #loadMeetings(ready) {
@@ -88,7 +84,7 @@ class Meetings {
     {
         const timestamp = Date.now();
 
-        localStorage.setItem(this.#configuration.activeConfigurationKey + "timestamp", timestamp);
+        localStorage.setItem(configuration.activeConfigurationKey + "timestamp", timestamp);
     }
 
     #needsRefresh()
@@ -98,7 +94,7 @@ class Meetings {
         }
 
         // one hour
-        const expiryTimestamp = Date.now() - 1000 * 60 * 60 * this.#configuration.settings.expiryHours;
+        const expiryTimestamp = Date.now() - 1000 * 60 * 60 * configuration.settings.expiryHours;
 
         return this.#lastUpdate < expiryTimestamp;
     }
@@ -152,7 +148,7 @@ class Meetings {
             ready();
         }.bind(this);
 
-        xhttp.open("GET", this.#configuration.settings.sourceUrl, true);
+        xhttp.open("GET", configuration.settings.sourceUrl, true);
         xhttp.send();
     }
 

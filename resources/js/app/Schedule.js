@@ -1,13 +1,10 @@
 class Schedule
 {
-    #configuration;
     #meetings;
     #multiDayCandidates;
     #sections;
 
     constructor(Configuration, meetings) {
-        this.#configuration = Configuration;
-
         this.#meetings = meetings.meetings;
 
         this.#instantiate();
@@ -17,7 +14,7 @@ class Schedule
     {
         this.#sections = [];
 
-        this.#configuration.settings.sections.forEach((section, index) => {
+        configuration.settings.sections.forEach((section, index) => {
             if (!section.display) {
                 return;
             }
@@ -25,24 +22,24 @@ class Schedule
             switch (section.type) {
                 case 'generic':
                 case 'spanish':
-                    this.#sections.push(new GenericBlockSection(this.#getMultiDayCandidates().singleInclusiveDays, section, index, this.#configuration));
+                    this.#sections.push(new GenericBlockSection(this.#getMultiDayCandidates().singleInclusiveDays, section, index, configuration));
                 break;
                 case 'service':
-                    this.#sections.push(new GenericBlockSection(this.#getMultiDayCandidates().mixedFullDays, section, index, this.#configuration));
+                    this.#sections.push(new GenericBlockSection(this.#getMultiDayCandidates().mixedFullDays, section, index, configuration));
                 break;
 
                 case 'multi-days':
-                    this.#sections.push(new MultiDaysSection(this.#getMultiDayCandidates().multiDays, section, index, this.#configuration));
+                    this.#sections.push(new MultiDaysSection(this.#getMultiDayCandidates().multiDays, section, index, configuration));
                 break;
 
                 case 'mixed-full-days':
-                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().mixedFullDays, section, this.#configuration, index));
+                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().mixedFullDays, section, configuration, index));
                 break;
                 case 'single-inclusive-days':
-                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleInclusiveDays, section, this.#configuration, index));
+                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleInclusiveDays, section, configuration, index));
                 break;
                 case 'single-exclusive-days':
-                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleExclusiveDays, section, this.#configuration, index));
+                    this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleExclusiveDays, section, configuration, index));
                 break;
             }
         });
@@ -56,15 +53,15 @@ class Schedule
     render()
     {
         this.#sections.forEach((section) => {
-            if (this.#configuration.settings.showSectionDivider) {
+            if (configuration.settings.showSectionDivider) {
                 $('div.page').append('<hr class="section-divider">');
             }
 
             $('div.page').append(section.render());
         });
 
-        if (this.#configuration.settings.printDocumentFooter) {
-            const footer = $(`<p style="text-align: center; padding-top: 12pt; margin-bottom: 0;" class="${this.#configuration.settings.footerFontSize}">${this.#configuration.settings.documentFooter}</p>`);
+        if (configuration.settings.printDocumentFooter) {
+            const footer = $(`<p style="text-align: center; padding-top: 12pt; margin-bottom: 0;" class="${configuration.settings.footerFontSize}">${configuration.settings.documentFooter}</p>`);
 
             $("div.page").append(footer);
         }
@@ -109,8 +106,8 @@ class Schedule
                             changeData.columnSizes.push(size);
                         });
 
-                        this.#configuration.columnSizes = changeData;
-                        this.#configuration.write();
+                        configuration.columnSizes = changeData;
+                        configuration.write();
                     }, 500);
                 });
 
@@ -127,9 +124,9 @@ class Schedule
     #getMultiDayCandidates()
     {
         if (!this.#multiDayCandidates) {
-            this.#meetings = new MeetingFilter(this.#meetings, this.#configuration.settings.filter).meetings;
+            this.#meetings = new MeetingFilter(this.#meetings, configuration.settings.filter).meetings;
 
-            this.#multiDayCandidates = new MultiDayCandidates(this.#meetings, this.#configuration);
+            this.#multiDayCandidates = new MultiDayCandidates(this.#meetings, configuration);
         }
 
         return this.#multiDayCandidates;

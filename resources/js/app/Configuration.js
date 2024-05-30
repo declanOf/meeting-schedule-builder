@@ -184,9 +184,7 @@ class Configuration {
     }
 
     // TODO: incorrect section types on save because the section type isn't set correctly in the controls
-    saveChanges(event) {
-        event.preventDefault();
-
+    saveChanges() {
         /**
          * Convert any objects with numerical keys into an array, nested
          * @param {*} targetObject

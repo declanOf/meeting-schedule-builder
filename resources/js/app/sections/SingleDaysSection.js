@@ -5,13 +5,9 @@ class SingleDaysSection extends GenericBlockSection
 
     #displayFriendlyRows;
 
-    #configuration;
-
     constructor(meetings, section, configuration, sectionIndex)
     {
         super(meetings, section, sectionIndex, configuration);
-
-        this.#configuration = configuration;
     }
 
     /**
@@ -41,18 +37,18 @@ class SingleDaysSection extends GenericBlockSection
 
     get configuration()
     {
-        if (this.#configuration) {
-            return this.#configuration;
+        if (configuration) {
+            return configuration;
         }
 
-        this.#configuration = new Configuration();
+        configuration = new Configuration();
 
-        return this.#configuration;
+        return configuration;
     }
 
     getDayHeaders(index)
     {
-        if (!this.#configuration.settings.showColumnHeadersForEachDay && index > 0) {
+        if (!configuration.settings.showColumnHeadersForEachDay && index > 0) {
             return null;
         }
 
@@ -112,7 +108,7 @@ class SingleDaysSection extends GenericBlockSection
         });
 
         const handlebarsData = {
-            "meetingFontSize": this.#configuration.settings.meetingFontSize,
+            "meetingFontSize": configuration.settings.meetingFontSize,
             "day": dayName,
             "headers": headers,
             "rows": rows,
@@ -133,7 +129,7 @@ class SingleDaysSection extends GenericBlockSection
 
         let location = meeting['location'] ?? "";
 
-        this.#configuration.settings.addressReplacements.forEach((replacement) => {
+        configuration.settings.addressReplacements.forEach((replacement) => {
             if (address) {
                 address = address.replace(new RegExp(replacement.old), replacement.new);
             }
@@ -156,7 +152,7 @@ class SingleDaysSection extends GenericBlockSection
 
     #getFormattedName(name)
     {
-        this.#configuration.settings.nameReplacements.forEach((replacement) => {
+        configuration.settings.nameReplacements.forEach((replacement) => {
             name = name.replace(new RegExp(replacement.old), replacement.new);
         });
 

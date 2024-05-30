@@ -1,11 +1,7 @@
 class MultiDayCandidates
 {
-    #configuration;
-
     constructor(meetings, configuration)
     {
-        this.#configuration = configuration;
-
         this.multiDayCandidates = [];
         this.mixedDays = {};
 
@@ -101,7 +97,7 @@ class MultiDayCandidates
                 this.mixedDays[key] = candidate[0];
             } else {
                 // clone object
-                if (candidate.length > this.#configuration.settings.minimumMultidayCount) {
+                if (candidate.length > configuration.settings.minimumMultidayCount) {
                     let firstCandidate = {...candidate[0]};
 
                     firstCandidate.dayType = "multi";
@@ -110,7 +106,7 @@ class MultiDayCandidates
                 }
 
                 candidate.forEach((item, index) => {
-                    if (candidate.length <= this.#configuration.settings.minimumMultidayCount) {
+                    if (candidate.length <= configuration.settings.minimumMultidayCount) {
                         let tempItem = {...item};
 
                         tempItem.dayType = "semi-single";

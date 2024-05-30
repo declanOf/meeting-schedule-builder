@@ -1,12 +1,8 @@
 class ConfigurationCloneDialog
 {
-    #configuration;
-
     #configurationCloneDialog;
 
     constructor() {
-        this.#configuration = new Configuration();
-
         $("body").append(this.render());
 
         this.attachHandlers();
@@ -44,9 +40,9 @@ class ConfigurationCloneDialog
         const templateData = {
             activeConfigurationKey: activeConfigurationKey,
             availableConfigurations: availableConfigurations,
-            sourceUrl: this.#configuration.settings.sourceUrl,
+            sourceUrl: configuration.settings.sourceUrl,
             currentConfiguration: currentConfiguration,
-            documentHeader: this.#configuration.settings.documentHeader
+            documentHeader: configuration.settings.documentHeader
         };
 
         console.log("template data", templateData);

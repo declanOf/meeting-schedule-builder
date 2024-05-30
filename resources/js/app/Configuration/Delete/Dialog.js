@@ -1,16 +1,10 @@
 class ConfigurationDeleteDialog
 {
-    #configuration;
-
     #configurationDeleteDialog;
-
-    #configurationName;
 
     #configurationKey;
 
     constructor(configurationKey) {
-        this.#configuration = new Configuration();
-
         this.#configurationKey = configurationKey;
 
         $("body").append(this.render());
@@ -73,7 +67,7 @@ class ConfigurationDeleteDialog
 
         let configurationName = '';
 
-        this.#configuration.availableConfigurations.forEach((elem) => {
+        configuration.availableConfigurations.forEach((elem) => {
             if (this.#configurationKey === elem[0]) {
                 configurationName = elem[1];
             }

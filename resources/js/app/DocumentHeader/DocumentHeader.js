@@ -1,19 +1,17 @@
 class DocumentHeader
 {
-    #configuration;
     #template;
     #keySets;
 
     constructor(Configuration)
     {
         this.#template      = documentHeaderTemplate;
-        this.#configuration = Configuration;
         this.#buildTypes();
     }
 
     #buildTypes()
     {
-        const types = this.#configuration.settings.types;
+        const types = configuration.settings.types;
 
         this.#keySets = [];
 
@@ -53,7 +51,7 @@ class DocumentHeader
         const date = new Date();
         const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         return headerTemplateEngine({
-            "documentHeader" : this.#configuration.settings.documentHeader,
+            "documentHeader" : configuration.settings.documentHeader,
             "dateString" : date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear(),
             "types": this.types
         });

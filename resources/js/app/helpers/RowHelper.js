@@ -4,8 +4,6 @@ class RowHelper
 
     #section;
 
-    #configuration;
-
     #displayFriendlyRows;
 
     constructor(meetings, section)
@@ -17,13 +15,13 @@ class RowHelper
 
     get configuration()
     {
-        if (this.#configuration) {
-            return this.#configuration;
+        if (configuration) {
+            return configuration;
         }
 
-        this.#configuration = new Configuration();
+        configuration = new Configuration();
 
-        return this.#configuration;
+        return configuration;
     }
 
     get headerRow()
