@@ -122,18 +122,19 @@ class Configuration {
         if (!isNaN(dayIndex)) {
             columns = columns[dayIndex];
         }
-            columnSizes.forEach((size, index) => {
-                try {
-                    columns[index].width = size+"px";
-                } catch (error) {
-                    console.error("error setting width for columns", columns)
-                    console.error("columnSizes", columnSizes);
-                    console.error("index", index);
-                    console.error(error);
 
-                    throw error;
-                }
-            });
+        columnSizes.forEach((size, index) => {
+            try {
+                columns[index].width = size+"px";
+            } catch (error) {
+                console.error("error setting width for columns", columns)
+                console.error("columnSizes", columnSizes);
+                console.error("index", index);
+                console.error(error);
+
+                throw error;
+            }
+        });
 
         if (!isNaN(dayIndex)) {
             this.#settings.sections[sectionIndex].columns[dayIndex] = columns;
