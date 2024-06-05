@@ -35,9 +35,11 @@ class Schedule
                 case 'mixed-full-days':
                     this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().mixedFullDays, section, configuration, index));
                 break;
+
                 case 'single-inclusive-days':
                     this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleInclusiveDays, section, configuration, index));
                 break;
+
                 case 'single-exclusive-days':
                     this.#sections.push(new SingleDaysSection(this.#getMultiDayCandidates().singleExclusiveDays, section, configuration, index));
                 break;
