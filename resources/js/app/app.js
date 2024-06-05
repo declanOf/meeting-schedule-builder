@@ -81,7 +81,8 @@
 
             const printStyle = printStyleEngine({
                 pageSize: configuration.settings.pageSize,
-                pageOrientation: configuration.settings.pageOrientation
+                pageOrientation: configuration.settings.pageOrientation,
+                margin: configuration.settings.margin
             });
 
             $(document.head).append(printStyle);
