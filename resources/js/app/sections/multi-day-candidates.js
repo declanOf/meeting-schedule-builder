@@ -68,20 +68,22 @@ class MultiDayCandidates
     process()
     {
         this.meetings.forEach((meeting) => {
-            let groupIdTime = `${meeting.time} ${meeting.group_id} ${meeting.name}`;
+            let constructedGroupKey = `${meeting.time} ${meeting.group_id} ${meeting.name}`;
 
             if (meeting.types) {
                 if (meeting.types.find((elem) => elem === 'M')) {
-                    groupIdTime += "M";
+                    constructedGroupKey += "M";
                 } else if (meeting.types.find((elem) => elem === 'W')) {
-                    groupIdTime += "W";
+                    constructedGroupKey += "W";
                 }
             }
 
-            if (groupIdTime in this.multiDayCandidates) {
-                this.multiDayCandidates[groupIdTime].push(meeting);
+            constructedGroupKey += meeting.location_id;
+
+            if (constructedGroupKey in this.multiDayCandidates) {
+                this.multiDayCandidates[constructedGroupKey].push(meeting);
             } else {
-                this.multiDayCandidates[groupIdTime] = [meeting];
+                this.multiDayCandidates[constructedGroupKey] = [meeting];
             }
         });
 
