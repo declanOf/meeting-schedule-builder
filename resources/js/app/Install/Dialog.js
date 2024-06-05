@@ -1,10 +1,13 @@
 class InstallDialog
 {
     constructor() {
-        $("body").css("background-image",    "url(resources/images/triangle-circle-symbol.png)");
-        $("body").css("background-repeat",   "no-repeat");
-        $("body").css("background-size",     "auto 80%");
-        $("body").css("background-position", "center center");
+        $("body").css({
+            "background-image":    "url(resources/images/triangle-circle-symbol.png)",
+            "background-repeat":   "no-repeat",
+            "background-size":     "auto 80%",
+            "background-position": "center center",
+            "background-color":    "#BBDDFF"
+        });
 
         $("body").append(this.render());
 
