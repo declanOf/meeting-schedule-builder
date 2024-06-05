@@ -5,6 +5,7 @@ const FreshSettings = {
     "footerFontSize": "font-size-9pt",
     "pageOrientation": "portrait",
     "pageSize": "letter",
+    "margin": "8mm",
     "documentHeader": {
         "displayUrl": "https://www.saltlakeaa.org/meetings",
         "holidayHours": "Call For Holiday Hours",

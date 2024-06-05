@@ -314,6 +314,7 @@ class Controls
             availableConfigurations     : configuration.availableConfigurations,
             pageSize                    : configuration.settings.pageSize,
             pageOrientation             : configuration.settings.pageOrientation,
+            margin                      : configuration.settings.margin,
             controlTypes                : this.#controlTypes,
             sectionsControlsContent     : sectionsControls.render(),
             filtersContent              : filters.render(),

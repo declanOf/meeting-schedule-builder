@@ -124,6 +124,38 @@ const controlsTemplate = `
                     {{/each}}
                 </select>
             </div>
+            <div class="col-2-5 align-end">
+                <span style="padding-right: 5px;" class="strong">Print Margin</span>
+                <select class="col-5" name="margin">
+                    <option value="0mm" {{#ifEquals margin "0mm"}}SELECTED{{/ifEquals}}>0 mm</option>
+                    <option value="1mm" {{#ifEquals margin "1mm"}}SELECTED{{/ifEquals}}>1 mm</option>
+                    <option value="2mm" {{#ifEquals margin "2mm"}}SELECTED{{/ifEquals}}>2 mm</option>
+                    <option value="3mm" {{#ifEquals margin "3mm"}}SELECTED{{/ifEquals}}>3 mm</option>
+                    <option value="4mm" {{#ifEquals margin "4mm"}}SELECTED{{/ifEquals}}>4 mm</option>
+                    <option value="5mm" {{#ifEquals margin "5mm"}}SELECTED{{/ifEquals}}>5 mm</option>
+                    <option value="6mm" {{#ifEquals margin "6mm"}}SELECTED{{/ifEquals}}>6 mm</option>
+                    <option value="7mm" {{#ifEquals margin "7mm"}}SELECTED{{/ifEquals}}>7 mm</option>
+                    <option value="8mm" {{#ifEquals margin "8mm"}}SELECTED{{/ifEquals}}>8 mm</option>
+                    <option value="9mm" {{#ifEquals margin "9mm"}}SELECTED{{/ifEquals}}>9 mm</option>
+                    <option value="10mm" {{#ifEquals margin "10mm"}}SELECTED{{/ifEquals}}>1 cm</option>
+                    <option value="11mm" {{#ifEquals margin "11mm"}}SELECTED{{/ifEquals}}>11 mm</option>
+                    <option value="12mm" {{#ifEquals margin "12mm"}}SELECTED{{/ifEquals}}>12 mm</option>
+                    <option value="13mm" {{#ifEquals margin "13mm"}}SELECTED{{/ifEquals}}>13 mm</option>
+                    <option value="14mm" {{#ifEquals margin "14mm"}}SELECTED{{/ifEquals}}>14 mm</option>
+                    <option value="15mm" {{#ifEquals margin "15mm"}}SELECTED{{/ifEquals}}>15 mm</option>
+                    <option value="16mm" {{#ifEquals margin "16mm"}}SELECTED{{/ifEquals}}>16 mm</option>
+                    <option value="17mm" {{#ifEquals margin "17mm"}}SELECTED{{/ifEquals}}>17 mm</option>
+                    <option value="18mm" {{#ifEquals margin "18mm"}}SELECTED{{/ifEquals}}>18 mm</option>
+                    <option value="19mm" {{#ifEquals margin "19mm"}}SELECTED{{/ifEquals}}>19 mm</option>
+                    <option value="20mm" {{#ifEquals margin "20mm"}}SELECTED{{/ifEquals}}>20 cm</option>
+                    <option value="21mm" {{#ifEquals margin "21mm"}}SELECTED{{/ifEquals}}>21 mm</option>
+                    <option value="22mm" {{#ifEquals margin "22mm"}}SELECTED{{/ifEquals}}>22 mm</option>
+                    <option value="23mm" {{#ifEquals margin "23mm"}}SELECTED{{/ifEquals}}>23 mm</option>
+                    <option value="24mm" {{#ifEquals margin "24mm"}}SELECTED{{/ifEquals}}>24 mm</option>
+                    <option value="25mm" {{#ifEquals margin "25mm"}}SELECTED{{/ifEquals}}>25 mm</option>
+                    <option value="1in" {{#ifEquals margin "1in"}}SELECTED{{/ifEquals}}>1 in</option>
+                </select>
+            </div>
             <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
             <div class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">
                 {{{filtersContent}}}

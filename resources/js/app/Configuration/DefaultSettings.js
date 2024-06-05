@@ -4,6 +4,7 @@ const DefaultSettings = {
     "meetingFontSize": "font-size-10-25pt",
     "footerFontSize": "font-size-9pt",
     "pageOrientation": "portrait",
+    "margin": "8mm",
     "pageSize": "letter",
     "documentHeader": {
         "displayUrl": "https://www.saltlakeaa.org/meetings",
