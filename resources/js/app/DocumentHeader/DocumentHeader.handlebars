@@ -1,46 +1,73 @@
 const documentHeaderTemplate = `<table class="header">
 <thead>
     <tr>
-        <th class="main_title font-size-30pt" colspan="3">{{documentHeader.title}}</th>
+        <th id="documentHeader-title" class="main_title font-size-30pt" colspan="3">{{documentHeader.title}}</th>
     </tr>
     <tr>
         <th class="main_title_3 font-size-10-50pt">
-            {{#ifNotEmptyOrWhitespace documentHeader.officeTitle}}
-            <p class="office-title">{{{documentHeader.officeTitle}}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                id="documentHeader-officeTitle"
+                class="office-title"
+                {{#ifEmptyOrWhitespace documentHeader.officeTitle}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+            >{{{documentHeader.officeTitle}}}</p>
 
-            {{#ifNotEmptyOrWhitespace documentHeader.officeStreet}}
-            <p class="font-size-9pt">{{documentHeader.officeStreet}}<br>{{documentHeader.officeCity}}, {{documentHeader.officeState}} {{documentHheader.officeZipcode}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                id="documentHeader-officeStreet"
+                class="font-size-9pt"
+                {{#ifEmptyOrWhitespace documentHeader.officeStreet}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+            >{{documentHeader.officeStreet}}<br>{{documentHeader.officeCity}}, {{documentHeader.officeState}} {{documentHheader.officeZipcode}}</p>
 
-            {{#ifNotEmptyOrWhitespace documentHeader.officePhone}}
-            <p>{{documentHeader.officePhone}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                id="documentHeader-officePhone"
+                {{#ifEmptyOrWhitespace documentHeader.officePhone}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+            >{{documentHeader.officePhone}}</p>
 
-            {{#ifNotEmptyOrWhitespace documentHeader.officeHours}}
-            <p class="font-size-9pt">{{{documentHeader.officeHours}}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                id="documentHEader.officeHours"
+                {{#ifEmptyOrWhitespace documentHeader.officeHours}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+                class="font-size-9pt"
+            >{{{documentHeader.officeHours}}}</p>
 
-            {{#ifNotEmptyOrWhitespace documentHeader.holidayHours}}
-            <p class="font-size-9pt">{{documentHeader.holidayHours}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                id="documentHEader.holidayHours"
+                {{#ifEmptyOrWhitespace documentHeader.holidayHours}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+                class="font-size-9pt"
+            >{{documentHeader.holidayHours}}</p>
         </th>
         <th class="main_title_2 font-size-10-50pt">
-            {{#ifNotEmptyOrWhitespace documentHeader.lastUpdated}}
-                <p>{{documentHeader.lastUpdated}}: {{dateString}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                {{#ifEmptyOrWhitespace documentHeader.lastUpdated}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+            >{{documentHeader.lastUpdated}}: {{dateString}}</p>
 
-            {{#ifNotEmptyOrWhitespace documentHeader.inPerson}}
-                <p>{{documentHeader.inPerson}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                {{#ifEmptyOrWhitespace documentHeader.inPerson}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+            >{{documentHeader.inPerson}}</p>
 
-            {{#ifNotEmptyOrWhitespace documentHeader.website}}
-                <p>{{documentHeader.website}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                {{#ifEmptyOrWhitespace documentHeader.website}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+            >{{documentHeader.website}}</p>
 
-            {{#ifNotEmptyOrWhitespace documentHeader.displayUrl}}
-                <p>{{documentHeader.displayUrl}}</p>
-            {{/ifNotEmptyOrWhitespace}}
+            <p
+                {{#ifEmptyOrWhitespace documentHeader.displayUrl}}
+                style="display: none;"
+                {{/ifEmptyOrWhitespace}}
+            >{{documentHeader.displayUrl}}</p>
         </th>
         <th class="main_title_3 font-size-10-50pt">
             <table class="keys">
