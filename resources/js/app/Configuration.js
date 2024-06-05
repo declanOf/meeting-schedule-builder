@@ -173,10 +173,12 @@ class Configuration {
 
         $("span.change-handler").removeClass("dirty");
         if (isDirty) {
-
             this.copyLiveFormChangesToConfiguration();
 
             $("span.change-handler").addClass("dirty");
+
+            // TODO: rebuild schedule if needed
+            app.addHeader();
 
             this.#dirtyReasons.push(reason);
         }
