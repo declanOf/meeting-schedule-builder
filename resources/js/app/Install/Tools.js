@@ -7,9 +7,13 @@ const createFreshSchedule= (scheduleData) => {
 
     const settings = {...FreshSettings};
 
+    const url = new URL(scheduleData.url);
+
     settings.sourceUrl = scheduleData.url;
+
     settings.documentHeader.officeTitle = scheduleData.name;
-    settings.documentHeader.displayUrl = scheduleData.url;
+
+    settings.documentHeader.displayUrl = url.origin;
 
     const newConfigurationKey = uuidv4();
 
