@@ -107,18 +107,6 @@ class Controls
             location.reload();
         };
 
-        const refreshSchedule = (event) => {
-            event.preventDefault();
-
-            const configuration = new Configuration();
-
-            const prefix = configuration.activeConfigurationKey;
-
-            localStorage.setItem(prefix + "timestamp", 0);
-
-            location.reload();
-        };
-
         const createScheduleFromScratch = ((event) => {
             event.preventDefault();
 
@@ -223,8 +211,6 @@ class Controls
             $("#controlsManageForm .rename").on("click", renameConfigurationHandler);
 
             $('#cloneScheduleForm input[type="submit"].submit').on("click", addScheduleHandler);
-
-            $("#controlsManageForm #refresh-schedule").on("click", refreshSchedule);
 
             $("#create-schedule").on("click", createSchedule);
 

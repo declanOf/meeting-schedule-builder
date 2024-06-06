@@ -33,12 +33,12 @@
                 .addHeader()
                 .addSections()
                 .addPrintButton()
+                .addRefreshButton()
                 .addControls()
                 .addBehaviour();
         }
 
-        addPrintButton()
-        {
+        addPrintButton() {
             if ($("#print-page").length > 0) {
                 $("#print-page").remove();
             }
@@ -48,6 +48,30 @@
             $("div.page").prepend(printButton);
 
             printButton.on("click", (event) => window.print());
+
+            return this;
+        }
+
+        addRefreshButton() {
+            const refreshSchedule = (event) => {
+                event.preventDefault();
+
+                const prefix = configuration.activeConfigurationKey;
+
+                localStorage.setItem(prefix + "timestamp", 0);
+
+                location.reload();
+            };
+
+            if ($("#refresh-schedule").length > 0) {
+                $("#refresh-schedule").remove();
+            }
+
+            const refreshButton = $(`<button id="refresh-schedule" style="display: none;">Refresh</button>`)
+
+            $("div.page").prepend(refreshButton);
+
+            refreshButton.on("click", refreshSchedule);
 
             return this;
         }
