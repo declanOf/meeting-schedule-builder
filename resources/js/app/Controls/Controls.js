@@ -116,7 +116,7 @@ class Controls
             };
 
             if (createFreshSchedule(scheduleData)) {
-                alert("Close this alert to load your new configuration!");
+                alert("Close this alert to load your new schedule!");
 
                 location.reload();
 
