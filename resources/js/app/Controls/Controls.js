@@ -60,7 +60,7 @@ class Controls
 
             localStorage.setItem("activeConfigurationKey", configurationKey);
 
-            alert("Using new configuration. Page will reload automatically.");
+            alert("Using new schedule. Page will reload automatically.");
 
             location.reload();
         };

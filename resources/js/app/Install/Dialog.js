@@ -28,7 +28,7 @@ class InstallDialog
             };
 
             if (createFreshSchedule(scheduleData)) {
-                alert("Close this alert to load your new configuration!");
+                alert("Close this alert to load your new schedule!");
 
                 location.reload();
             }
@@ -43,7 +43,7 @@ class InstallDialog
             };
 
             if (createFreshSchedule(scheduleData)) {
-                alert("Close this alert to load your new configuration!");
+                alert("Close this alert to load your new schedule!");
 
                 location.reload();
 
