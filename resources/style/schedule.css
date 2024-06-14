@@ -17,8 +17,8 @@ hr {
 
 table.header th p {
     margin-block-start: 0em;
-    margin-block-end: .35em;
-    line-height: 1.2em;
+    margin-block-end: .25em;
+    line-height: 1.1em;
 }
 
 table.header th p:first-child {
@@ -96,9 +96,9 @@ table.meetings th:last-child,
 table.meetings td:last-child {
     padding-right: 0;
 }
+
 table.meetings thead tr th.title,
 table.meetings thead tr th.section-title {
-    padding-top: 2px;
     text-align: center;
 }
 

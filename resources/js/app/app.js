@@ -29,6 +29,7 @@
              *  controls (content & handlers) addition
              */
             this.addScreenStyle()
+                .addGlobalStyle()
                 .addPrintStyle()
                 .addHeader()
                 .addSections()
@@ -72,6 +73,31 @@
             $("div.page").prepend(refreshButton);
 
             refreshButton.on("click", refreshSchedule);
+
+            return this;
+        }
+
+        addGlobalStyle() {
+            if ($("#global-style").length > 0) {
+                $("#global-style").remove();
+            }
+
+            const globalStyleEngine = Handlebars.compile(GlobalStyleTemplate);
+
+            const globalStyle = globalStyleEngine({
+                lineHeight: configuration.settings.documentHeader.lineHeight,
+                keyLineHeight: configuration.settings.documentHeader.keyLineHeight,
+                documentFooterTopPadding: configuration.settings.documentFooterTopPadding,
+                sectionTitleTopPadding: configuration.settings.sectionTitleTopPadding,
+            });
+
+            console.log({
+                lineHeight: configuration.settings.documentHeader.lineHeight,
+                keyLineHeight: configuration.settings.documentHeader.keyLineHeight,
+                documentFooterTopPadding: configuration.settings.documentFooterTopPadding,
+                sectionTitleTopPadding: configuration.settings.sectionTitleTopPadding,
+            })
+            $(document.head).append(globalStyle);
 
             return this;
         }

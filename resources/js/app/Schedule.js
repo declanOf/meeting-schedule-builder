@@ -63,7 +63,7 @@ class Schedule
         });
 
         if (configuration.settings.printDocumentFooter) {
-            const footer = $(`<p style="text-align: center; padding-top: 12pt; margin-bottom: 0;" class="${configuration.settings.footerFontSize}">${configuration.settings.documentFooter}</p>`);
+            const footer = $(`<p class="document-footer ${configuration.settings.footerFontSize}">${configuration.settings.documentFooter}</p>`);
 
             $("div.page").append(footer);
         }

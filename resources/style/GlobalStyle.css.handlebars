@@ -1,0 +1,24 @@
+const GlobalStyleTemplate = `
+<style type="text/css" id="GlobalSyle">
+    table.header th p
+    {
+        line-height: {{lineHeight}};
+    }
+
+    table.keys th, table.keys td {
+        line-height: {{keyLineHeight}};
+    }
+
+    p.document-footer {
+        text-align: center;
+        padding-top: {{documentFooterTopPadding}};
+        margin-bottom: 0;
+    }
+
+    table.meetings thead tr th.title,
+    table.meetings thead tr th.section-title {
+        padding-top: {{sectionTitleTopPadding}};
+        text-align: center;
+    }
+</style>
+`;

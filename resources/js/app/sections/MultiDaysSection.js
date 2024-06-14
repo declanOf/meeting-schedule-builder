@@ -40,7 +40,23 @@ class MultiDaysSection extends GenericBlockSection
 
                 return meeting[1];
             })
-            .sort((a, b) => parseInt(a.time.replace(":", "")) - parseInt(b.time.replace(":", "")));
+            .sort((a, b) => {
+                let aTime = parseInt(a.time.replace(":", ""));
+
+                let bTime = parseInt(b.time.replace(":", ""));
+
+                if (configuration.midnightMeetingPosition === "end") {
+                    if (aTime === 0) {
+                        aTime = 2359;
+                    }
+
+                    if (bTime === 0) {
+                        bTime = 2359;
+                    }
+                }
+
+                return aTime - bTime;
+            });
 
         this.#multiDays = Object.fromEntries(multiDays.map((meeting) => [meeting.key, meeting]));
     }

@@ -79,7 +79,23 @@ class SingleDaysSection extends GenericBlockSection
 
         const headers = this.getDayHeaders(index);
 
-        data[1] = data[1].sort((a, b) => parseInt(a[1].time.replace(":", "")) - parseInt(b[1].time.replace(":", "")));
+        data[1] = data[1].sort((a, b) => {
+            let aTime = parseInt(a[1].time.replace(":", ""));
+
+            let bTime = parseInt(b[1].time.replace(":", ""));
+
+            if (configuration.settings.midnightMeetingPosition === "end" || !("midnightMeetingPosition" in this.configuration.settings)) {
+                if (aTime === 0) {
+                    aTime = 2359;
+                }
+
+                if (bTime === 0) {
+                    bTime = 2359;
+                }
+            }
+
+            return aTime - bTime;
+        });
 
         Object.entries(data[1]).forEach((entry) => {
             const rowKey = entry[1][0];

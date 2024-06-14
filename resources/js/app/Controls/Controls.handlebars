@@ -24,6 +24,12 @@ const controlsTemplate = `
                 <p class="col-12 small-caps strong">Document Header <small>(small-caps)</small></p>
                 <input class="hover-light col-12" type="text" style="font-variant-caps: small-caps; font-size: 1.25em;" name="documentHeader.title" title="Document Title" placeholder="Document Title" value="{{ documentHeader.title }}">
                 <p class="row" style="--bs-gutter-x: 0; --bs-gutter-y: 0;">&nbsp;</p>
+                <!-- TODO: convert hidden values to editable inputs -->
+                <input type="hidden" name="documentHeader.lineHeight" value="{{documentHeader.lineHeight}}">
+                <input type="hidden" name="documentHeader.keyLineHeight" value="{{documentHeader.keyLineHeight}}">
+                <input type="hidden" name="documentFooterTopPadding" value="{{documentFooterTopPadding}}">
+                <input type="hidden" name="sectionTitleTopPadding" value="{{sectionTitleTopPadding}}">
+                <input type="hidden" name="midnightMeetingPosition" value="{{midnightMeetingPosition}}">
                 <div class="col-3">
                     <div class="col-12 strong">Office Information</div>
                     <textarea class="hover-light col-12" title="Office Title" placeholder="Office Title" name="documentHeader.officeTitle.">{{#replace "<br>" "\n"}}{{{documentHeader.officeTitle}}}{{/replace}}</textarea>

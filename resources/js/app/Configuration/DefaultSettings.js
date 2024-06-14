@@ -4,8 +4,9 @@ const DefaultSettings = {
     "meetingFontSize": "font-size-10-25pt",
     "footerFontSize": "font-size-9pt",
     "pageOrientation": "portrait",
-    "margin": "8mm",
+    "margin": "4mm",
     "pageSize": "letter",
+    "midnightMeetingPosition": "end",
     "documentHeader": {
         "displayUrl": "https://www.saltlakeaa.org/meetings",
         "holidayHours": "Call For Holiday Hours",
@@ -20,12 +21,16 @@ const DefaultSettings = {
         "officeHours": "Monday-Friday 10AM-5PM<br>Saturday 10AM-2PM",
         "title": "AA Meeting Schedule",
         "website": "Check website for online meetings, accessibility services, and holiday changes.",
+        "lineHeight": "1.1em",
+        "keyLineHeight": "1.2em",
     },
     "minimumMultidayCount": 3,
     "showSectionDivider": true,
     "printDocumentFooter": true,
     "showColumnHeadersForEachDay": true,
     "documentFooter": "All meetings are self-reported. Central Office doesn't independently verify or endorse meetings.<br>* Holidays may affect some meetings.",
+    "documentFooterTopPadding": "4pt",
+    "sectionTitleTopPadding": "0px",
     "types": {
         "O": {
             "displaySymbol": "O",
