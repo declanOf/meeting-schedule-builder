@@ -10,7 +10,8 @@ CONTROLS:
 -   Prevent global config change from being saved when there are unsaved changes
     and the widths are resized.
 -   Fix tab content block width. It should not resize for the content of different tabs.
-
+-   Fix keys so that checkmark will toggle display in header and in columns.
+    It currently only affects column display.
 GLOBAL:
 -   Match display toggle for types in header keys and columns.
 -   Update schedule dynamically when configuration is updated.
