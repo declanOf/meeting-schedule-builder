@@ -280,6 +280,7 @@ class Configuration {
                         // numericise dayKey column
                         day.columns = day.columns.map((column) => {
                             column.dayKey = parseInt(column.dayKey);
+
                             return column;
                         });
 
