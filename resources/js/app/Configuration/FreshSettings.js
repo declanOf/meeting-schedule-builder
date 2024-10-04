@@ -6,6 +6,7 @@ const FreshSettings = {
     "pageOrientation": "portrait",
     "pageSize": "letter",
     "margin": "4mm",
+    "padding": "4mm",
     "midnightMeetingPosition": "end",
     "documentHeader": {
         "displayUrl": "https://www.saltlakeaa.org/meetings",
@@ -30,7 +31,7 @@ const FreshSettings = {
     "showColumnHeadersForEachDay": true,
     "documentFooter": "All meetings are self-reported. Central Office doesn't independently verify or endorse meetings.<br>* Holidays may affect some meetings.",
     "documentFooterTopPadding": "4pt",
-    "sectionTitleTopPadding": "2px",
+    "sectionTitleTopPadding": "0px",
     "types": {
         "O": {
             "displaySymbol": "O",

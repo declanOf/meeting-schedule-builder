@@ -5,6 +5,7 @@ const DefaultSettings = {
     "footerFontSize": "font-size-9pt",
     "pageOrientation": "portrait",
     "margin": "4mm",
+    "padding": "4mm",
     "pageSize": "letter",
     "midnightMeetingPosition": "end",
     "documentHeader": {
