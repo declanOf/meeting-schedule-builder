@@ -71,11 +71,6 @@ div#controls .hover-light:hover
     background-color: white;
 }
 
-div#controls div.header-address-text-replacements
-{
-
-}
-
 div#controls > form > table > tbody > tr > th
 {
     width: 200px;

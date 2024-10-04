@@ -298,6 +298,7 @@ class Controls
             addressReplacements         : configuration.settings.addressReplacements,
             nameReplacements            : configuration.settings.nameReplacements,
             meetingFontSize             : configuration.settings.meetingFontSize,
+            pagePadding                 : configuration.settings.padding,
             footerFontSize              : configuration.settings.footerFontSize,
             activeConfigurationKey      : configuration.activeConfigurationKey,
             availableConfigurations     : configuration.availableConfigurations,
@@ -313,7 +314,7 @@ class Controls
             fontSizes                   : fontSizes,
             centralOffices              : CentralOffices,
             buildNewScheduleForm        : buildNewScheduleFormEngine({centralOffices: CentralOffices}),
-            columnsMap                  : {"time": "Time", "locationAddress": "Location / Address", "days": "Days", "name": "Name", "types": "Types"}
+            columnsMap                   : {"time": "Time", "locationAddress": "Location / Address", "days": "Days", "name": "Name", "types": "Types"},
         }
 
         return controlsTemplateEngine(controlTemplatesData);

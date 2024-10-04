@@ -110,31 +110,6 @@ table.meetings td.time {
     text-align: right;
 }
 
-table.meetings th.name,
-table.meetings td.name {
-}
-
-table.meetings.multi-day th.name,
-table.meetings.multi-day td.name {
-}
-
-table.meetings.service th.name,
-table.meetings.service td.name {
-}
-
-table.meetings td.days {
-}
-
-table.meetings td.location {
-}
-
-table.meetings.service th.location,
-table.meetings.service td.location {
-}
-
-table.meetings.single-day td.location {
-}
-
 table.meetings th.keys,
 table.meetings td.keys {
     padding-right: 0;

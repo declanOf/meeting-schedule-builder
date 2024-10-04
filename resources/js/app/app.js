@@ -89,6 +89,7 @@
                 keyLineHeight: configuration.settings.documentHeader.keyLineHeight,
                 documentFooterTopPadding: configuration.settings.documentFooterTopPadding,
                 sectionTitleTopPadding: configuration.settings.sectionTitleTopPadding,
+                pagePadding: configuration.settings.padding,
             });
 
             console.log({
