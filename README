@@ -1,8 +1,8 @@
 This is a web app built to create printable meeting schedules generated using TSML.
 
-To use the meeting schedule builder, simply unzip to a location on your computer and open "index.html" with your browser. Configure settings as desired, and when the meeting schedule is suitable, print to PDF to generate a printable source or print directly to your printer.
+This tool was built to allow any volunteer with a Cental Office construct a schedule with no programming knowledge or familiarity with developer tools. It's designed using simple Javascript and HTML.
 
-On some computers, access to local resources might be restricted. Please see the following sites for assistance:
+To use the meeting schedule builder, simply unzip to a location on your computer and open "index.html" with your browser. Configure settings as desired, and when the meeting schedule is suitable, print to PDF to generate a printable source or print directly to your printer.
 
 Upon loading the page for the first time, two options will be available to you:
 
@@ -14,5 +14,6 @@ The Resource URL requested by install should be a TSML API URL with a structure 
 
 If this doesn't work for you, or you do not know your website's URL, please contact your webservant or IT chair.
 
-You may also reach out to me at declanofiaich@gmail.com for assistance. Please include the main website for your Central Office. If I can't assist you, I will try to find contact information for someone in your Central Office who can help.
+You may also reach out to me at declanof@protonmail.com for assistance. Please include the main website for your Central Office. If I can't assist you, I will try to find contact information for someone in your Central Office who can help.
 
+☘️
