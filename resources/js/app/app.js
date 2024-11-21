@@ -192,6 +192,37 @@
 
             window.scrollTo(0,0);
 
+            $(".sortable").sortable({revert: true});
+
+            /**
+             * SectionControls.handlebars
+             */
+
+            $(".column-holder.draggable").draggable({
+                connectToSortable: $("#controls-columns-container"),
+            });
+
+            $(".no-draggable").disableSelection();
+
+            const addColumn = (event) => {
+                event.preventDefault();
+
+                const columnAddDialog = new ColumnAddDialog($(event.target), this.#meetings);
+
+                columnAddDialog.open();
+            };
+
+            $(".add-column").on("click", addColumn);
+
+            const removeColumn = (event) => {
+                event.preventDefault();
+
+                const columnDeleteDialog = new ColumnDeleteDialog($(event.target), this.#meetings);
+
+                columnDeleteDialog.open();
+            };
+
+            $(".remove-column").on("click", removeColumn);
             return this;
         };
 

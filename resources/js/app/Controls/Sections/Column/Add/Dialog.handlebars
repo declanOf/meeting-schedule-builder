@@ -1,0 +1,48 @@
+const columnAddDialogTemplate = `
+<div id="addColumnDialog" style="width:400px">
+
+    <p class="errors" style="display: none;"></p>
+
+    <form id="addColumnForm" style="width: 400px">
+        <dl>
+            <dt>
+                <label>Column Source</label>
+            </dt>
+            <dd>
+                <select name="source" class="select-source">
+                    <option disabled="disabled">Choose source</option>
+                    {{#each sources}}
+                        <option value="{{source}}">{{source}}</option>
+                    {{/each}}
+                </select>
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>
+                <label>Label</label>
+            </dt>
+            <dd>
+                <input placeholder="Label" name="label" class="label" type="text" value="{{firstSourceLabel}}">
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>
+                <label>Width</label>
+            </dt>
+            <dd>
+                <input name="width" type="number" value="10" style="width: 80px"> %
+            </dd>
+        </dl>
+
+        <input type="hidden" name="section-key" value="">
+
+        <p>
+            <input id="addColumnButton" type="submit" value="Add Column">
+
+            <input id="cancelAddColumnButton" type="submit" value="Cancel">
+        </p>
+    </form>
+</div>
+`;

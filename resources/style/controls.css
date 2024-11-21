@@ -133,6 +133,14 @@ ul.ui-tabs-nav li.ui-tabs-tab.ui-state-active a.ui-tabs-anchor {
     display: none;
 }
 
+#addColumnDialog {
+    display: none;
+}
+
+#deleteColumnDialog {
+    display: none;
+}
+
 span.change-handler button {
     border-radius: .4em;
     border: 1px solid grey;
@@ -167,4 +175,14 @@ div.page.error h2 {
 div.page.error p {
     color: #FF0000;
     text-align: center;
+}
+
+div#controls span.remove-column-container {
+    float: right;
+}
+
+div#controls span.remove-column-container > a.remove-column {
+    text-decoration: none;
+    font-size: .7em;
+    font-weight: 700;
 }

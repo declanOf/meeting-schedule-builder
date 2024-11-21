@@ -34,11 +34,12 @@ class SectionControls
         const sectionControlsTemplateEngine = Handlebars.compile(sectionControlsTemplate);
 
         return sectionControlsTemplateEngine({
-            "section": this.#section,
-            "columns": this.#section.columns,
-            "arrayOfColumns": Array.isArray(this.#section.columns[0]),
-            "filtersContent": filtersContent,
-            sectionKey: this.#key
+                     "section": this.#section,
+                     "sources": this.#meetings.sources,
+                     "columns": this.#section.columns,
+              "arrayOfColumns": Array.isArray(this.#section.columns[0]),
+              "filtersContent": filtersContent,
+                  "sectionKey": this.#key
         });
     }
 }

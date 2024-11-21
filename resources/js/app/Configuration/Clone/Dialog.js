@@ -45,7 +45,6 @@ class ConfigurationCloneDialog
             documentHeader: configuration.settings.documentHeader
         };
 
-        console.log("template data", templateData);
         return configurationCloneDialogEngine(templateData);
     }
 }

@@ -24,36 +24,44 @@ var sectionControlsTemplate = `
         <div class="row col-12 section-columns">
             <div class="col-1">Columns: </div>
             <div class="col-11">
-                <div class="row">
-                {{#each columns}}
-                    {{#if ../arrayOfColumns}}
-                    <div class="row">
-                    {{#each this}}
-                        <div class="column-holder col-2">
-                            <p>COLUMN</p>
-                            <select name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.source">
-                                <option value="{{source}}">{{source}}</option>
-                            </select>
-                            <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.title" type="text" style="width: 65px" value="{{title}}">
-                            <input id="sections-{{../../sectionKey}}-days-{{dayKey}}-columns-{{@key}}-width" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
-                            <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.dayKey" type="hidden" style="width:50px" value="{{dayKey}}">
+                <div class="row section-columns-container">
+                    <span class="row col-10 sortable">
+                    {{#each columns}}
+                        {{#if ../arrayOfColumns}}
+                        <div class="row sortable columns-container">
+                            {{#each this}}
+                                <div class="column-container col-2 draggable" attr-columnIndex="{{@key}}" draggable="true">
+                                    <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
+                                    <select name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.source">
+                                        {{#each ../../sources}}
+                                        <option value="{{this}}" {{#ifEquals this ../source}}selected="selected"{{/ifEquals}}>{{this}}</option>
+                                        {{/each}}
+                                    </select>
+                                    <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.title" type="text" style="width: 65px" value="{{title}}">
+                                    <input id="sections-{{../../sectionKey}}-days-{{dayKey}}-columns-{{@key}}-width" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
+                                    <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.dayKey" type="hidden" style="width:50px" value="{{dayKey}}">
+                                </div>
+                            {{/each}}
                         </div>
+                        {{else}}
+                            <div class="column-container col-2 draggable" attr-columnIndex="{{@key}}" draggable="true">
+                                <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
+                                <select name="sections.{{../sectionKey}}.columns.{{@key}}.source">
+                                    {{#each ../sources}}
+                                    <option value="{{this}}" {{#ifEquals this ../source}}selected="selected"{{/ifEquals}}>{{this}}</option>
+                                    {{/each}}
+                                </select>
+                                <input name="sections.{{../sectionKey}}.columns.{{@key}}.title" type="text" style="width: 65px" value="{{title}}">
+                                <input id="sections-{{../sectionKey}}-columns-{{@key}}-width" name="sections.{{../sectionKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
+                            </div>
+                        {{/if}}
                     {{/each}}
-                    </div>
-                    {{else}}
-                        <div class="column-holder col-2">
-                            <p>COLUMN</p>
-                            <select name="sections.{{../sectionKey}}.columns.{{@key}}.source">
-                                <option value="{{source}}">{{source}}</option>
-                            </select>
-                            <input name="sections.{{../sectionKey}}.columns.{{@key}}.title" type="text" style="width: 65px" value="{{title}}">
-                            <input id="sections-{{../sectionKey}}-columns-{{@key}}-width" name="sections.{{../sectionKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
-                        </div>
-                    {{/if}}
-                {{/each}}
+                    </span>
+                <div class="col-2 no-draggable"><button class="add-column" attr-section="{{ sectionKey }}">Add Column</button></div>
                 </div>
             </div>
         </div>
+
         <div class="col-12">
             {{{filtersContent}}}
         </div>

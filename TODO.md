@@ -2,7 +2,8 @@ These changes are not ordered by priority or expected time consumption.
 
 CONTROLS:
 -   Convert the displayed section numbering from zero-indexed to one-indexed.
--   Add columns to section
+✔   Add columns to section
+✔   Add all column types to columns select
 -   Delete columns
 -   Sort types by drag n drop.
 -   Sort sections by drag n drop.
@@ -17,4 +18,5 @@ GLOBAL:
 -   Update schedule dynamically when configuration is updated.
 -       Update header
 -       Update meetings listing
--       Load new meetings if source URL changes. (Might as well reload page.))
+-       Load new meetings if source URL changes. (Might as well reload page.)
+-   Add fallback to local data (for meetings, etc) when Internet is down.

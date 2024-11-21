@@ -13,6 +13,8 @@ class Meetings {
 
     #types;
 
+    #sources = new Set();
+
     #isValid;
 
     constructor(Configuration, ready)
@@ -64,6 +66,8 @@ class Meetings {
             this.#districts = JSON.parse(localStorage.getItem(this.localPrefix + "districts"));
 
             this.#types = JSON.parse(localStorage.getItem(this.localPrefix + "types"));
+
+            this.#sources = JSON.parse(localStorage.getItem(this.localPrefix + "sources"));
         } catch (error) {
             console.error("Error", error);
 
@@ -119,6 +123,10 @@ class Meetings {
         this.#populateTypes();
     }
 
+    populateSources() {
+        this.#populateSources();
+    }
+
     set isValid(isValid) {
         this.#isValid = isValid;
     }
@@ -142,6 +150,7 @@ class Meetings {
             meetings.populateRegions();
             meetings.populateDistricts();
             meetings.populateTypes();
+            meetings.populateSources();
 
             meetings.isValid = true;
 
@@ -231,6 +240,19 @@ class Meetings {
         localStorage.setItem(this.localPrefix + "types", JSON.stringify(types));
     }
 
+    #populateSources()
+    {
+        let sources = new Set();
+
+        this.#rawMeetings.forEach((meeting) => Object.keys(meeting).forEach((key) => sources.add(key)));
+
+        sources.add("locationAddress");
+
+        sources.add("days");
+
+        localStorage.setItem(this.localPrefix + "sources", JSON.stringify(sources.values().toArray()));
+    };
+
     #filterUnique(data, label, id)
     {
         var results = [];
@@ -254,8 +276,7 @@ class Meetings {
 
     get groups()
     {
-        if (!this.#groups)
-        {
+        if (!this.#groups) {
             this.#groups = JSON.parse(localStorage.getItem(this.localPrefix + "groups"));
         }
 
@@ -264,8 +285,7 @@ class Meetings {
 
     get regions()
     {
-        if (!this.#regions)
-        {
+        if (!this.#regions) {
             this.#regions = JSON.parse(localStorage.getItem(this.localPrefix + "regions"));
         }
 
@@ -274,8 +294,7 @@ class Meetings {
 
     get districts()
     {
-        if (!this.#districts)
-        {
+        if (!this.#districts) {
             this.#districts = JSON.parse(localStorage.getItem(this.localPrefix + "districts"));
         }
 
@@ -284,8 +303,7 @@ class Meetings {
 
     get types()
     {
-        if (!this.#types)
-        {
+        if (!this.#types) {
             this.#types = JSON.parse(localStorage.getItem(this.localPrefix + "types"));
         }
 
@@ -309,5 +327,19 @@ class Meetings {
     get meetings()
     {
         return this.#meetings;
+    }
+
+    get sources()
+    {
+        if (!this.#sources) {
+            this.#sources = JSON.parse(localStorage.getItem(this.localPrefix + "sources"));
+        }
+
+        return this.#sources;
+    }
+
+    get columnSources()
+    {
+        return this.sources;
     }
 };
