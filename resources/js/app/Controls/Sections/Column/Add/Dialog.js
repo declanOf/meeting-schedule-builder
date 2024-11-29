@@ -60,6 +60,45 @@ class ColumnAddDialog
                 return width;
             }
 
+            const removeColumn = (event) => {
+                event.preventDefault();
+
+                if (!window.confirm("Do you want to delete this column?")) {
+                    return;
+                }
+
+                const target = $(event.target);
+
+                const rowsContainer = $(target.parents(".section-columns-container")).find(".columns-container");
+
+                const isMultiDays = rowsContainer.length > 1;
+
+                const columnContainer = $(target.parents(".column-container")[0]);
+
+                const columnIndex = parseInt(columnContainer.attr("attr-columnIndex"));
+
+                try {
+                    if (isMultiDays) {
+                        const rows = $($(columnContainer.parents(".section-columns-container")).find(".columns-container"));
+debugger;
+                        rows.each((index, row) => {
+                            const column = $($(row).find(".column-container").eq(columnIndex));
+
+                            column.remove();
+                        })
+                    } else {
+                        columnContainer.remove();
+                    }
+
+                    // set configuration to dirty
+                    (new Configuration()).setDirty(true);
+                } catch (error) {
+                    console.error("error", error);
+
+                    return;
+                }
+            };
+
             // add to section
             const addColumn = (values) => {
                 // load configuration
@@ -72,6 +111,8 @@ class ColumnAddDialog
 
                 // load columns
                 let columns = configuration.settings.sections[sectionId].columns;
+
+                const totalColumns = columns.length;
 
                 // convert form data into column data
                 let newColumn = {source: values.source, title: values.label, width: null};
@@ -86,7 +127,7 @@ class ColumnAddDialog
                     columns.map((elem) => {
                         const totalWidth = getTotalColumnsWidth(elem);
 
-                        newColumn.width = parseInt(parseInt(values.width / 100) * totalWidth) + "px";
+                        newColumn.width = parseInt((parseInt(values.width) / 100) * totalWidth) + "px";
 
                         ++newColumn.dayKey;
 
@@ -115,8 +156,8 @@ class ColumnAddDialog
 
                     const columnCount = columns.length;
 
-                    let columnString = `
-                        <div class="column-container col-2 draggable" draggable="true">
+                    let columnNode = $(`
+                        <div class="column-container col-2 draggable" attr-columnIndex="${totalColumns}" draggable="true">
                             <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
                             <select name="sections.${sectionId}.columns.${columnCount}.source">
                                 ${selectOptions}
@@ -124,9 +165,13 @@ class ColumnAddDialog
                             <input name="sections.${sectionId}.columns.${columnCount}.title" type="text" style="width: 65px" value="${newColumn.title}">
                             <input id="sections-${sectionId}-columns-${columnCount}-width" name="sections.${sectionId}.columns.${columnCount}.width" type="text" style="width:50px" value="${newColumn.width}">
                         </div>
-                    `;
+                    `);
 
-                    $(parentRow.find(".columns-container")[0]).append(columnString);
+                    const deleteNode = $(columnNode.find("a.remove-column")[0]);
+
+                    deleteNode.on("click", removeColumn);
+
+                    $(parentRow.find(".row")[0]).append(columnNode);
                 } else {
                     const columnCount = columns[0].length;
 
@@ -136,8 +181,8 @@ class ColumnAddDialog
 
                         namePrefix = namePrefix.replace("dayKey", dayKey);
 
-                        let columnString = `
-                        <div class="column-container col-2 draggable" draggable="true">
+                        let columnNode = $(`
+                        <div class="column-container col-2 draggable" attr-columnIndex="${totalColumns}" draggable="true">
                             <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
                             <select name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.source">
                                 ${selectOptions}
@@ -146,13 +191,18 @@ class ColumnAddDialog
                             <input id="sections-${sectionId}-days-${dayKey}-columns-${columnCount}-width" name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.width" type="text" style="width:50px" value="${newColumn.width}">
                             <input name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.dayKey" type="hidden" style="width:50px" value="${dayKey}">
                         </div>
-                        `;
+                        `);
 
-                        // TODO: add functionality to delete button
+                        const deleteNode = $(columnNode.find("a.remove-column")[0]);
 
-                        $(columnsContainer).append(columnString);
+                        deleteNode.on("click", removeColumn);
+
+                        $(columnsContainer).append(columnNode);
                     });
                 }
+
+                // rebuild the columns' indexes
+                (new Configuration()).setDirty(true);
             };
 
             $("#addColumnDialog .errors").show();

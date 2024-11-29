@@ -217,12 +217,44 @@
             const removeColumn = (event) => {
                 event.preventDefault();
 
-                const columnDeleteDialog = new ColumnDeleteDialog($(event.target), this.#meetings);
+                if (!window.confirm("Do you want to delete this column?")) {
+                    return;
+                }
 
-                columnDeleteDialog.open();
+                const target = $(event.target);
+
+                const rowsContainer = $(target.parents(".section-columns-container")).find(".columns-container");
+
+                const isMultiDays = rowsContainer.length > 1;
+
+                const columnContainer = $(target.parents(".column-container")[0]);
+
+                const columnIndex = parseInt(columnContainer.attr("attr-columnIndex"));
+
+                try {
+                    if (isMultiDays) {
+                        const rows = $($(columnContainer.parents(".section-columns-container")).find(".columns-container"));
+
+                        rows.each((index, row) => {
+                            const column = $($(row).find(".column-container").eq(columnIndex));
+
+                            column.remove();
+                        })
+                    } else {
+                        columnContainer.remove();
+                    }
+
+                    // set configuration to dirty
+                    (new Configuration()).setDirty(true);
+                } catch (error) {
+                    console.error("error", error);
+
+                    return;
+                }
             };
 
             $(".remove-column").on("click", removeColumn);
+
             return this;
         };
 

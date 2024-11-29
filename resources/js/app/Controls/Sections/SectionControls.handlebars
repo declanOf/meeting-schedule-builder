@@ -28,7 +28,7 @@ var sectionControlsTemplate = `
                     <span class="row col-10 sortable">
                     {{#each columns}}
                         {{#if ../arrayOfColumns}}
-                        <div class="row sortable columns-container">
+                        <div class="row sortable columns-container day-{{@key}}">
                             {{#each this}}
                                 <div class="column-container col-2 draggable" attr-columnIndex="{{@key}}" draggable="true">
                                     <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
