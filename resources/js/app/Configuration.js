@@ -359,7 +359,5 @@ class Configuration {
                 filterValues["attendanceOption"] = filterData.attendanceOption;
             break;
         }
-
-        debugger;
     }
 };

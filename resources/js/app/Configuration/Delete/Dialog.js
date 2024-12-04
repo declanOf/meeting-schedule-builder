@@ -43,8 +43,6 @@ class ConfigurationDeleteDialog
                 }
             });
 
-            debugger;
-
             localStorage.setItem("availableConfigurations", JSON.stringify(newAvailableConfigurations));
 
             localStorage.clear("settings-" + configurationKey);

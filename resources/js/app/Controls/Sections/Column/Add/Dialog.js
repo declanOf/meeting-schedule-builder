@@ -80,7 +80,7 @@ class ColumnAddDialog
                 try {
                     if (isMultiDays) {
                         const rows = $($(columnContainer.parents(".section-columns-container")).find(".columns-container"));
-debugger;
+
                         rows.each((index, row) => {
                             const column = $($(row).find(".column-container").eq(columnIndex));
 
@@ -112,7 +112,7 @@ debugger;
                 // load columns
                 let columns = configuration.settings.sections[sectionId].columns;
 
-                const totalColumns = columns.length;
+                let totalColumns = columns.length;
 
                 // convert form data into column data
                 let newColumn = {source: values.source, title: values.label, width: null};
@@ -172,11 +172,15 @@ debugger;
                     deleteNode.on("click", removeColumn);
 
                     $(parentRow.find(".row")[0]).append(columnNode);
+
+                    // rebuild the parent row's columns
+                    ControlsSectionsRow.updateColumnIndexes(parentRow);
                 } else {
                     const columnCount = columns[0].length;
 
                     // for each day container
                     parentRow.find(".columns-container").each((dayKey, columnsContainer) => {
+                        totalColumns = $(columnsContainer).find(".column-container").length;
                         idPrefix = idPrefix.replace("dayKey", dayKey);
 
                         namePrefix = namePrefix.replace("dayKey", dayKey);
@@ -199,9 +203,13 @@ debugger;
 
                         $(columnsContainer).append(columnNode);
                     });
+
+                    const rows = $(parentRow.parents(".section-columns-container"));
+
+                    // rebuild the parent row's columns
+                    $(rows.find(".columns-container")).each((row) => ControlsSectionsRow.updateColumnIndexes(row));
                 }
 
-                // rebuild the columns' indexes
                 (new Configuration()).setDirty(true);
             };
 

@@ -4,7 +4,6 @@ class GenericBlockSection_Filter
     {
         if (Array.isArray(meetings)) {
             console.error("GenericBlockSection being fed mix of arrays and objects");
-            debugger;
         }
 
         if (!(typeof meetings === "object") || meetings === null) {

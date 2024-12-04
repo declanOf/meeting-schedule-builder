@@ -236,12 +236,18 @@
                         const rows = $($(columnContainer.parents(".section-columns-container")).find(".columns-container"));
 
                         rows.each((index, row) => {
-                            const column = $($(row).find(".column-container").eq(columnIndex));
+                            row = $(row);
 
-                            column.remove();
+                            $(row.find(".column-container").eq(columnIndex)).remove();
+
+                            ControlsSectionsRow.updateColumnIndexes(row);
                         })
                     } else {
+                        const row = $(columnContainer.parents(".section-columns-container")[0]);
+
                         columnContainer.remove();
+
+                        ControlsSectionsRow.updateColumnIndexes(row);
                     }
 
                     // set configuration to dirty

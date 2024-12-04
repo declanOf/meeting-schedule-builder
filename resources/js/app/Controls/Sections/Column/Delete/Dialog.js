@@ -27,8 +27,6 @@ class ColumnDeleteDialog
     }
 
     open() {
-        debugger;
-
         $("form#deleteColumnForm")[0].reset();
 
         $("#deleteColumnDialog .errors").hide();
