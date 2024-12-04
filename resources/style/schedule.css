@@ -118,3 +118,7 @@ table.meetings td.keys {
 .office-title {
     text-transform: uppercase;
 }
+
+.configuration-display {
+    cursor: pointer;
+}
