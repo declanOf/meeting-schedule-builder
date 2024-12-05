@@ -92,12 +92,6 @@
                 pagePadding: configuration.settings.padding,
             });
 
-            console.log({
-                lineHeight: configuration.settings.documentHeader.lineHeight,
-                keyLineHeight: configuration.settings.documentHeader.keyLineHeight,
-                documentFooterTopPadding: configuration.settings.documentFooterTopPadding,
-                sectionTitleTopPadding: configuration.settings.sectionTitleTopPadding,
-            })
             $(document.head).append(globalStyle);
 
             return this;
