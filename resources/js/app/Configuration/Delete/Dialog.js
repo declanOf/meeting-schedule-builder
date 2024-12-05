@@ -15,8 +15,6 @@ class ConfigurationDeleteDialog
     }
 
     open() {
-        // TODO: reset dialog content
-
         $("#configurationDeleteDialog .errors").hide();
 
         this.#configurationDeleteDialog.dialog("open");

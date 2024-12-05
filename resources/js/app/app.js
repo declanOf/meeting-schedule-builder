@@ -192,15 +192,39 @@
 
             window.scrollTo(0,0);
 
-            $(".sortable").sortable({revert: true});
+            $(".sortable").sortable({
+                revert: true,
+                // TODO: re-index columns
+                stop: (event, ui) => {
+                    const target = $(event.target);
+
+                    const parent = $(target.parents(".section-columns-container")[0]);
+
+                    const hasMultipleDays = parent.children(".columns-container").length > 0;
+
+                    const setColumnOrder = (index, column) => $(column).attr("attr-columnIndex", index);
+
+                    if (hasMultipleDays) {
+                        const columnsContainer = $(parent.children(".columns-container")[0]);
+
+                        columnsContainer.each((container) => {
+                            const columns = $(container).find(".column-container");
+                            columns.each(setColumnOrder);
+                        });
+                    } else {
+                        const columns = parent.find(".column-container");
+                        columns.each(setColumnOrder);
+                    }
+
+                    (new Configuration()).setDirty(true);
+                }
+            });
 
             /**
              * SectionControls.handlebars
              */
 
-            $(".column-holder.draggable").draggable({
-                connectToSortable: $("#controls-columns-container"),
-            });
+            $(".column-holder.draggable").draggable({connectToSortable: $("#controls-columns-container")});
 
             $(".no-draggable").disableSelection();
 
