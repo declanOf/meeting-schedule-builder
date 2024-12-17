@@ -100,12 +100,17 @@ div#controls table tr th
     border: none;
 }
 
-div.section.expanded div.section-details{
+div.section.expanded div.section-details {
     display: block;
 }
 
 div.section.collapsed div.section-details {
     display: none;
+}
+
+div.section span.collapse-section,
+div.section span.expand-section {
+    cursor: pointer;
 }
 
 div.section.collapsed span.collapse-section {
@@ -185,4 +190,24 @@ div#controls span.remove-column-container > a.remove-column {
     text-decoration: none;
     font-size: .7em;
     font-weight: 700;
+}
+
+.day-header {
+    padding-top: 0px;
+    text-align: right;
+    padding-right: 0;
+}
+
+select.type {
+    width: 122px;
+}
+
+.multiday-column-name {
+    border: initial;
+    border-bottom: 1px solid #888;
+    width: 100px;
+}
+
+.day-column-container {
+    height: 30px;
 }

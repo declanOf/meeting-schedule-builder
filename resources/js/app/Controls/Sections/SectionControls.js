@@ -27,17 +27,41 @@ class SectionControls
         return filters.render();
     }
 
+    convertDaysetColumnsStructure()
+    {
+        let columns = [];
+
+        this.#section.columns.forEach((day, dayIndex) => {
+            day.forEach((column, colIndex) => {
+                if (dayIndex === 0) {
+                    columns.push([]);
+                }
+
+                columns[colIndex].push(column);
+            });
+        });
+
+        this.#section.transposedColumns = columns;
+    }
+
     render()
     {
         const filtersContent = this.getFiltersContent();
 
-        const sectionControlsTemplateEngine = Handlebars.compile(sectionControlsTemplate);
+        const sectionControlsTemplateEngine = Handlebars.compile(this.#template);
+
+        const isArrayOfColumns = Array.isArray(this.#section.columns[0]);
+
+        if (isArrayOfColumns) {
+            this.convertDaysetColumnsStructure();
+        }
 
         return sectionControlsTemplateEngine({
                      "section": this.#section,
                      "sources": this.#meetings.sources,
                      "columns": this.#section.columns,
-              "arrayOfColumns": Array.isArray(this.#section.columns[0]),
+           "transposedColumns": this.#section.transposedColumns,
+              "arrayOfColumns": isArrayOfColumns,
               "filtersContent": filtersContent,
                   "sectionKey": this.#key
         });

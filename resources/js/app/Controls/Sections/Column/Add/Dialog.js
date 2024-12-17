@@ -149,7 +149,54 @@ class ColumnAddDialog
                 let selectOptions = columnSources.map((source) => `<option value="${source}"` + (values.source === source ? ` selected="selected" ` : ``) + `>` + source.replace("_", " ") + `</option>`);
 
                 // add once
-                if (!hasDays) {
+                if (hasDays) {
+                    const columnCount = columns[0].length;
+
+                    let columnNode = $(`
+                        <div class="column-container col-2 draggable" attr-columnIndex="${totalColumns}" draggable="true">
+                            <p style="cursor: pointer">
+                                <input name="sections.${sectionId}.days.0.columns.${columnCount}.title" type="text" style="width: 65px" class="hover-light" value="${newColumn.title}">
+                                <span class="remove-column-container"><a class="remove-column">X</a></span>
+                            </p>
+                            <p>
+                                <select name="sections.${sectionId}.days.0.columns.${columnCount}.source" class="hover-light">
+                                    ${selectOptions}
+                                </select>
+                            </p>
+                        </div>
+                    `);
+
+                    // for each day container
+                    Array(7).keys().forEach((dayKey) => {
+                        totalColumns = $(this.#columnsContainer).find(".column-container").length;
+
+                        idPrefix = idPrefix.replace("dayKey", dayKey);
+
+                        namePrefix = namePrefix.replace("dayKey", dayKey);
+
+                        let dayNode = $(`
+                            <div class="row day-column-container">
+                                <input type="hidden" name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.source" value="${newColumn.source}">
+                                <input name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.title" type="hidden" style="width: 65px" value="${newColumn.title}">
+                                <p>Width: <input id="sections-${sectionId}-days-${dayKey}-columns-${columnCount}-width" name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.width" type="text" class="hover-light" style="width:60px" value="${newColumn.width}"></p>
+                                <input name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.dayKey" type="hidden" style="width:50px" value="${dayKey}">
+                            </div>
+                        `);
+
+                        $(columnNode).append(dayNode);
+                    });
+
+                    const deleteNode = $(columnNode.find("a.remove-column")[0]);
+
+                    deleteNode.on("click", removeColumn);
+
+                    $(this.#columnsContainer).append(columnNode);
+
+                    const rows = $(parentRow.parents(".section-columns-container"));
+
+                    // rebuild the parent row's columns
+                    $(rows.find(".columns-container")).each((row) => ControlsSectionsRow.updateColumnIndexes(row));
+                } else {
                     idPrefix = idPrefix.replace("-days-dayKey", "");
 
                     namePrefix = namePrefix.replace(".days.dayKey", "");
@@ -159,11 +206,11 @@ class ColumnAddDialog
                     let columnNode = $(`
                         <div class="column-container col-2 draggable" attr-columnIndex="${totalColumns}" draggable="true">
                             <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
-                            <select name="sections.${sectionId}.columns.${columnCount}.source">
+                            <select name="sections.${sectionId}.columns.${columnCount}.source" class="hover-light">
                                 ${selectOptions}
                             </select>
-                            <input name="sections.${sectionId}.columns.${columnCount}.title" type="text" style="width: 65px" value="${newColumn.title}">
-                            <input id="sections-${sectionId}-columns-${columnCount}-width" name="sections.${sectionId}.columns.${columnCount}.width" type="text" style="width:50px" value="${newColumn.width}">
+                            <input class="hover-light" name="sections.${sectionId}.columns.${columnCount}.title" type="text" style="width: 65px" value="${newColumn.title}">
+                            <input class="hover-light" id="sections-${sectionId}-columns-${columnCount}-width" name="sections.${sectionId}.columns.${columnCount}.width" type="text" style="width:50px" value="${newColumn.width}">
                         </div>
                     `);
 
@@ -175,39 +222,6 @@ class ColumnAddDialog
 
                     // rebuild the parent row's columns
                     ControlsSectionsRow.updateColumnIndexes(parentRow);
-                } else {
-                    const columnCount = columns[0].length;
-
-                    // for each day container
-                    parentRow.find(".columns-container").each((dayKey, columnsContainer) => {
-                        totalColumns = $(columnsContainer).find(".column-container").length;
-                        idPrefix = idPrefix.replace("dayKey", dayKey);
-
-                        namePrefix = namePrefix.replace("dayKey", dayKey);
-
-                        let columnNode = $(`
-                        <div class="column-container col-2 draggable" attr-columnIndex="${totalColumns}" draggable="true">
-                            <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
-                            <select name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.source">
-                                ${selectOptions}
-                            </select>
-                            <input name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.title" type="text" style="width: 65px" value="${newColumn.title}">
-                            <input id="sections-${sectionId}-days-${dayKey}-columns-${columnCount}-width" name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.width" type="text" style="width:50px" value="${newColumn.width}">
-                            <input name="sections.${sectionId}.days.${dayKey}.columns.${columnCount}.dayKey" type="hidden" style="width:50px" value="${dayKey}">
-                        </div>
-                        `);
-
-                        const deleteNode = $(columnNode.find("a.remove-column")[0]);
-
-                        deleteNode.on("click", removeColumn);
-
-                        $(columnsContainer).append(columnNode);
-                    });
-
-                    const rows = $(parentRow.parents(".section-columns-container"));
-
-                    // rebuild the parent row's columns
-                    $(rows.find(".columns-container")).each((row) => ControlsSectionsRow.updateColumnIndexes(row));
                 }
 
                 (new Configuration()).setDirty(true);

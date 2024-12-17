@@ -13,7 +13,7 @@ var sectionControlsTemplate = `
     <div class="section-details col-12">
         <div class="row section-type">
             <div class="col-1">Type</div>
-            <select class="col-10" name="sections.{{sectionKey}}.type">
+            <select class="col-10 hover-light" name="sections.{{sectionKey}}.type">
                 <option value="generic" {{#ifEquals "generic" section.type}}selected="selected"{{/ifEquals}}>Generic (service, language, etc)</option>
                 <option value="multi-days" {{#ifEquals "multi-days" section.type}}selected="selected"{{/ifEquals}}>Multi-days</option>
                 <option value="mixed-full-days" {{#ifEquals "mixed-full-days" section.type}}selected="selected"{{/ifEquals}}>Mixed full days</option>
@@ -21,46 +21,74 @@ var sectionControlsTemplate = `
                 <option value="single-exclusive-days" {{#ifEquals "single-exclusive-days" section.type}}selected="selected"{{/ifEquals}}>Single-exclusive days</option>
             </select>
         </div>
+        {{#if arrayOfColumns}}
         <div class="row col-12 section-columns">
-            <div class="col-1">Columns: </div>
+            <div class="col-1" style="padding-top: 76px;">
+                <div class="row day-column-container day-header">Sunday</div>
+                <div class="row day-column-container day-header">Monday</div>
+                <div class="row day-column-container day-header">Tuesday</div>
+                <div class="row day-column-container day-header">Wednesday</div>
+                <div class="row day-column-container day-header">Thursday</div>
+                <div class="row day-column-container day-header">Friday</div>
+                <div class="row day-column-container day-header">Saturday</div>
+            </div>
             <div class="col-11">
                 <div class="row section-columns-container">
                     <span class="row col-10 sortable">
-                    {{#each columns}}
-                        {{#if ../arrayOfColumns}}
-                        <div class="row sortable columns-container day-{{@key}}">
-                            {{#each this}}
-                                <div class="column-container col-2 draggable" attr-columnIndex="{{@key}}" draggable="true">
-                                    <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
-                                    <select name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.source">
-                                        {{#each ../../sources}}
-                                        <option value="{{this}}" {{#ifEquals this ../source}}selected="selected"{{/ifEquals}}>{{this}}</option>
-                                        {{/each}}
-                                    </select>
-                                    <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.title" type="text" style="width: 65px" value="{{title}}">
-                                    <input id="sections-{{../../sectionKey}}-days-{{dayKey}}-columns-{{@key}}-width" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
-                                    <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.dayKey" type="hidden" style="width:50px" value="{{dayKey}}">
+                        <div class="row sortable columns-container">
+                            {{#each transposedColumns}}
+                                <div class="column-container col-2 draggable {{this.[0].source}}" attr-columnIndex="{{@key}}" draggable="true">
+                                    <p style="cursor: pointer">
+                                        <input name="sections.{{../sectionKey}}.days.0.columns.{{ @key }}.title" class="multiday-column-name hover-light" type="name" value="{{this.[0].title}}">
+                                        <span class="remove-column-container"><a class="remove-column">X</a></span>
+                                    </p>
+                                    <p>
+                                        <select class="type hover-light" name="sections.{{../sectionKey}}.days.{{this.[0].dayKey}}.columns.0.source">
+                                            {{#each ../sources}}
+                                            <option value="{{this}}" {{#ifEquals this ../this.[0].source}}selected="selected"{{/ifEquals}}>{{this}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </p>
+                                    {{#each this}}
+                                    <div class="row day-column-container">
+                                        <input type="hidden" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.source" value="{{ source }}">
+                                        <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.title" type="hidden" style="width: 65px" value="{{title}}">
+                                        <p>Width: <input id="sections-{{../../sectionKey}}-days-{{dayKey}}-columns-{{@key}}-width" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.width" type="text" class="hover-light" style="width:60px;" value="{{width}}"></p>
+                                        <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.dayKey" type="hidden" style="width:50px" value="{{dayKey}}">
+                                    </div>
+                                    {{/each}}
                                 </div>
                             {{/each}}
                         </div>
-                        {{else}}
+                    </span>
+                <div class="col-2 no-draggable"><button class="add-column hover-light" attr-section="{{ sectionKey }}">Add Column</button></div>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="row col-12 section-columns">
+            <div class="col-1"></div>
+            <div class="col-11">
+                <div class="row section-columns-container">
+                    <span class="row col-10 sortable">
+                        {{#each columns}}
                             <div class="column-container col-2 draggable" attr-columnIndex="{{@key}}" draggable="true">
                                 <p style="cursor: pointer">COLUMN <span class="remove-column-container"><a class="remove-column">X</a></span></p>
-                                <select name="sections.{{../sectionKey}}.columns.{{@key}}.source">
+                                <select class="hover-light" name="sections.{{../sectionKey}}.columns.{{@key}}.source">
                                     {{#each ../sources}}
                                     <option value="{{this}}" {{#ifEquals this ../source}}selected="selected"{{/ifEquals}}>{{this}}</option>
                                     {{/each}}
                                 </select>
-                                <input name="sections.{{../sectionKey}}.columns.{{@key}}.title" type="text" style="width: 65px" value="{{title}}">
-                                <input id="sections-{{../sectionKey}}-columns-{{@key}}-width" name="sections.{{../sectionKey}}.columns.{{@key}}.width" type="text" style="width:50px" value="{{width}}">
+                                <input name="sections.{{../sectionKey}}.columns.{{@key}}.title" type="text" class="hover-light" style="width: 65px" value="{{title}}">
+                                <input id="sections-{{../sectionKey}}-columns-{{@key}}-width" name="sections.{{../sectionKey}}.columns.{{@key}}.width" type="text" class="hover-light" style="width:50px" value="{{width}}">
                             </div>
-                        {{/if}}
-                    {{/each}}
+                        {{/each}}
                     </span>
-                <div class="col-2 no-draggable"><button class="add-column" attr-section="{{ sectionKey }}">Add Column</button></div>
+                <div class="col-2 no-draggable"><button class="add-column hover-light" attr-section="{{ sectionKey }}">Add Column</button></div>
                 </div>
             </div>
         </div>
+        {{/if}}
 
         <div class="col-12">
             {{{filtersContent}}}
