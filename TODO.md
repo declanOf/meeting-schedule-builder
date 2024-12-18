@@ -16,6 +16,9 @@ CONTROLS:
 -   Fix keys so that checkmark will toggle display in header and in columns.
     It currently only affects column display.
 -   Rework multi-day sections to be more elegant in handling of columns
+-   When row type selection changes, update the section form to include appropriate fields.
+    (Especially for multi-day/single-day.)
+✔   Add functionality to change row height.
 GLOBAL:
 -   Match display toggle for types in header keys and columns.
 -   Update schedule dynamically when configuration is updated.

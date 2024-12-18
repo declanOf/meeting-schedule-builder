@@ -32,6 +32,11 @@ const FreshSettings = {
     "documentFooter": "All meetings are self-reported. Central Office doesn't independently verify or endorse meetings.<br>* Holidays may affect some meetings.",
     "documentFooterTopPadding": "4pt",
     "sectionTitleTopPadding": "0px",
+    "meetings": {
+        "rows": {
+            "lineHeight": "normal",
+        }
+    },
     "types": {
         "O": {
             "displaySymbol": "O",

@@ -85,11 +85,14 @@
             const globalStyleEngine = Handlebars.compile(GlobalStyleTemplate);
 
             const globalStyle = globalStyleEngine({
-                lineHeight: configuration.settings.documentHeader.lineHeight,
-                keyLineHeight: configuration.settings.documentHeader.keyLineHeight,
+                              lineHeight: configuration.settings.documentHeader.lineHeight,
+                           keyLineHeight: configuration.settings.documentHeader.keyLineHeight,
                 documentFooterTopPadding: configuration.settings.documentFooterTopPadding,
-                sectionTitleTopPadding: configuration.settings.sectionTitleTopPadding,
-                pagePadding: configuration.settings.padding,
+                  sectionTitleTopPadding: configuration.settings.sectionTitleTopPadding,
+                             pagePadding: configuration.settings.padding,
+                    meetingRowLineHeight: (configuration.settings.meetings && configuration.settings.meetings.row && configuration.settings.meetings.row.lineHeight)
+                                          ? configuration.settings.meetings.row.lineHeight
+                                          : "normal",
             });
 
             $(document.head).append(globalStyle);
@@ -209,6 +212,8 @@
                         const columns = parent.find(".column-container");
                         columns.each(setColumnOrder);
                     }
+
+                    // actually move the column locations
 
                     (new Configuration()).setDirty(true);
                 }
