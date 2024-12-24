@@ -90,8 +90,8 @@
                 documentFooterTopPadding: configuration.settings.documentFooterTopPadding,
                   sectionTitleTopPadding: configuration.settings.sectionTitleTopPadding,
                              pagePadding: configuration.settings.padding,
-                    meetingRowLineHeight: (configuration.settings.meetings && configuration.settings.meetings.row && configuration.settings.meetings.row.lineHeight)
-                                          ? configuration.settings.meetings.row.lineHeight
+                    meetingRowLineHeight: (configuration.settings.meetings && configuration.settings.meetings.rows && configuration.settings.meetings.rows.lineHeight)
+                                          ? configuration.settings.meetings.rows.lineHeight
                                           : "normal",
             });
 

@@ -114,7 +114,7 @@ const controlsTemplate = `
 
             <div class="col-2-5 align-end">
                     <span style="padding-right: 5px;" class="strong">Meeting row line height</span>
-                    <select class="col-6" title="Print Size" name="meetingFontSize">
+                    <select class="col-6" title="Print Size" name="meetings.rows.lineHeight">
                         {{#each lineHeights}}
                         <option {{#ifEquals ../meetingRowLineHeight this}}SELECTED="SELECTED"{{/ifEquals}} value="{{this}}">{{this}}</option>
                         {{/each}}

@@ -298,7 +298,7 @@ class Controls
             addressReplacements         : configuration.settings.addressReplacements,
             nameReplacements            : configuration.settings.nameReplacements,
             meetingFontSize             : configuration.settings.meetingFontSize,
-            meetingRowLineHeight        : configuration.settings.meetingRowLineHeight,
+            meetingRowLineHeight        : configuration.settings.meetings.rows.lineHeight,
             pagePadding                 : configuration.settings.padding,
             footerFontSize              : configuration.settings.footerFontSize,
             activeConfigurationKey      : configuration.activeConfigurationKey,

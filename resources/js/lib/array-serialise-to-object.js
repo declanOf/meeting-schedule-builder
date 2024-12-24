@@ -12,7 +12,13 @@ Array.prototype.serialiseToObject = function() {
 
     var data = {};
 
+    let prevElement = null;
+
     flatArray.forEach((element) => {
+        if (prevElement && prevElement.name === element.name) {
+            return;
+        }
+
         let val = element.value;
 
         if (!val) {
@@ -56,6 +62,7 @@ Array.prototype.serialiseToObject = function() {
         } else {
             stack[prefix] = val;
         }
+        prevElement = element;
     });
 
     return data;

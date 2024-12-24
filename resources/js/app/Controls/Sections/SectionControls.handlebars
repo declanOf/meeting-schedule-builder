@@ -51,10 +51,10 @@ var sectionControlsTemplate = `
                                     </p>
                                     {{#each this}}
                                     <div class="row day-column-container">
-                                        <input type="hidden" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.source" value="{{ source }}">
-                                        <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.title" type="hidden" style="width: 65px" value="{{title}}">
-                                        <p>Width: <input id="sections-{{../../sectionKey}}-days-{{dayKey}}-columns-{{@key}}-width" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.width" type="text" class="hover-light" style="width:60px;" value="{{width}}"></p>
-                                        <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{@key}}.dayKey" type="hidden" style="width:50px" value="{{dayKey}}">
+                                        <input type="hidden" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{columnKey}}.source" value="{{ source }}">
+                                        <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{columnKey}}.title" type="hidden" style="width: 65px" value="{{title}}">
+                                        <p>Width: <input id="sections-{{../../sectionKey}}-days-{{dayKey}}-columns-{{columnKey}}-width" name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{columnKey}}.width" type="text" class="hover-light" style="width:60px;" value="{{width}}"></p>
+                                        <input name="sections.{{../../sectionKey}}.days.{{dayKey}}.columns.{{columnKey}}.dayKey" type="hidden" style="width:50px" value="{{dayKey}}">
                                     </div>
                                     {{/each}}
                                 </div>

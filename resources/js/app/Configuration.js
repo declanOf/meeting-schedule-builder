@@ -90,7 +90,6 @@ class Configuration {
     }
 
     write() {
-        console.info("Writing to local storage");
         localStorage.setItem("activeConfigurationKey", this.#activeConfigurationKey);
         localStorage.setItem("settings-" + this.#activeConfigurationKey, JSON.stringify(this.#settings));
     }
@@ -297,6 +296,24 @@ class Configuration {
         };
 
         let formData = Object.entries($("form#controlsForm").serializeArray()).pluck(1);
+
+        formData = formData.sort((a, b) => {
+            if (a.name > b.name) {
+                return 1;
+            }
+
+            if (a.name < b.name) {
+                return -1;
+            }
+
+            if (a.value === "false" && b.value !== "false") {
+                return 1;
+            } else if (a.value !== "false" && b.value === "false") {
+                return -1;
+            }
+
+            return 0;
+        });
 
         formData = formData.serialiseToObject();
 

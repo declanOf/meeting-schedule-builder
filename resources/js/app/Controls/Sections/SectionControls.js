@@ -37,6 +37,7 @@ class SectionControls
                     columns.push([]);
                 }
 
+                column.columnKey = colIndex;
                 columns[colIndex].push(column);
             });
         });
